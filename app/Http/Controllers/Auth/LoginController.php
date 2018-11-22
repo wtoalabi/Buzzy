@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\User;
+use Socialite;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -35,5 +37,45 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function redirectToGithub()
+    {
+        return Socialite::driver('github')->redirect();
+    }
+
+    public function redirectToTwitter()
+    {
+        return Socialite::driver('twitter')->redirect();
+    }
+
+    public function handleGithubCallback()
+    {
+        $providerUser = Socialite::driver('github')->user();
+        $user = $this->findOrCreateUser('github', $providerUser);
+        
+    }
+    
+    public function handleTwitterCallback()
+    {
+        $providerUser = Socialite::driver('twitter')->user();
+        $user = $this->findOrCreateUser('twitter', $providerUser);
+    }
+
+    public function findOrCreateUser ($provider, $providerUser){
+        $user = User::firstOrNew([
+            $provider.'_id' => $providerUser->id
+        ]);
+        if($user->exists) return $user;
+        $user->fill([
+            $provider.'_id' => $providerUser->id,
+            'avatar' => $providerUser->avatar,
+            'username' => $providerUser->nickname,
+            'email' => $providerUser->email,
+            'full_name' =>$providerUser->name
+        ]);
+        $user->save();
+        dd($user);
+        
     }
 }
