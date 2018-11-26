@@ -1,5 +1,4 @@
 const mix = require('laravel-mix');
-const tailwindcss = require('tailwindcss');
 let purgeCss = require('purgecss-webpack-plugin')
 let glob = require('glob-all')
 
@@ -8,9 +7,12 @@ if (mix.inProduction()) {
   mix.webpackConfig({
     plugins: [
       new purgeCss({
+        //whitelistPatterns: [/(nav).*/,/(bg).*/, /(btn).*/],
         paths: glob.sync([
           path.join(__dirname, 'resources/views/**/*.blade.php'),
-          path.join(__dirname, 'resources/assets/js/**/*.vue')
+          path.join(__dirname, 'resources/assets/js/**/*.vue'),
+          //path.join(__dirname, 'node_modules/bootstrap-vue/src/**/**/*.js')
+          //path.join(__dirname, 'node_modules/bootstrap-vue/es/**/**/*.js')
         ]),
         extractors: [
           {
@@ -39,8 +41,4 @@ if (mix.inProduction()) {
  */
 
 mix.sass('resources/assets/sass/app.scss', 'public/css')
-  .options({
-    processCssUrls: false,
-    postCss: [ tailwindcss('./tailwind.js') ],
-  })
   .js('resources/assets/js/app.js', 'public/js')

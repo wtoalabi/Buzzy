@@ -1,0 +1,11 @@
+.search{
+  padding: 1.3rem 2rem 1.3rem 5.6rem;
+  @apply bg-white text-primary-lighter block w-full text-5xl shadow-lg outline-none;
+  border: none;
+  border-radius: 2.25rem;
+  -webkit-appearance: none;
+  background: #fff url(http://buzz.loc/svg/search.svg) no-repeat 2.8rem 50%;
+}
+.search:hover {
+  @apply shadow-md;
+}

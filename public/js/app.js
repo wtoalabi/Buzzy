@@ -95,7 +95,7 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(2);
-module.exports = __webpack_require__(11);
+module.exports = __webpack_require__(12);
 
 
 /***/ }),
@@ -109,17 +109,18 @@ module.exports = __webpack_require__(11);
  */
 
 window.Vue = __webpack_require__(3);
-
+__webpack_require__(7);
+Vue.config.productionTip = false;
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', __webpack_require__(7));
+Vue.component('example-component', __webpack_require__(8));
 
 var app = new Vue({
-  el: '#app'
+  el: '#buzz'
 });
 
 /***/ }),
@@ -11543,14 +11544,20 @@ process.umask = function() { return 0; };
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(8)
+var normalizeComponent = __webpack_require__(9)
 /* script */
-var __vue_script__ = __webpack_require__(9)
+var __vue_script__ = __webpack_require__(10)
 /* template */
-var __vue_template__ = __webpack_require__(10)
+var __vue_template__ = __webpack_require__(11)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -11589,7 +11596,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -11698,7 +11705,7 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11719,47 +11726,655 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
+  data: function data() {
+    return {
+      dismissSecs: 10,
+      dismissCountDown: 0,
+      showDismissibleAlert: false,
+      form: {
+        email: '',
+        name: '',
+        food: null,
+        checked: []
+      },
+      foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
+      show: true
+    };
+  },
+
+  methods: {
+    onSubmit: function onSubmit(evt) {
+      evt.preventDefault();
+      alert(JSON.stringify(this.form));
+    },
+    onReset: function onReset(evt) {
+      var _this = this;
+
+      evt.preventDefault();
+      /* Reset our form values */
+      this.form.email = '';
+      this.form.name = '';
+      this.form.food = null;
+      this.form.checked = [];
+      /* Trick to reset/clear native browser form validation state */
+      this.show = false;
+      this.$nextTick(function () {
+        _this.show = true;
+      });
+    },
+    countDownChanged: function countDownChanged(dismissCountDown) {
+      this.dismissCountDown = dismissCountDown;
+    },
+    showAlert: function showAlert() {
+      this.dismissCountDown = this.dismissSecs;
     }
+  }
 });
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
+  return _c(
+    "div",
+    [
+      _c("button", { staticClass: "btn btn-primary shadow" }, [
+        _vm._v("Click me!")
+      ]),
+      _vm._v(" "),
+      _c(
+        "b-navbar",
+        {
+          attrs: {
+            sticky: "true",
+            toggleable: "md",
+            type: "dark",
+            variant: "info"
+          }
+        },
+        [
+          _c("b-navbar-toggle", { attrs: { target: "nav_collapse" } }),
+          _vm._v(" "),
+          _c("b-navbar-brand", { attrs: { href: "#" } }, [_vm._v("NavBar")]),
+          _vm._v(" "),
+          _c(
+            "b-collapse",
+            { attrs: { "is-nav": "", id: "nav_collapse" } },
+            [
+              _c(
+                "b-navbar-nav",
+                [
+                  _c("b-nav-item", { attrs: { href: "#" } }, [_vm._v("Link")]),
+                  _vm._v(" "),
+                  _c("b-nav-item", { attrs: { href: "#", disabled: "" } }, [
+                    _vm._v("Disabled")
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-navbar-nav",
+                { staticClass: "ml-auto" },
+                [
+                  _c(
+                    "b-nav-form",
+                    [
+                      _c("b-form-input", {
+                        staticClass: "mr-sm-2",
+                        attrs: {
+                          size: "sm",
+                          type: "text",
+                          placeholder: "Search"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "b-button",
+                        {
+                          staticClass: "my-2 my-sm-0",
+                          attrs: { size: "sm", type: "submit" }
+                        },
+                        [_vm._v("Search")]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-nav-item-dropdown",
+                    { attrs: { text: "Lang", right: "" } },
+                    [
+                      _c("b-dropdown-item", { attrs: { href: "#" } }, [
+                        _vm._v("EN")
+                      ]),
+                      _vm._v(" "),
+                      _c("b-dropdown-item", { attrs: { href: "#" } }, [
+                        _vm._v("ES")
+                      ]),
+                      _vm._v(" "),
+                      _c("b-dropdown-item", { attrs: { href: "#" } }, [
+                        _vm._v("RU")
+                      ]),
+                      _vm._v(" "),
+                      _c("b-dropdown-item", { attrs: { href: "#" } }, [
+                        _vm._v("FA")
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-nav-item-dropdown",
+                    { attrs: { right: "" } },
+                    [
+                      _c("template", { slot: "button-content" }, [
+                        _c("em", [_vm._v("User")])
+                      ]),
+                      _vm._v(" "),
+                      _c("b-dropdown-item", { attrs: { href: "#" } }, [
+                        _vm._v("Profile")
+                      ]),
+                      _vm._v(" "),
+                      _c("b-dropdown-item", { attrs: { href: "#" } }, [
+                        _vm._v("Signout")
+                      ])
+                    ],
+                    2
+                  )
+                ],
+                1
               )
-            ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.show
+        ? _c(
+            "b-form",
+            { on: { submit: _vm.onSubmit, reset: _vm.onReset } },
+            [
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    id: "exampleInputGroup1",
+                    label: "Email address:",
+                    "label-for": "exampleInput1",
+                    description:
+                      "We'll never share your email with anyone else."
+                  }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "exampleInput1",
+                      type: "email",
+                      required: "",
+                      placeholder: "Enter email"
+                    },
+                    model: {
+                      value: _vm.form.email,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "email", $$v)
+                      },
+                      expression: "form.email"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    id: "exampleInputGroup2",
+                    label: "Your Name:",
+                    "label-for": "exampleInput2"
+                  }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "exampleInput2",
+                      type: "text",
+                      required: "",
+                      placeholder: "Enter name"
+                    },
+                    model: {
+                      value: _vm.form.name,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "name", $$v)
+                      },
+                      expression: "form.name"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    id: "exampleInputGroup3",
+                    label: "Food:",
+                    "label-for": "exampleInput3"
+                  }
+                },
+                [
+                  _c("b-form-select", {
+                    attrs: {
+                      id: "exampleInput3",
+                      options: _vm.foods,
+                      required: ""
+                    },
+                    model: {
+                      value: _vm.form.food,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "food", $$v)
+                      },
+                      expression: "form.food"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                { attrs: { id: "exampleGroup4" } },
+                [
+                  _c(
+                    "b-form-checkbox-group",
+                    {
+                      attrs: { id: "exampleChecks" },
+                      model: {
+                        value: _vm.form.checked,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form, "checked", $$v)
+                        },
+                        expression: "form.checked"
+                      }
+                    },
+                    [
+                      _c("b-form-checkbox", { attrs: { value: "me" } }, [
+                        _vm._v("Check me out")
+                      ]),
+                      _vm._v(" "),
+                      _c("b-form-checkbox", { attrs: { value: "that" } }, [
+                        _vm._v("Check that out")
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-button",
+                { attrs: { type: "submit", variant: "primary" } },
+                [_vm._v("Submit")]
+              ),
+              _vm._v(" "),
+              _c("b-button", { attrs: { type: "reset", variant: "danger" } }, [
+                _vm._v("Reset")
+              ])
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        [
+          _c(
+            "b-card",
+            {
+              staticClass: "mb-2 shadow",
+              staticStyle: { "max-width": "20rem" },
+              attrs: {
+                title: "Card Title",
+                "img-src": "https://picsum.photos/600/300/?image=25",
+                "img-alt": "Image",
+                "img-top": "",
+                tag: "article"
+              }
+            },
+            [
+              _c("p", { staticClass: "card-text" }, [
+                _vm._v(
+                  "\n        Some quick example text to build on the card title and make up the bulk of the card's content.\n      "
+                )
+              ]),
+              _vm._v(" "),
+              _c("b-button", { attrs: { href: "#", variant: "primary" } }, [
+                _vm._v("Go somewhere")
+              ])
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("b-breadcrumb", {
+        attrs: {
+          items: [{ text: "Admin", href: "#" }, { text: "User", href: "#" }]
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "my-3" },
+        [
+          _c(
+            "b-btn",
+            {
+              directives: [
+                {
+                  name: "b-popover",
+                  rawName: "v-b-popover.hover",
+                  value: "I am popover content!",
+                  expression: "'I am popover content!'",
+                  modifiers: { hover: true }
+                }
+              ],
+              attrs: { title: "Popover Title" }
+            },
+            [_vm._v("\n      Hover Me\n    ")]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("b-alert", { attrs: { show: "" } }, [_vm._v("Default Alert")]),
+      _vm._v(" "),
+      _c("b-alert", { attrs: { variant: "success", show: "" } }, [
+        _vm._v("Success Alert")
+      ]),
+      _vm._v(" "),
+      _c(
+        "b-alert",
+        {
+          attrs: {
+            variant: "danger",
+            dismissible: "",
+            show: _vm.showDismissibleAlert
+          },
+          on: {
+            dismissed: function($event) {
+              _vm.showDismissibleAlert = false
+            }
+          }
+        },
+        [_vm._v("\n    Dismissible Alert!\n  ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-alert",
+        {
+          attrs: {
+            show: _vm.dismissCountDown,
+            dismissible: "",
+            variant: "warning"
+          },
+          on: {
+            dismissed: function($event) {
+              _vm.dismissCountDown = 0
+            },
+            "dismiss-count-down": _vm.countDownChanged
+          }
+        },
+        [
+          _c("p", [
+            _vm._v(
+              "This alert will dismiss after " +
+                _vm._s(_vm.dismissCountDown) +
+                " seconds..."
+            )
+          ]),
+          _vm._v(" "),
+          _c("b-progress", {
+            attrs: {
+              variant: "warning",
+              max: _vm.dismissSecs,
+              value: _vm.dismissCountDown,
+              height: "4px"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-btn",
+        {
+          staticClass: "m-1",
+          attrs: { variant: "info" },
+          on: { click: _vm.showAlert }
+        },
+        [_vm._v("\n    Show alert with count-down timer\n  ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-btn",
+        {
+          staticClass: "m-1",
+          attrs: { variant: "info" },
+          on: {
+            click: function($event) {
+              _vm.showDismissibleAlert = true
+            }
+          }
+        },
+        [
+          _vm._v(
+            "\n    Show dismissible alert (" +
+              _vm._s(_vm.showDismissibleAlert ? "visible" : "hidden") +
+              ")\n  "
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        [
+          _c(
+            "b-btn",
+            {
+              directives: [
+                {
+                  name: "b-toggle",
+                  rawName: "v-b-toggle.collapse2",
+                  modifiers: { collapse2: true }
+                }
+              ],
+              staticClass: "m-1"
+            },
+            [_vm._v("Toggle Collapse")]
+          ),
+          _vm._v(" "),
+          _c(
+            "b-btn",
+            {
+              directives: [
+                {
+                  name: "b-toggle",
+                  rawName: "v-b-toggle",
+                  value: "collapse2",
+                  expression: "'collapse2'"
+                }
+              ],
+              staticClass: "m-1"
+            },
+            [_vm._v("Toggle Collapse")]
+          ),
+          _vm._v(" "),
+          _c(
+            "b-collapse",
+            { attrs: { id: "collapse2" } },
+            [
+              _c("b-card", [
+                _vm._v("\n        I am collapsable content!\n      ")
+              ])
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -11770,7 +12385,7 @@ if (false) {
 }
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

@@ -1,0 +1,9 @@
+.btn{
+  @apply font-bold p-2 rounded shadow-lg;
+}
+.btn-primary{
+  @apply bg-primary-lighter;
+}
+.btn:hover{
+  @apply shadow-md;
+}
