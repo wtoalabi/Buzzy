@@ -1,8 +1,5 @@
-$theme-colors: (
-    "primary": #ccee33,
-    "danger": #ff4136
-);
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/functions";
 
-.btn{
-  box-shadow: 0 15px 30px 0 rgba(0,0,0,.11), 0 5px 15px 0 rgba(0,0,0,.08);
-}
+@import "components/colors";
+@import "~bulma/sass/utilities/derived-variables";

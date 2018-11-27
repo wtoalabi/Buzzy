@@ -1,0 +1,30 @@
+$sizes: (0,1,2,4,6,8,10,12,14,16,18,20,24,32,64);
+$positions: ('top','bottom','left','right');
+
+@each $size in $sizes {
+  .m-#{$size}{
+    margin: $size + px;
+  }
+  @each $position in $positions {
+    .m#{str_slice($position,0,1)}-#{$size}{
+      margin-#{$position}: $size + px;
+    }
+    .p#{str_slice($position,0,1)}-#{$size}{
+      padding-#{$position}: $size + px;
+    }
+  }
+}
+
+@each $size in $sizes {
+  .p-#{$size}{
+    padding: $size + px;
+  }
+  @each $position in $positions {
+    .-m#{str_slice($position,0,1)}-#{$size} {
+      margin-#{$position}: -$size + px;
+    }
+    .-p#{str_slice($position,0,1)}-#{$size} {
+      padding-#{$position}: -$size + px;
+    }
+  }
+}

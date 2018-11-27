@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -92,14 +92,123 @@ module.exports = g;
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-__webpack_require__(2);
-module.exports = __webpack_require__(12);
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file.
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier /* server only */
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = injectStyles
+  }
+
+  if (hook) {
+    var functional = options.functional
+    var existing = functional
+      ? options.render
+      : options.beforeCreate
+
+    if (!functional) {
+      // inject component registration as beforeCreate hook
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    } else {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return existing(h, context)
+      }
+    }
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
 
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(3);
+module.exports = __webpack_require__(16);
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -108,8 +217,9 @@ module.exports = __webpack_require__(12);
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-window.Vue = __webpack_require__(3);
-__webpack_require__(7);
+window.Vue = __webpack_require__(4);
+__webpack_require__(8);
+__webpack_require__(9);
 Vue.config.productionTip = false;
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -117,14 +227,12 @@ Vue.config.productionTip = false;
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', __webpack_require__(8));
-
 var app = new Vue({
   el: '#buzz'
 });
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11087,10 +11195,10 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(4).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(5).setImmediate))
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -11146,7 +11254,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(5);
+__webpack_require__(6);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -11160,7 +11268,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -11350,10 +11458,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(6)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(7)))
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -11543,21 +11651,27 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 
 
 /***/ }),
-/* 8 */
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+Vue.component('home', __webpack_require__(10));
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(9)
+var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(10)
+var __vue_script__ = __webpack_require__(11)
 /* template */
-var __vue_template__ = __webpack_require__(11)
+var __vue_template__ = __webpack_require__(15)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -11574,7 +11688,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/ExampleComponent.vue"
+Component.options.__file = "resources/assets/js/app/Home.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -11583,9 +11697,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7168fb6a", Component.options)
+    hotAPI.createRecord("data-v-27024bdf", Component.options)
   } else {
-    hotAPI.reload("data-v-7168fb6a", Component.options)
+    hotAPI.reload("data-v-27024bdf", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -11596,116 +11710,424 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 9 */
-/***/ (function(module, exports) {
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/* globals __VUE_SSR_CONTEXT__ */
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_Navbar__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_Navbar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__partials_Navbar__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_Lorem__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_Lorem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__partials_Lorem__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_Footer__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_Footer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__partials_Footer__);
+//
+//
+//
+//
+//
+//
+//
+//
 
-// IMPORTANT: Do NOT use ES2015 features in this file.
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
 
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
 
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: { Navbar: __WEBPACK_IMPORTED_MODULE_0__partials_Navbar___default.a, Lorem: __WEBPACK_IMPORTED_MODULE_1__partials_Lorem___default.a, Footer: __WEBPACK_IMPORTED_MODULE_2__partials_Footer___default.a },
+  data: function data() {
+    return {};
+  },
+
+  methods: {},
+  computed: {}
+});
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(13)
+/* template */
+var __vue_template__ = __webpack_require__(14)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/app/partials/Navbar.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-afec4dc6", Component.options)
+  } else {
+    hotAPI.reload("data-v-afec4dc6", Component.options)
   }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
 
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
+module.exports = Component.exports
 
 
 /***/ }),
-/* 10 */
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {};
+  },
+
+  methods: {},
+  computed: {}
+});
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("header", [
+      _c("nav", { staticClass: "navbar is-transparent is-dark is-fixed-top" }, [
+        _c("div", { staticClass: "navbar-brand pl-12" }, [
+          _c(
+            "a",
+            {
+              staticClass: "navbar-item logo has-text-white",
+              attrs: { href: "/" }
+            },
+            [_vm._v("\n          Buzzwords\n        ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "navbar-burger burger",
+              attrs: { "data-target": "navbar" }
+            },
+            [_c("span"), _vm._v(" "), _c("span"), _vm._v(" "), _c("span")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "navbar-menu", attrs: { id: "navbar" } }, [
+          _c("div", { staticClass: "navbar-start" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "navbar-end" }, [
+            _c("div", { staticClass: "navbar-item pr-24" }, [
+              _vm._v("Get in Touch")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "navbar-item pr-24" }, [
+              _vm._v("Get in Touch")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "navbar-item nav-settings" }, [
+              _c("img", {
+                staticClass: "mr-10",
+                attrs: { src: "/images/default.png", alt: "" }
+              }),
+              _vm._v("\n            Settings")
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-afec4dc6", module.exports)
+  }
+}
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "main",
+    [_c("Navbar"), _vm._v(" "), _c("Lorem"), _vm._v(" "), _c("Footer")],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-27024bdf", module.exports)
+  }
+}
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */,
+/* 24 */,
+/* 25 */,
+/* 26 */,
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(28)
+/* template */
+var __vue_template__ = __webpack_require__(29)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/app/partials/Footer.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0957b528", Component.options)
+  } else {
+    hotAPI.reload("data-v-0957b528", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 28 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var now = new Date().getFullYear();
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      year: now === 2018 ? 'Till Date' : now
+    };
+  },
+
+  methods: {},
+  computed: {}
+});
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("footer", { staticClass: "hero is-dark" }, [
+    _c(
+      "div",
+      {
+        staticClass:
+          "hero-body has-text-centered p-12 has-text-white footer-wrapper"
+      },
+      [
+        _c("h1", [_vm._v("© From 2018 - " + _vm._s(_vm.year))]),
+        _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
+        _vm._m(1)
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [
+      _vm._v("Built with "),
+      _c("i", { staticClass: "fa fa-heart has-text-danger" }),
+      _vm._v(" on Vuejs, Laravel, and  Bulma")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h1", [
+      _vm._v("Say hi on "),
+      _c("i", { staticClass: "fa fa-twitter has-text-link" }),
+      _vm._v(" or "),
+      _c("i", { staticClass: "fa fa-envelope" })
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0957b528", module.exports)
+  }
+}
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(31)
+/* template */
+var __vue_template__ = __webpack_require__(32)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/app/partials/Lorem.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0156bb8c", Component.options)
+  } else {
+    hotAPI.reload("data-v-0156bb8c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11765,630 +12187,117 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {
-      dismissSecs: 10,
-      dismissCountDown: 0,
-      showDismissibleAlert: false,
-      form: {
-        email: '',
-        name: '',
-        food: null,
-        checked: []
-      },
-      foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
-      show: true
-    };
+    return {};
   },
 
-  methods: {
-    onSubmit: function onSubmit(evt) {
-      evt.preventDefault();
-      alert(JSON.stringify(this.form));
-    },
-    onReset: function onReset(evt) {
-      var _this = this;
-
-      evt.preventDefault();
-      /* Reset our form values */
-      this.form.email = '';
-      this.form.name = '';
-      this.form.food = null;
-      this.form.checked = [];
-      /* Trick to reset/clear native browser form validation state */
-      this.show = false;
-      this.$nextTick(function () {
-        _this.show = true;
-      });
-    },
-    countDownChanged: function countDownChanged(dismissCountDown) {
-      this.dismissCountDown = dismissCountDown;
-    },
-    showAlert: function showAlert() {
-      this.dismissCountDown = this.dismissSecs;
-    }
-  }
+  methods: {},
+  computed: {}
 });
 
 /***/ }),
-/* 11 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("button", { staticClass: "btn btn-primary shadow" }, [
-        _vm._v("Click me!")
-      ]),
-      _vm._v(" "),
-      _c(
-        "b-navbar",
-        {
-          attrs: {
-            sticky: "true",
-            toggleable: "md",
-            type: "dark",
-            variant: "info"
-          }
-        },
-        [
-          _c("b-navbar-toggle", { attrs: { target: "nav_collapse" } }),
-          _vm._v(" "),
-          _c("b-navbar-brand", { attrs: { href: "#" } }, [_vm._v("NavBar")]),
-          _vm._v(" "),
-          _c(
-            "b-collapse",
-            { attrs: { "is-nav": "", id: "nav_collapse" } },
-            [
-              _c(
-                "b-navbar-nav",
-                [
-                  _c("b-nav-item", { attrs: { href: "#" } }, [_vm._v("Link")]),
-                  _vm._v(" "),
-                  _c("b-nav-item", { attrs: { href: "#", disabled: "" } }, [
-                    _vm._v("Disabled")
-                  ])
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-navbar-nav",
-                { staticClass: "ml-auto" },
-                [
-                  _c(
-                    "b-nav-form",
-                    [
-                      _c("b-form-input", {
-                        staticClass: "mr-sm-2",
-                        attrs: {
-                          size: "sm",
-                          type: "text",
-                          placeholder: "Search"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "b-button",
-                        {
-                          staticClass: "my-2 my-sm-0",
-                          attrs: { size: "sm", type: "submit" }
-                        },
-                        [_vm._v("Search")]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-nav-item-dropdown",
-                    { attrs: { text: "Lang", right: "" } },
-                    [
-                      _c("b-dropdown-item", { attrs: { href: "#" } }, [
-                        _vm._v("EN")
-                      ]),
-                      _vm._v(" "),
-                      _c("b-dropdown-item", { attrs: { href: "#" } }, [
-                        _vm._v("ES")
-                      ]),
-                      _vm._v(" "),
-                      _c("b-dropdown-item", { attrs: { href: "#" } }, [
-                        _vm._v("RU")
-                      ]),
-                      _vm._v(" "),
-                      _c("b-dropdown-item", { attrs: { href: "#" } }, [
-                        _vm._v("FA")
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-nav-item-dropdown",
-                    { attrs: { right: "" } },
-                    [
-                      _c("template", { slot: "button-content" }, [
-                        _c("em", [_vm._v("User")])
-                      ]),
-                      _vm._v(" "),
-                      _c("b-dropdown-item", { attrs: { href: "#" } }, [
-                        _vm._v("Profile")
-                      ]),
-                      _vm._v(" "),
-                      _c("b-dropdown-item", { attrs: { href: "#" } }, [
-                        _vm._v("Signout")
-                      ])
-                    ],
-                    2
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _vm.show
-        ? _c(
-            "b-form",
-            { on: { submit: _vm.onSubmit, reset: _vm.onReset } },
-            [
-              _c(
-                "b-form-group",
-                {
-                  attrs: {
-                    id: "exampleInputGroup1",
-                    label: "Email address:",
-                    "label-for": "exampleInput1",
-                    description:
-                      "We'll never share your email with anyone else."
-                  }
-                },
-                [
-                  _c("b-form-input", {
-                    attrs: {
-                      id: "exampleInput1",
-                      type: "email",
-                      required: "",
-                      placeholder: "Enter email"
-                    },
-                    model: {
-                      value: _vm.form.email,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "email", $$v)
-                      },
-                      expression: "form.email"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-form-group",
-                {
-                  attrs: {
-                    id: "exampleInputGroup2",
-                    label: "Your Name:",
-                    "label-for": "exampleInput2"
-                  }
-                },
-                [
-                  _c("b-form-input", {
-                    attrs: {
-                      id: "exampleInput2",
-                      type: "text",
-                      required: "",
-                      placeholder: "Enter name"
-                    },
-                    model: {
-                      value: _vm.form.name,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "name", $$v)
-                      },
-                      expression: "form.name"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-form-group",
-                {
-                  attrs: {
-                    id: "exampleInputGroup3",
-                    label: "Food:",
-                    "label-for": "exampleInput3"
-                  }
-                },
-                [
-                  _c("b-form-select", {
-                    attrs: {
-                      id: "exampleInput3",
-                      options: _vm.foods,
-                      required: ""
-                    },
-                    model: {
-                      value: _vm.form.food,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "food", $$v)
-                      },
-                      expression: "form.food"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-form-group",
-                { attrs: { id: "exampleGroup4" } },
-                [
-                  _c(
-                    "b-form-checkbox-group",
-                    {
-                      attrs: { id: "exampleChecks" },
-                      model: {
-                        value: _vm.form.checked,
-                        callback: function($$v) {
-                          _vm.$set(_vm.form, "checked", $$v)
-                        },
-                        expression: "form.checked"
-                      }
-                    },
-                    [
-                      _c("b-form-checkbox", { attrs: { value: "me" } }, [
-                        _vm._v("Check me out")
-                      ]),
-                      _vm._v(" "),
-                      _c("b-form-checkbox", { attrs: { value: "that" } }, [
-                        _vm._v("Check that out")
-                      ])
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-button",
-                { attrs: { type: "submit", variant: "primary" } },
-                [_vm._v("Submit")]
-              ),
-              _vm._v(" "),
-              _c("b-button", { attrs: { type: "reset", variant: "danger" } }, [
-                _vm._v("Reset")
-              ])
-            ],
-            1
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "div",
-        [
-          _c(
-            "b-card",
-            {
-              staticClass: "mb-2 shadow",
-              staticStyle: { "max-width": "20rem" },
-              attrs: {
-                title: "Card Title",
-                "img-src": "https://picsum.photos/600/300/?image=25",
-                "img-alt": "Image",
-                "img-top": "",
-                tag: "article"
-              }
-            },
-            [
-              _c("p", { staticClass: "card-text" }, [
-                _vm._v(
-                  "\n        Some quick example text to build on the card title and make up the bulk of the card's content.\n      "
-                )
-              ]),
-              _vm._v(" "),
-              _c("b-button", { attrs: { href: "#", variant: "primary" } }, [
-                _vm._v("Go somewhere")
-              ])
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("b-breadcrumb", {
-        attrs: {
-          items: [{ text: "Admin", href: "#" }, { text: "User", href: "#" }]
-        }
-      }),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "my-3" },
-        [
-          _c(
-            "b-btn",
-            {
-              directives: [
-                {
-                  name: "b-popover",
-                  rawName: "v-b-popover.hover",
-                  value: "I am popover content!",
-                  expression: "'I am popover content!'",
-                  modifiers: { hover: true }
-                }
-              ],
-              attrs: { title: "Popover Title" }
-            },
-            [_vm._v("\n      Hover Me\n    ")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("b-alert", { attrs: { show: "" } }, [_vm._v("Default Alert")]),
-      _vm._v(" "),
-      _c("b-alert", { attrs: { variant: "success", show: "" } }, [
-        _vm._v("Success Alert")
-      ]),
-      _vm._v(" "),
-      _c(
-        "b-alert",
-        {
-          attrs: {
-            variant: "danger",
-            dismissible: "",
-            show: _vm.showDismissibleAlert
-          },
-          on: {
-            dismissed: function($event) {
-              _vm.showDismissibleAlert = false
-            }
-          }
-        },
-        [_vm._v("\n    Dismissible Alert!\n  ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "b-alert",
-        {
-          attrs: {
-            show: _vm.dismissCountDown,
-            dismissible: "",
-            variant: "warning"
-          },
-          on: {
-            dismissed: function($event) {
-              _vm.dismissCountDown = 0
-            },
-            "dismiss-count-down": _vm.countDownChanged
-          }
-        },
-        [
-          _c("p", [
-            _vm._v(
-              "This alert will dismiss after " +
-                _vm._s(_vm.dismissCountDown) +
-                " seconds..."
-            )
-          ]),
-          _vm._v(" "),
-          _c("b-progress", {
-            attrs: {
-              variant: "warning",
-              max: _vm.dismissSecs,
-              value: _vm.dismissCountDown,
-              height: "4px"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-btn",
-        {
-          staticClass: "m-1",
-          attrs: { variant: "info" },
-          on: { click: _vm.showAlert }
-        },
-        [_vm._v("\n    Show alert with count-down timer\n  ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "b-btn",
-        {
-          staticClass: "m-1",
-          attrs: { variant: "info" },
-          on: {
-            click: function($event) {
-              _vm.showDismissibleAlert = true
-            }
-          }
-        },
-        [
-          _vm._v(
-            "\n    Show dismissible alert (" +
-              _vm._s(_vm.showDismissibleAlert ? "visible" : "hidden") +
-              ")\n  "
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        [
-          _c(
-            "b-btn",
-            {
-              directives: [
-                {
-                  name: "b-toggle",
-                  rawName: "v-b-toggle.collapse2",
-                  modifiers: { collapse2: true }
-                }
-              ],
-              staticClass: "m-1"
-            },
-            [_vm._v("Toggle Collapse")]
-          ),
-          _vm._v(" "),
-          _c(
-            "b-btn",
-            {
-              directives: [
-                {
-                  name: "b-toggle",
-                  rawName: "v-b-toggle",
-                  value: "collapse2",
-                  expression: "'collapse2'"
-                }
-              ],
-              staticClass: "m-1"
-            },
-            [_vm._v("Toggle Collapse")]
-          ),
-          _vm._v(" "),
-          _c(
-            "b-collapse",
-            { attrs: { id: "collapse2" } },
-            [
-              _c("b-card", [
-                _vm._v("\n        I am collapsable content!\n      ")
-              ])
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("section", { staticClass: "p-10 mt-20 " }, [
+      _vm._v("\n  Beginning...\n  "),
+      _c("div", [
+        _vm._v(
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At autem blanditiis commodi deserunt dolor\n    ducimus esse illum ipsa iste magnam magni neque, numquam officiis pariatur perspiciatis provident\n    similique ut voluptatibus!\n  "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _vm._v(
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At autem blanditiis commodi deserunt dolor\n    ducimus esse illum ipsa iste magnam magni neque, numquam officiis pariatur perspiciatis provident\n    similique ut voluptatibus!\n  "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _vm._v(
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At autem blanditiis commodi deserunt dolor\n    ducimus esse illum ipsa iste magnam magni neque, numquam officiis pariatur perspiciatis provident\n    similique ut voluptatibus!\n  "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _vm._v(
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At autem blanditiis commodi deserunt dolor\n    ducimus esse illum ipsa iste magnam magni neque, numquam officiis pariatur perspiciatis provident\n    similique ut voluptatibus!\n  "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _vm._v(
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At autem blanditiis commodi deserunt dolor\n    ducimus esse illum ipsa iste magnam magni neque, numquam officiis pariatur perspiciatis provident\n    similique ut voluptatibus!\n  "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _vm._v(
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At autem blanditiis commodi deserunt dolor\n    ducimus esse illum ipsa iste magnam magni neque, numquam officiis pariatur perspiciatis provident\n    similique ut voluptatibus!\n  "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _vm._v(
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At autem blanditiis commodi deserunt dolor\n    ducimus esse illum ipsa iste magnam magni neque, numquam officiis pariatur perspiciatis provident\n    similique ut voluptatibus!\n  "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _vm._v(
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At autem blanditiis commodi deserunt dolor\n    ducimus esse illum ipsa iste magnam magni neque, numquam officiis pariatur perspiciatis provident\n    similique ut voluptatibus!\n  "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _vm._v(
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At autem blanditiis commodi deserunt dolor\n    ducimus esse illum ipsa iste magnam magni neque, numquam officiis pariatur perspiciatis provident\n    similique ut voluptatibus!\n  "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _vm._v(
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At autem blanditiis commodi deserunt dolor\n    ducimus esse illum ipsa iste magnam magni neque, numquam officiis pariatur perspiciatis provident\n    similique ut voluptatibus!\n  "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _vm._v(
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At autem blanditiis commodi deserunt dolor\n    ducimus esse illum ipsa iste magnam magni neque, numquam officiis pariatur perspiciatis provident\n    similique ut voluptatibus!\n  "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _vm._v(
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At autem blanditiis commodi deserunt dolor\n    ducimus esse illum ipsa iste magnam magni neque, numquam officiis pariatur perspiciatis provident\n    similique ut voluptatibus!\n  "
+        )
+      ]),
+      _vm._v(" "),
+      _c("button", { staticClass: "button is-info" }, [_vm._v("Click me")])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-7168fb6a", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-0156bb8c", module.exports)
   }
 }
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

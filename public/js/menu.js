@@ -1,45 +1,26 @@
-const triggers = document.querySelectorAll('.nav-item');
-const background = document.querySelector('.dropdownBackground');
-const nav = document.querySelector('.navbar');
-const navbarList = nav.querySelector('.navbar__list');
+ console.log('hello')
+document.addEventListener('DOMContentLoaded', function () {
 
-const hamburger = document.querySelector('.hamburger')
+  // Get all "navbar-burger" elements
+  var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
-function handleEnter() {
-  const dropdown = this.querySelector('.dropdown');
-  if (dropdown) {
-    background.classList.add('open');
-    this.classList.add('trigger-enter');
-    setTimeout(() => this.classList.contains('trigger-enter') && this.classList.add('trigger-enter-active'), 150);
-    const dropdownCoords = dropdown.getBoundingClientRect();
-    const navCoords = nav.getBoundingClientRect();
-    const coords = {
-      height: dropdownCoords.height,
-      width: dropdownCoords.width,
-      top: (dropdownCoords.top - navCoords.top)-this.offsetTop,
-      left: dropdownCoords.left - navCoords.left
-    };
-    background.style.setProperty('width', `${coords.width}px`);
-    background.style.setProperty('height', `${coords.height}px`);
-    background.style.setProperty('transform', `translate(${coords.left}px, ${coords.top}px)`);
-    background.style.setProperty('color', '#000');
+  // Check if there are any navbar burgers
+  if ($navbarBurgers.length > 0) {
+
+    // Add a click event on each of them
+    $navbarBurgers.forEach(function ($el) {
+      $el.addEventListener('click', function () {
+
+        // Get the target from the "data-target" attribute
+        var target = $el.dataset.target;
+        var $target = document.getElementById(target);
+
+        // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+        $el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+
+      });
+    });
   }
-}
 
-function handleLeave() {
-  this.classList.remove('trigger-enter', 'trigger-enter-active');
-  //background.style = null
-  background.classList.remove('open');
-}
-
-function openMenu(){
-  navbarList.classList.toggle('show')
-  console.log(navbarList)
-}
-function closeMenu(){
-  this.classList.remove('show')
-}
-triggers.forEach(trigger => trigger.addEventListener('mouseenter', handleEnter));
-triggers.forEach(trigger => trigger.addEventListener('mouseleave', handleLeave));
-hamburger.addEventListener('click', openMenu);
-hamburger.addEventListener('mouseleave', closeMenu);
+});
