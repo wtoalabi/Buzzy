@@ -1,11 +1,11 @@
 <template>
   <section class="p-10 mt-20 ">
     Beginning...
-    <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At autem blanditiis commodi deserunt dolor
+    <div>Dancing ipsum dolor sit amet, consectetur adipisicing elit. At autem blanditiis commodi deserunt dolor
       ducimus esse illum ipsa iste magnam magni neque, numquam officiis pariatur perspiciatis provident
       similique ut voluptatibus!
     </div>
-    <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At autem blanditiis commodi deserunt dolor
+    <div>Singing...Lorem ipsum dolor sit amet, consectetur adipisicing elit. At autem blanditiis commodi deserunt dolor
       ducimus esse illum ipsa iste magnam magni neque, numquam officiis pariatur perspiciatis provident
       similique ut voluptatibus!
     </div>

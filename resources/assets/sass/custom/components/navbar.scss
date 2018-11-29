@@ -1,28 +1,58 @@
 .navbar{
   font-size: 1.5rem;
+  box-shadow: aliceblue 2px -1px 1px 0px;
 }
-.navbar-item{
-  color: $dark;
+.navbar-item a {
+  color: $primary;
+  &:hover{
+    color: #aebbc7;
+  }
 }
-.navbar-item.nav-settings{
+
+.navbar-item .nav-settings{
   display: flex;
   align-items: center;
   padding-right: 12px;
 }
 .navbar-item img {
-  max-height: 4rem;
+  max-height: 5rem;
+  border-radius: 50%;
 }
 .logo{
   font-size: 2.7rem;
   color: $white;
 }
+
 .navbar-brand{
   align-items: center;
 }
 
+.navbar-brand .logo:hover{
+  background-color: $dark !important;
+  color: #aebbc7 !important;
+}
+.tags .signup-tag{
+  font-size: 1rem;
+}
+.tags .signup-tag a{
+  color: white;
+}
+.tags .github span{
+  color: #efc5ac;
+}
+.tags .signup-tag.signup-text{
+  background-color: $dark;
+  color: $white;
+}
+.navbar-link{
+
+}
 @media screen and (min-width: 980px){
-  .footer-wrapper{
-    display: flex;
-    justify-content: space-between;
+  .navbar-item a{
+    color: $white;
+  }
+  .tags .signup-tag.signup-text{
+    background-color: $white;
+    color: $primary;
   }
 }

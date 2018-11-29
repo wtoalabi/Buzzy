@@ -1,1 +1,1 @@
-Vue.component('home', require('./Home'));
+Vue.component('app', require('./App'));

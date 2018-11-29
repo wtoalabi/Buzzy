@@ -1,0 +1,31 @@
+html,body,#buzz{
+  height: 100%;
+}
+main {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  background-color: $primary;
+}
+
+header,.content, footer{
+  flex-shrink: 0;
+}
+header {
+  width: 100%;
+  position: fixed;
+}
+.content{
+  margin-top: 20px;
+  flex-grow: 1;
+  font-size: 1.2rem;
+  color: #fff;
+}
+footer{}
+
+@media screen and (min-width: 980px){
+  .footer-wrapper{
+    display: flex;
+    justify-content: space-between;
+  }
+}

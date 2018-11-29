@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Socialite;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -53,13 +54,17 @@ class LoginController extends Controller
     {
         $providerUser = Socialite::driver('github')->user();
         $user = $this->findOrCreateUser('github', $providerUser);
-        
+        Auth::login($user);
     }
     
     public function handleTwitterCallback()
     {
+      if(Auth::check()) {
+        dd(auth()->user());
+      }
         $providerUser = Socialite::driver('twitter')->user();
         $user = $this->findOrCreateUser('twitter', $providerUser);
+        Auth::login($user);
     }
 
     public function findOrCreateUser ($provider, $providerUser){
@@ -75,7 +80,6 @@ class LoginController extends Controller
             'full_name' =>$providerUser->name
         ]);
         $user->save();
-        dd($user);
-        
+        return $user;
     }
 }
