@@ -3,7 +3,7 @@ let purgeCss = require('purgecss-webpack-plugin')
 let glob = require('glob-all')
 
 
-if (mainmix.inProduction()) {
+if (mix.inProduction()) {
   mix.webpackConfig({
     plugins: [
       new purgeCss({

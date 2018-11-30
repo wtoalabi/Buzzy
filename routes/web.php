@@ -12,11 +12,7 @@
   */
 
 //Auth::routes();
-  //auth()->loginUsingId(3);
-  Route::get('user', function () {
-    //return auth()->user();
-    auth()->logout();
-  });
+
   
   Route::group(['prefix' => 'api'],function (){
     Route::get('get-content', function () {
@@ -25,6 +21,8 @@
     Route::get('get-logged-in-user', function () {
       return auth()->user();
     });
+    //Route::post();
+    Route::post('logout', 'Auth\LoginController@logout');
   });
   
   Route::get('/', 'HomeController@index');

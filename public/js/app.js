@@ -12655,7 +12655,6 @@ __webpack_require__(124);
 var router = __webpack_require__(146).default;
 
 Vue.config.productionTip = false;
-console.log(__WEBPACK_IMPORTED_MODULE_2__app_Store__["a" /* default */]);
 Vue.mixin({
   data: __WEBPACK_IMPORTED_MODULE_1__app_globals_states__["a" /* default */]
 });
@@ -16037,6 +16036,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {},
@@ -16044,13 +16044,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     return {};
   },
 
-  methods: {},
+  methods: {
+    logout: function logout() {
+      this.$store.dispatch('logout');
+    },
+    login: function login(provider) {
+      this.$store.dispatch('login', provider);
+    }
+  },
   computed: {
     user: function user() {
       return this.$store.state.user;
     },
     isLoggedIn: function isLoggedIn() {
       return !_.isEmpty(this.user);
+    },
+    loaded: function loaded() {
+      return !_.isEmpty(this.$store.state.content);
     }
   }
 });
@@ -16067,32 +16077,100 @@ var render = function() {
     _c("nav", { staticClass: "navbar is-transparent is-dark is-fixed-top" }, [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "navbar-menu", attrs: { id: "navbar" } }, [
-        _c("div", { staticClass: "navbar-start" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "navbar-end" }, [
-          !_vm.isLoggedIn
-            ? _c("div", { staticClass: "navbar-item" }, [_vm._m(1)])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("div", { staticClass: "navbar-item" }, [
-            _c("a", { staticClass: "pr-0", attrs: { href: "/#/settings" } }, [
-              _c("img", {
-                staticClass: "mr-10 is-rounded",
-                attrs: { src: _vm.user.avatar, alt: "" }
-              })
+      _vm.loaded
+        ? _c("div", { staticClass: "navbar-menu", attrs: { id: "navbar" } }, [
+            _c("div", { staticClass: "navbar-start" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "navbar-end" }, [
+              !_vm.isLoggedIn
+                ? _c("div", { staticClass: "navbar-item" }, [
+                    _c("div", { staticClass: "tags has-addons are-medium" }, [
+                      _c(
+                        "div",
+                        { staticClass: "signup-tag tag is-white signup-text" },
+                        [_vm._v("Sign up with: ")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "signup-tag twitter tag is-info",
+                          on: {
+                            click: function($event) {
+                              _vm.login("twitter")
+                            }
+                          }
+                        },
+                        [_vm._m(1)]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "signup-tag github tag is-primary",
+                          on: {
+                            click: function($event) {
+                              _vm.login("github")
+                            }
+                          }
+                        },
+                        [_vm._m(2)]
+                      )
+                    ])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("div", { staticClass: "navbar-item" }, [
+                _c(
+                  "a",
+                  { staticClass: "pr-0", attrs: { href: "/#/settings" } },
+                  [
+                    _c("img", {
+                      staticClass: "mr-10 is-rounded",
+                      attrs: { src: _vm.user.avatar, alt: "" }
+                    })
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _vm.isLoggedIn
+                ? _c(
+                    "div",
+                    { staticClass: "navbar-item has-dropdown is-hoverable" },
+                    [
+                      _c("div", { staticClass: "navbar-link" }, [
+                        _vm._v("Profile\n            "),
+                        _c(
+                          "div",
+                          { staticClass: "navbar-dropdown" },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "navbar-item",
+                                attrs: { to: "account-Settings" }
+                              },
+                              [_vm._v("Account Settings")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "navbar-item",
+                                on: { click: _vm.logout }
+                              },
+                              [_vm._v("Logout")]
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    ]
+                  )
+                : _vm._e()
             ])
-          ]),
-          _vm._v(" "),
-          _vm.isLoggedIn
-            ? _c(
-                "div",
-                { staticClass: "navbar-item has-dropdown is-hoverable" },
-                [_vm._m(2)]
-              )
-            : _vm._e()
-        ])
-      ])
+          ])
+        : _vm._e()
     ])
   ])
 }
@@ -16122,35 +16200,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "tags has-addons are-medium" }, [
-      _c("div", { staticClass: "signup-tag tag is-white signup-text" }, [
-        _vm._v("Sign up with: ")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "signup-tag twitter tag is-info" }, [
-        _c("a", { attrs: { href: "#" } }, [
-          _c("i", { staticClass: "fa fa-twitter mr-6" }),
-          _c("span", [_vm._v("Twitter")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "signup-tag github tag is-primary" }, [
-        _c("a", { attrs: { href: "#" } }, [
-          _c("i", { staticClass: "fa fa-github mr-6" }),
-          _c("span", [_vm._v("Github")])
-        ])
-      ])
+    return _c("a", { attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fa fa-twitter mr-6" }),
+      _c("span", [_vm._v("Twitter")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "navbar-link" }, [
-      _vm._v("Settings\n            "),
-      _c("div", { staticClass: "navbar-dropdown" }, [
-        _c("div", { staticClass: "navbar-item" }, [_vm._v("Logout")])
-      ])
+    return _c("a", { attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fa fa-github mr-6" }),
+      _c("span", [_vm._v("Github")])
     ])
   }
 ]
@@ -16333,16 +16394,13 @@ if (false) {
 /***/ (function(module, exports) {
 
 document.addEventListener('DOMContentLoaded', function () {
-  console.log('loaded');
   // Get all "navbar-burger" elements
   var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-  console.log($navbarBurgers);
   // Check if there are any navbar burgers
   if ($navbarBurgers.length > 0) {
     // Add a click event on each of them
     $navbarBurgers.forEach(function ($el) {
       $el.addEventListener('click', function () {
-        console.log('clicked');
         // Get the target from the "data-target" attribute
         var target = $el.dataset.target;
         var $target = document.getElementById(target);
@@ -19359,8 +19417,21 @@ if (hadRuntime) {
     axios.get('api/get-logged-in-user').then(function (data) {
       context.commit('loggedInUser', data.data);
     }).catch(function (error) {
-      console.log(new Error(error.request.statusText + ', Code: ' + error.request.status));
+      new Error(error.request.statusText + ', Code: ' + error.request.status);
     });
+  },
+  logout: function logout(context) {
+    axios.post('api/logout').then(function (data) {
+      if (_.isEmpty(data.data)) {
+        context.commit('clearUserData');
+      }
+    }).catch(function (error) {});
+  },
+  login: function login(context, provider) {
+    var origin = window.location.origin;
+    var hash = window.location.hash;
+    var url = hash.length > 2 ? origin + '/%23' + hash.substr(1, hash.length) : window.location.href;
+    window.location.assign('auth/' + provider + '?provider=' + url);
   }
 });
 
@@ -19386,6 +19457,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["a"] = ({
   loggedInUser: function loggedInUser(state, payload) {
     return state.user = payload;
+  },
+  clearUserData: function clearUserData(state) {
+    state.user = {};
+    return window.location.assign('/');
   }
 });
 
@@ -19419,10 +19494,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(147);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Pages_Settings__ = __webpack_require__(148);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Pages_Settings___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Pages_Settings__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profile__ = __webpack_require__(167);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Pages_Home__ = __webpack_require__(154);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Pages_Home___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Pages_Home__);
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 
 
 
@@ -19433,12 +19509,9 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
   mode: 'hash',
   routes: [{
-    path: '/settings',
-    component: __WEBPACK_IMPORTED_MODULE_2__Pages_Settings___default.a
-  }, {
     path: '/',
     component: __WEBPACK_IMPORTED_MODULE_3__Pages_Home___default.a
-  }]
+  }].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_2__profile__["a" /* default */]))
 });
 
 /* harmony default export */ __webpack_exports__["default"] = (router);
@@ -22494,6 +22567,40 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 158 */,
+/* 159 */,
+/* 160 */,
+/* 161 */,
+/* 162 */,
+/* 163 */,
+/* 164 */,
+/* 165 */,
+/* 166 */,
+/* 167 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Pages_Settings__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Pages_Settings___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Pages_Settings__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Store__ = __webpack_require__(30);
+
+
+/* harmony default export */ __webpack_exports__["a"] = ([{
+  path: '/account-settings',
+  component: __WEBPACK_IMPORTED_MODULE_0__Pages_Settings___default.a,
+  beforeEnter: function beforeEnter(to, from, next) {
+    checkLoggedIn(next);
+  }
+}]);
+
+function checkLoggedIn(next) {
+  if (_.isEmpty(__WEBPACK_IMPORTED_MODULE_1__Store__["a" /* default */].state.user)) {
+    return window.location.assign('/');
+  }
+  return next();
+}
 
 /***/ })
 /******/ ]);

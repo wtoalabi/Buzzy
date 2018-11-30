@@ -16,7 +16,6 @@ import states from './app/globals/states'
 const router = require('./app/router/').default;
 import store from './app/Store'
 Vue.config.productionTip = false
-console.log(store)
 Vue.mixin({
   data: states
 })
