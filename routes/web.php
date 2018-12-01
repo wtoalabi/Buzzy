@@ -15,9 +15,7 @@
 
   
   Route::group(['prefix' => 'api'],function (){
-    Route::get('get-content', function () {
-      return ['name' => 'Mike','id'=>1];
-    });
+    Route::get('get-content', 'Terms\TermsController@index');
     Route::get('get-logged-in-user', function () {
       return auth()->user();
     });

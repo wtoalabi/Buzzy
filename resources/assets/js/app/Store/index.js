@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex';
 import actions from './Actions/actions'
 import mutations from './Mutators/mutators'
-import state from './States/state'
+import state from "./States/state";
 
 Vue.use(Vuex)
 

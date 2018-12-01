@@ -1,5 +1,5 @@
-import Settings from '../Pages/Settings'
 import Store from '../Store'
+import Settings from "../Pages/Settings";
 export default [
   {
     path: '/account-settings',

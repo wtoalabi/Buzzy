@@ -12,8 +12,8 @@
 </template>
 
 <script>
-  import Navbar from './partials/Navbar'
-  import Footer from './partials/Footer'
+  import Navbar from "./partials/Navbar";
+  import Footer from "./partials/Footer";
 
   export default {
     mounted() {
