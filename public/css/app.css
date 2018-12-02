@@ -16389,7 +16389,8 @@ header {
 }
 
 .content {
-  margin-top: 20px;
+  margin-top: 75px;
+  padding: 16px;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
@@ -16406,5 +16407,27 @@ header {
         -ms-flex-pack: justify;
             justify-content: space-between;
   }
+}
+
+.search {
+  padding: 1.3rem 2rem 1.3rem 4.7rem;
+  border-radius: 2.25rem;
+  -webkit-appearance: none;
+  background: white url(http://buzz.loc/svg/search.svg) no-repeat 1.8rem 60%;
+  color: #1c2d3e;
+  height: 4rem;
+  font-size: 1.8rem;
+  margin: 0 auto;
+  width: 76%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.search:focus,
+.search:hover {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border: 5px solid #546f89;
 }
 

@@ -12,7 +12,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(TermSeeder::class);
-        $this->call(DescriptionSeeder::class);
-        $this->call(SymbolSeeder::class);
+        $this->call(CommentSeeder::class);
+        $this->call(TagSeeder::class);
+        $this->call(TermTagsSeeder::class);
     }
 }

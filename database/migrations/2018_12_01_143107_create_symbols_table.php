@@ -15,9 +15,9 @@ class CreateSymbolsTable extends Migration
     {
         Schema::create('symbols', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('description_id');
+            $table->unsignedInteger('comment_id');
             $table->string('symbol');
-            $table->foreign('description_id')->references('id')->on('descriptions')->onDelete('cascade');
+            $table->foreign('comment_id')->references('id')->on('comments')->onDelete('cascade');
             $table->timestamps();
         });
     }

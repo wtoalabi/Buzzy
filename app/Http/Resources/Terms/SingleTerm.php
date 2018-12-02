@@ -2,7 +2,8 @@
 
 namespace App\Http\Resources\Terms;
 
-use App\Http\Resources\Descriptions\DescriptionCollection;
+use App\Http\Resources\Comments\CommentsCollection;
+use App\Http\Resources\TermTags\TermTagsCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SingleTerm extends JsonResource
@@ -18,7 +19,8 @@ class SingleTerm extends JsonResource
         return [
           'id' => $this->id,
           'title' => $this->title,
-          'descriptions' => new DescriptionCollection($this->descriptions)
+          'comments' => new CommentsCollection($this->comments),
+          'tags' => new TermTagsCollection($this->tags)
         ];
     }
 }

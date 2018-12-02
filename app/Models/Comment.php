@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-class Description extends Model
+class Comment extends Model
 {
  protected $fillable = ['id', 'term_id','body'];
  protected $with = ['symbol', 'sound'];
@@ -13,5 +13,8 @@ class Description extends Model
  }
  public function sound(){
     return $this->hasOne(Sound::class);
+ }
+ public function tags(){
+    return $this->hasMany(Tag::class);
  }
 }

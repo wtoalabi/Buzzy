@@ -1,11 +1,18 @@
-.search{
-  padding: 1.3rem 2rem 1.3rem 5.6rem;
-  @apply bg-white text-primary-lighter block w-full text-5xl shadow-lg outline-none;
-  border: none;
+.search {
+  padding: 1.3rem 2rem 1.3rem 4.7rem;
+  //border: 5px solid #546f8973;
   border-radius: 2.25rem;
   -webkit-appearance: none;
-  background: #fff url(http://buzz.loc/svg/search.svg) no-repeat 2.8rem 50%;
+  background: white url(http://buzz.loc/svg/search.svg) no-repeat 1.8rem 60%;
+  color: #1c2d3e;
+  height: 4rem;
+  font-size: 1.8rem;
+  margin: 0 auto;
+  width: 76%;
+  display: flex;
 }
-.search:hover {
-  @apply shadow-md;
+
+.search:focus, .search:hover{
+  box-shadow: none;
+  border: 5px solid #546f89;
 }

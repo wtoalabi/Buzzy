@@ -7,13 +7,15 @@
   class Term extends Model
   {
     protected $fillable = ['title'];
-    protected $with = ['descriptions'];
+    protected $with = ['comments','tags'];
     
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function descriptions()
-    {
-      return $this->hasMany(Description::class);
+    public function comments(){
+      return $this->hasMany(Comment::class);
+    }
+    public function tags(){
+      return $this->belongsToMany(Tag::class,'term_tags');
     }
   }

@@ -16371,7 +16371,7 @@ var render = function() {
       _c("Navbar"),
       _vm._v(" "),
       _vm.loaded
-        ? _c("div", { staticClass: "content" }, [_c("router-view")], 1)
+        ? _c("div", { staticClass: "content mt-32" }, [_c("router-view")], 1)
         : [_c("loading")],
       _vm._v(" "),
       _c("Footer")
@@ -22548,7 +22548,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -22574,9 +22573,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("h1", [_vm._v("Home Page!")]),
-      _vm._v("\n  This is the home page!\n")
+    return _c("div", { staticClass: "mt-32" }, [
+      _c("input", {
+        staticClass: "input search",
+        attrs: { autofocus: "", type: "text", placeholder: "Start typing..." }
+      })
     ])
   }
 ]

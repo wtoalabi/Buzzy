@@ -1,7 +1,7 @@
 <template>
   <main>
     <Navbar/>
-    <div class="content" v-if="loaded">
+    <div class="content mt-32" v-if="loaded">
       <router-view/>
     </div>
     <template v-else>

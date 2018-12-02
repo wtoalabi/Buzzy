@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Descriptions;
+namespace App\Http\Resources\TermTags;
 
-use function foo\func;
+use App\Http\Resources\Tags\SingleTag;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class DescriptionCollection extends ResourceCollection
+class TermTagsCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -15,8 +15,8 @@ class DescriptionCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return $this->collection->transform(function($description){
-          return new SingleDescription($description);
+        return $this->collection->transform(function($tag){
+          return new SingleTag($tag);
         });
     }
 }
