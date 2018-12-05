@@ -7,6 +7,7 @@ import lodash from './app/globals/lodash'
 
 window.Vue = require('vue');
 window._ = lodash
+require('./app/globals/home')
 require('./bootstrap')
 require('./utils')
 require('./app/index')

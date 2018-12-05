@@ -1,12 +1,14 @@
 <template>
   <main>
-    <Navbar/>
-    <div class="content mt-32" v-if="loaded">
-      <router-view/>
+    <div class="wrapper">
+      <Navbar/>
+      <section class="main-content" v-if="loaded">
+        <router-view/>
+      </section>
+        <div v-else>
+          <loading/>
+        </div>
     </div>
-    <template v-else>
-      <loading/>
-    </template>
     <Footer/>
   </main>
 </template>
@@ -32,3 +34,6 @@
     }
   }
 </script>
+<style>
+
+</style>

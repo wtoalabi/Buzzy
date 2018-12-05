@@ -1,0 +1,27 @@
+.home-list{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 3rem 0;
+}
+.terms__lists--title{
+  font-size: 2rem;
+}
+@media screen and (min-width: 980px) {
+  .home-list {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .terms__lists{
+    border-right: 1px solid;
+    padding: 0 3rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .terms__lists:last-of-type{
+    border: none;
+  }
+}

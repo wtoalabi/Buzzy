@@ -43,3 +43,7 @@ if (mix.inProduction()) {
 
 mix.sass('resources/assets/sass/app.scss', 'public/css')
   .js('resources/assets/js/app.js', 'public/js')
+  .browserSync({
+  open: 'external',
+  proxy: 'buzz.loc'
+});

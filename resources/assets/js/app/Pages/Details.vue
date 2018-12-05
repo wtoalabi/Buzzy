@@ -1,19 +1,14 @@
 <template>
   <div>
-  <div class="mt-12 home-box">
     <SearchBox />
-  </div>
-  <HomeList />
   </div>
 </template>
 
 <script>
   import SearchBox from "../partials/SearchBox";
-  import HomeList from "../partials/HomeList";
+
   export default {
-    components:{SearchBox,HomeList},
-    mounted(){
-    },
+    component:{SearchBox},
     data() {
       return {}
     },
@@ -21,8 +16,4 @@
     computed: {}
   }
 
-
 </script>
-
-<style>
-</style>

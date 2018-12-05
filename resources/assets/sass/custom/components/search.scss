@@ -1,18 +1,33 @@
+/*
+.search-container {
+  border-radius: 2rem;
+  margin: 0 auto;
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+}
+
+.search-result {
+  background-color: #ffffffd9;
+}
+
 .search {
   padding: 1.3rem 2rem 1.3rem 4.7rem;
-  //border: 5px solid #546f8973;
-  border-radius: 2.25rem;
+  border-radius: 2rem;
   -webkit-appearance: none;
   background: white url(http://buzz.loc/svg/search.svg) no-repeat 1.8rem 60%;
   color: #1c2d3e;
-  height: 4rem;
-  font-size: 1.8rem;
-  margin: 0 auto;
-  width: 76%;
+  font-size: 1.2rem;
   display: flex;
+  box-shadow: 0px 0px 11px 1px #ffffff61;
 }
 
-.search:focus, .search:hover{
-  box-shadow: none;
-  border: 5px solid #546f89;
+.search:focus, .search:hover {
+  border: none
 }
+@media screen and (min-width: 980px){
+  .search{
+    font-size: 1.8rem;
+  }
+}*/

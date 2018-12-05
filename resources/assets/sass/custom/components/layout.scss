@@ -1,32 +1,44 @@
-html,body,#buzz{
+html{
+  background-color: #091d31;
+}
+main,#buzz{
   height: 100%;
 }
-main {
+main{
   display: flex;
-  min-height: 100%;
   flex-direction: column;
-  background-color: $primary;
 }
-
-header,.content, footer{
-  flex-shrink: 0;
+.wrapper {
+  flex: 1;
 }
 header {
   width: 100%;
   position: fixed;
+  z-index: 999;
 }
-.content{
-  margin-top: 75px;
-  padding: 16px;
-  flex-grow: 1;
-  font-size: 1.2rem;
+section.main-content{
+  margin: 7rem 1rem 0 0;
   color: #fff;
 }
-footer{}
-
-@media screen and (min-width: 980px){
-  .footer-wrapper{
+.home-box{
+  display: flex;
+  justify-content: center;
+}
+section.footer{
+  background-color: #0c1c2b;
+  padding: 2rem 5rem;
+  font-size: .9rem;
+  display: block;
+  text-align: center;
+  width: 100%;
+  color: white;
+  border-top: 1px solid #25374a;
+}
+@media screen and (min-width: 900px){
+  section.footer{
+    font-size: 1.2rem;
     display: flex;
     justify-content: space-between;
+    padding: 2rem 2.8rem 3rem 1.46rem;
   }
 }
