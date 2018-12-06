@@ -16847,14 +16847,18 @@ var render = function() {
                     _c("div", { staticClass: "tags has-addons are-medium" }, [
                       _c(
                         "div",
-                        { staticClass: "signup-tag tag is-white signup-text" },
+                        {
+                          staticClass:
+                            "signup-tag tag is-white signup-text is-size-5"
+                        },
                         [_vm._v("Sign up with: ")]
                       ),
                       _vm._v(" "),
                       _c(
                         "div",
                         {
-                          staticClass: "signup-tag twitter tag is-info",
+                          staticClass:
+                            "signup-tag twitter tag is-info is-size-5",
                           on: {
                             click: function($event) {
                               _vm.login("twitter")
@@ -16867,7 +16871,8 @@ var render = function() {
                       _c(
                         "div",
                         {
-                          staticClass: "signup-tag github tag is-primary",
+                          staticClass:
+                            "signup-tag github tag is-primary is-size-5",
                           on: {
                             click: function($event) {
                               _vm.login("github")
@@ -24022,36 +24027,44 @@ var render = function() {
     { staticClass: "results" },
     _vm._l(_vm.results, function(result) {
       return _vm.results
-        ? _c("li", { key: result.id, staticClass: "result" }, [
-            _c("span", {
-              staticClass: "result__title",
-              domProps: { innerHTML: _vm._s(_vm.styleTitle(result.title)) }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "result__icons" }, [
-              _c(
-                "span",
-                { attrs: { title: "Symbols Found", alt: "Symbols Found" } },
-                [
-                  _c("span", { staticClass: "is-hidden-touch" }, [
-                    _vm._v("Symbols:")
-                  ]),
-                  _vm._v(" " + _vm._s(result.totalSymbols))
-                ]
-              ),
-              _vm._v(" |\n      "),
-              _c(
-                "span",
-                { attrs: { title: "Sounds Found", alt: "Sounds Found" } },
-                [
-                  _c("span", { staticClass: "is-hidden-touch" }, [
-                    _vm._v("Sounds:")
-                  ]),
-                  _vm._v(_vm._s(result.totalSounds))
-                ]
-              )
-            ])
-          ])
+        ? _c(
+            "router-link",
+            {
+              key: result.id,
+              staticClass: "result",
+              attrs: { to: "details/" + result.url }
+            },
+            [
+              _c("span", {
+                staticClass: "result__title",
+                domProps: { innerHTML: _vm._s(_vm.styleTitle(result.title)) }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "result__icons" }, [
+                _c(
+                  "span",
+                  { attrs: { title: "Symbols Found", alt: "Symbols Found" } },
+                  [
+                    _c("span", { staticClass: "is-hidden-touch" }, [
+                      _vm._v("Symbols:")
+                    ]),
+                    _vm._v(" " + _vm._s(result.totalSymbols))
+                  ]
+                ),
+                _vm._v(" |\n      "),
+                _c(
+                  "span",
+                  { attrs: { title: "Sounds Found", alt: "Sounds Found" } },
+                  [
+                    _c("span", { staticClass: "is-hidden-touch" }, [
+                      _vm._v("Sounds:")
+                    ]),
+                    _vm._v(_vm._s(result.totalSounds))
+                  ]
+                )
+              ])
+            ]
+          )
         : _vm._e()
     })
   )

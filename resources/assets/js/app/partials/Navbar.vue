@@ -18,9 +18,9 @@
         <div class="navbar-end">
           <div class="navbar-item" v-if="!isLoggedIn">
             <div class="tags has-addons are-medium">
-              <div class="signup-tag tag is-white signup-text">Sign up with: </div>
-              <div class="signup-tag twitter tag is-info" @click="login('twitter')"><a href="#"><i class="fa fa-twitter mr-6"></i><span>Twitter</span></a></div>
-              <div class="signup-tag github tag is-primary" @click="login('github')"><a href="#"><i class="fa fa-github mr-6"></i><span>Github</span></a></div>
+              <div class="signup-tag tag is-white signup-text is-size-5">Sign up with: </div>
+              <div class="signup-tag twitter tag is-info is-size-5" @click="login('twitter')"><a href="#"><i class="fa fa-twitter mr-6"></i><span>Twitter</span></a></div>
+              <div class="signup-tag github tag is-primary is-size-5" @click="login('github')"><a href="#"><i class="fa fa-github mr-6"></i><span>Github</span></a></div>
             </div>
           </div>
           <div class="navbar-item">

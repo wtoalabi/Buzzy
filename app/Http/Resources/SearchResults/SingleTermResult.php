@@ -18,7 +18,8 @@ class SingleTermResult extends JsonResource
           'id' => $this->id,
           'title' => $this->title,
           'totalSymbols' => $this->symbolsCount(),
-          'totalSounds' => $this->soundsCount()
+          'totalSounds' => $this->soundsCount(),
+          'url' => str_slug($this->title)
         ];
     }
 }

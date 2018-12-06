@@ -1,12 +1,12 @@
 <template>
   <ul class="results">
-    <li class="result" v-if="results" v-for="result in results" :key="result.id">
+    <router-link :to="`details/${result.url}`" class="result" v-if="results" v-for="result in results" :key="result.id">
       <span class="result__title" v-html="styleTitle(result.title)"></span>
       <div class="result__icons">
         <span title="Symbols Found" alt="Symbols Found"> <span class="is-hidden-touch">Symbols:</span> {{result.totalSymbols}}</span> |
         <span title="Sounds Found" alt="Sounds Found"><span class="is-hidden-touch">Sounds:</span>{{result.totalSounds}}</span>
       </div>
-    </li>
+    </router-link>
 
   </ul>
 </template>
@@ -27,7 +27,7 @@
       results(){
         return this.$store.state.searchResults
       },
-    }
+    },
   }
 
 </script>
