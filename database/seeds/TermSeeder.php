@@ -13,15 +13,12 @@
      */
     public function run()
     {
-      $terms = ['ISP', 'Library', 'Framework', 'Fullstack', 'Stack Overflow'];
-      $faker = Faker::create();
-      $count = 10;
-      while ($count >= 0) {
+      $terms = collect(['ISP', 'Library', 'Framework', 'Fullstack', 'Stack Overflow']);
+      $terms->each(function($term){
         factory(Term::class)->create(
           [
-            'title' => $faker->randomElement($terms)
+            'title' => $term,
           ]);
-        $count--;
-      }
+      });
     }
   }

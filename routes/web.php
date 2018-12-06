@@ -21,7 +21,7 @@
     Route::get('get-logged-in-user', function () {
       return auth()->user();
     });
-    //Route::post();
+    Route::post('search', 'Terms\TermsSearchController@index');
     Route::post('logout', 'Auth\LoginController@logout');
   });
   

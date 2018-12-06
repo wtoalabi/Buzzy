@@ -1,4 +1,6 @@
 export default {
   user: {},
-  content: []
+  content: [],
+  searchResults: [],
+  visible: 'hide'
 }

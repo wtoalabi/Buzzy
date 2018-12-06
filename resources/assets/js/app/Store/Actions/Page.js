@@ -10,6 +10,16 @@ export default {
     }).catch(error=>{
       console.log(new Error(`${error.request.statusText}, Code: ${error.request.status}`))
     })
+  },
+  getResult(context,searchText){
+    return axios.post('api/search',{searchText}).then(data=>{
+      return context.commit('searchResult', data.data)
+    }).catch(error=>{
+      console.log(new Error(`${error.request.statusText}, Code: ${error.request.status}`))
+    })
+  },
+  noInput(context){
+    context.commit('clearResultState')
   }
 
 }

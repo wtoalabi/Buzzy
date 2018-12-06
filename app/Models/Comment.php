@@ -7,6 +7,7 @@ class Comment extends Model
 {
  protected $fillable = ['id', 'term_id','body'];
  protected $with = ['symbol', 'sound'];
+ protected $withCount =['symbol','sound'];
   
   public function symbol(){
     return $this->hasOne(Symbol::class);

@@ -1,49 +1,67 @@
 <template>
-  <div class="search-container" :style="searching_container">
+  <div class="search-container" :style="search_container">
     <input autofocus type="text" placeholder="Start typing..." class="input search" @input="search"
-           :style="searching_input">
-    <!--<span class="search-result">Hello</span>-->
+           :style="search_input">
+    <SearchResults :searchText="searchText"/>
+    <span v-if="noResult" :class="visible" class="no-result">Nothing Found...</span>
   </div>
 </template>
 
 <script>
+  import SearchResults from "./SearchResults";
+
   export default {
-    mounted(){
-      let container = document.querySelector('.search-container')
-    },
+    components:{SearchResults},
     data() {
       return {
-        searching_container: false,
-        searching_input: {
+        visible: 'hide',
+        searchText: '',
+        search_container: false,
+        search_input: {
           borderRadius: '2rem'
         }
       }
     },
     methods: {
       search(e) {
-        this.setStyles(e)
+        this.searchText = e.target.value
+          _.debounce(() => {
+            this.$store.dispatch('getResult', this.searchText).then(() => {
+              const searchResult = document.querySelector('.search-container ul')
+              const resultRect = searchResult.getBoundingClientRect()
+              this.search_container = {
+                height: resultRect.height
+              }
+
+              this.setStyles(e)
+            })
+          }, 800)()
       },
       setStyles(e) {
         if (e.target.value) {
-          this.searching_input = {
+          this.search_input = {
             borderBottom: '0.09rem #b2beca solid',
             borderBottomRightRadius: 'unset',
             borderBottomLeftRadius: 'unset',
             boxShadow: 'none'
           },
-            this.searching_container = {
-              height: '30rem',
-              background: '#ffffffde',
+            this.search_container = {
+              background: 'rgba(255, 255, 255, 0.97)',
               boxShadow: '0px 0px 11px 1px #ffffff61'
             }
+          this.visible = 'show'
         } else {
-          this.searching_input = {borderRadius: '2rem'}
-          this.searching_container = {height: 'inherit'}
+          this.search_input = {borderRadius: '2rem'}
+          this.search_container = {height: 'inherit'}
+          this.visible = 'hide'
         }
       }
     }
   ,
   computed: {
+    noResult(){
+      return _.isEmpty(this.$store.state.searchResults)
+    },
   }
   }
 
@@ -75,6 +93,12 @@
 
   .search:focus, .search:hover {
     border: none
+  }
+  .no-result{
+    text-align: center;
+    padding: 1rem;
+    color: black;
+    font-size: 2rem;
   }
   @media screen and (min-width: 980px){
     .search{

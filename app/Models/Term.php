@@ -18,4 +18,18 @@
     public function tags(){
       return $this->belongsToMany(Tag::class,'term_tags');
     }
+    public function symbolsCount(){
+      $count = [];
+      foreach ($this->comments as $comment){
+        $count[] = $comment->symbol_count;
+      }
+      return collect($count)->sum();
+    }
+    public function soundsCount(){
+      $count = [];
+      foreach ($this->comments as $comment){
+        $count[] = $comment->sound_count;
+      }
+      return collect($count)->sum();
+    }
   }
