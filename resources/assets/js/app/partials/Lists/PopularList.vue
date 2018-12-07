@@ -1,19 +1,26 @@
 <template>
   <div class="popular terms__lists">
     <h1 class="terms__lists--title">Popular</h1>
-    <ul>
-      <li>Popular List</li>
-    </ul>
+    <ListItems :data="data"/>
   </div>
 </template>
 
 <script>
+  import ListItems from "./ListItems";
+
   export default {
+    components:{
+      ListItems
+    },
     data() {
       return {}
     },
     methods: {},
-    computed: {}
+    computed: {
+      data(){
+        return this.$store.state.content.popular
+      }
+    }
   }
 
 </script>

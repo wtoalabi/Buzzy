@@ -1,19 +1,26 @@
 <template>
   <div class="trending terms__lists">
     <h1 class="terms__lists--title">Trending</h1>
-    <ul>
-      <li>List Three</li>
-    </ul>
+    <ListItems :data="data"/>
   </div>
 </template>
 
 <script>
+  import ListItems from "./ListItems";
+
   export default {
+    components:{
+      ListItems
+    },
     data() {
       return {}
     },
     methods: {},
-    computed: {}
+    computed: {
+      data(){
+        return this.$store.state.content.trending
+      }
+    }
   }
 
 </script>

@@ -1,6 +1,6 @@
-import Page from './Page'
-import User from './User'
+import ActionContent from './ActionContent'
+import ActionUser from './ActionUser'
 export default {
-  ...User,
-  ...Page
+  ...ActionContent,
+  ...ActionUser
 }

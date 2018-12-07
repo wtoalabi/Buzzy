@@ -16,8 +16,10 @@
   Route::get('test', function () {
     return view('test');
 });
+  
   Route::group(['prefix' => 'api'],function (){
     Route::get('get-content', 'Terms\TermsController@index');
+    Route::get('bible', 'Terms\TermsController@bible');
     Route::get('get-logged-in-user', function () {
       return auth()->user();
     });

@@ -17,6 +17,7 @@ class SingleTermResult extends JsonResource
         return [
           'id' => $this->id,
           'title' => $this->title,
+          'totalComments' => $this->comments->count(),
           'totalSymbols' => $this->symbolsCount(),
           'totalSounds' => $this->soundsCount(),
           'url' => str_slug($this->title)

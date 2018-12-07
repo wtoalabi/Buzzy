@@ -1,10 +1,13 @@
 <template>
-  <ul class="results">
+  <ul class="results" @click="clearResults">
     <router-link :to="`details/${result.url}`" class="result" v-if="results" v-for="result in results" :key="result.id">
       <span class="result__title" v-html="styleTitle(result.title)"></span>
-      <div class="result__icons">
-        <span title="Symbols Found" alt="Symbols Found"> <span class="is-hidden-touch">Symbols:</span> {{result.totalSymbols}}</span> |
-        <span title="Sounds Found" alt="Sounds Found"><span class="is-hidden-touch">Sounds:</span>{{result.totalSounds}}</span>
+      <div class="result__counts">
+        <span>Comments: {{result.totalComments}}</span>
+        <div class="result__counts--icons">
+          <span title="Sounds Found" alt="Sounds Found" class="result__icons--sound"><i class="fa fa-info pr-6"></i>{{result.totalSounds}}</span>
+          <span title="Symbols Found" alt="Symbols Found" class="result__icons--symbol"> <i class="fa fa-microphone pr-1"></i> {{result.totalSymbols}}</span>
+        </div>
       </div>
     </router-link>
 
@@ -21,7 +24,10 @@
       styleTitle(title){
         let regex = new RegExp(this.searchText, 'gi')
         return title.replace(regex, `<span class="highlight">${this.searchText}</span>`)
-      }
+      },
+      clearResults(){
+        this.$store.dispatch('clearSearchResults')
+      },
     },
     computed: {
       results(){
@@ -52,9 +58,21 @@
   .result__title{
     flex: 1;
   }
-  .result__icons{
+  .result__counts{
+    display: flex;
     font-size: 1rem;
     font-weight: 500;
+    flex-direction: column;
+  }
+  .result__counts--icons{
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .result__icons--symbol{
+    color: #091d3196;
+  }
+  .result__icons--sound{
+    color: #6084bc;
   }
   .highlight{
     background-color: #091d3124;

@@ -1,5 +1,5 @@
-import Users from './Users'
-import Content from './Content'
+import Users from './MutateUsers'
+import Content from './MutateContent'
 
 export  default {
   ...Users,
