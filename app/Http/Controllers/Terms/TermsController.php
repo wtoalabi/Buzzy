@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Terms;
 
 use App\Http\Resources\TermList\ListCollection;
+use App\Http\Resources\Terms\SingleTermDetail;
 use App\Http\Resources\Terms\TermsCollection;
 use App\Models\Term;
 use Illuminate\Http\Request;
@@ -18,14 +19,17 @@ class TermsController extends Controller
       'trending' => $this->trendingTerms(),
     ];
     }
-  
+  public function show($item){
+      $item =  Term::where('title',$item)->firstorFail();
+      return new SingleTermDetail($item);
+  }
   public function popularTerms(){
-    return new ListCollection(Term::all()->take(10));
+    return new ListCollection(Term::all()->take(8));
   }
   public function recentTerms(){
-    return new ListCollection(Term::orderBy('created_at','desc')->take(10)->get());
+    return new ListCollection(Term::orderBy('created_at','desc')->take(8)->get());
   }
   public function trendingTerms(){
-    return new ListCollection(Term::orderBy('created_at','asc')->take(10)->get());
+    return new ListCollection(Term::orderBy('created_at','asc')->get()->random(8));
   }
 }

@@ -20,7 +20,6 @@
   export default {
     mounted() {
       this.$store.dispatch('initialLoading')
-
     },
     components: {Navbar, Footer},
     data() {

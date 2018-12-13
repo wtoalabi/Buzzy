@@ -23,6 +23,7 @@
     Route::get('get-logged-in-user', function () {
       return auth()->user();
     });
+    Route::get('details/{item}', 'Terms\TermsController@show');
     Route::post('search', 'Terms\TermsSearchController@index');
     Route::post('logout', 'Auth\LoginController@logout');
   });

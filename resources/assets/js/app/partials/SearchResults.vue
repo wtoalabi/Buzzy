@@ -5,7 +5,7 @@
       <div class="result__counts">
         <span>Comments: {{result.totalComments}}</span>
         <div class="result__counts--icons">
-          <span title="Sounds Found" alt="Sounds Found" class="result__icons--sound"><i class="fa fa-info pr-6"></i>{{result.totalSounds}}</span>
+          <span title="Total Tags" alt="Total Tags" class="result__icons--tags"><i class="fa fa-tag pr-6"></i>{{result.totalTags}}</span>
           <span title="Symbols Found" alt="Symbols Found" class="result__icons--symbol"> <i class="fa fa-microphone pr-1"></i> {{result.totalSymbols}}</span>
         </div>
       </div>
@@ -67,6 +67,9 @@
   .result__counts--icons{
     display: flex;
     justify-content: space-evenly;
+  }
+  .result__icons--tags{
+    color: #091d3196;
   }
   .result__icons--symbol{
     color: #091d3196;

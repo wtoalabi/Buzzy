@@ -7,5 +7,8 @@ export default {
   },
   clearResultState(state){
     return state.searchResults = []
+  },
+  storeDetail(state,payload){
+    return state.itemDetail = payload.data
   }
 }

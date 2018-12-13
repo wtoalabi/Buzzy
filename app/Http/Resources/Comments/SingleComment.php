@@ -22,7 +22,6 @@ class SingleComment extends JsonResource
           'body' => $this->body,
           'symbol' => new SingleSymbol($this->symbol),
           'sound' => new SingleSound($this->sound),
-          //'tags' => new TagsCollection($this->tags)
         ];
     }
 }

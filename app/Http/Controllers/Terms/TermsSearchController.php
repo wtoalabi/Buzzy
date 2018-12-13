@@ -13,7 +13,7 @@
     {
       $searchText = request('searchText');
       if($searchText !== null) {
-        $result = Term::where('title', 'like', "%$searchText%")->get()->take(10);
+        $result = Term::where('title', 'like', "%$searchText%")->get()->take(5);
         return new TermResultsCollection($result);
       }
     }

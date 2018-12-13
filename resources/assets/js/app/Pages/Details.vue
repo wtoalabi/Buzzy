@@ -1,19 +1,27 @@
 <template>
   <div>
-    <SearchBox />
+    <span>Item created by:</span>
+    {{details.user.full_name}}
+    {{details}}
   </div>
 </template>
 
 <script>
-  import SearchBox from "../partials/SearchBox";
 
   export default {
-    component:{SearchBox},
+    mounted(){
+      console.log(this.$store.state.itemDetail)
+    },
+    component:{},
     data() {
       return {}
     },
     methods: {},
-    computed: {}
+    computed: {
+      details(){
+        return this.$store.state.itemDetail
+      }
+    }
   }
 
 </script>

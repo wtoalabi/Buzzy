@@ -1,6 +1,6 @@
 <template>
   <div>
-      <router-link v-for="item in data" :key="item.id" :to="item.url" class="items">
+      <router-link v-for="item in data" :key="item.id" :to="`details/${item.url}`" class="items">
         <span class="">{{item.title}}</span>
       </router-link>
   </div>

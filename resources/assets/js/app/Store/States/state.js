@@ -2,5 +2,6 @@ export default {
   user: {},
   content: [],
   searchResults: [],
-  visible: 'hide'
+  visible: 'hide',
+  itemDetail:[]
 }

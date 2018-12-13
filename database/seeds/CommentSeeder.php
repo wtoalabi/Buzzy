@@ -5,10 +5,11 @@
   use App\Models\Symbol;
   use App\Models\Tag;
   use App\Models\Term;
+  use Faker\Factory as Faker;
   use Illuminate\Database\Seeder;
-
-class CommentSeeder extends Seeder
-{
+  
+  class CommentSeeder extends Seeder
+  {
     /**
      * Run the database seeds.
      *
@@ -16,21 +17,32 @@ class CommentSeeder extends Seeder
      */
     public function run()
     {
-      $terms = Term::all()->pluck('id')->shuffle();
-      $terms->each(function ($termID){
-        $randomCounter = rand(2,5);
-        while($randomCounter > 0){
+      $terms = Term::all()->pluck('id');
+      $terms->each(function ($termID) use ($terms) {
+        $termsArray = $terms->toArray();
+        $termsCounter = rand(2, 5);
+        while ($termsCounter > 0) {
+          $faker = Faker::create();
           $comment = factory(Comment::class)->create([
-            'term_id' => $termID
+            'term_id' => $faker->randomElement($termsArray)
           ]);
-          factory(Symbol::class)->create([
-            'comment_id' => $comment->id
-          ]);
-          factory(Sound::class)->create([
-            'comment_id' => $comment->id
-          ]);
-          $randomCounter--;
+          $symbolsCounter = rand(0,1);
+          while ($symbolsCounter > 0) {
+            factory(Symbol::class)->create([
+              'comment_id' => $comment->id
+            ]);
+            $symbolsCounter--;
+          }
+          $soundsCounter = rand(0,1);
+          while ($soundsCounter > 0) {
+            factory(Sound::class)->create([
+              'comment_id' => $comment->id
+            ]);
+            $soundsCounter--;
+          }
+          $termsCounter--;
         }
+        return;
       });
     }
-}
+  }

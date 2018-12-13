@@ -2,12 +2,14 @@
   
   namespace App\Models;
   
+  use App\User;
   use Illuminate\Database\Eloquent\Model;
   
   class Term extends Model
   {
     protected $fillable = ['title'];
     protected $with = ['comments','tags'];
+    protected $withCount =['tags'];
     
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -31,5 +33,11 @@
         $count[] = $comment->sound_count;
       }
       return collect($count)->sum();
+    }
+    public function tagsCount(){
+      return $this->tags_count;
+    }
+    public function user(){
+        return $this->belongsTo(User::class);
     }
   }

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Resources\SearchResults;
+namespace App\Http\Resources\Terms;
 
+use App\Http\Resources\Comments\CommentsCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SingleTermResult extends JsonResource
+class SingleTermDetail extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,11 +18,8 @@ class SingleTermResult extends JsonResource
         return [
           'id' => $this->id,
           'title' => $this->title,
-          'totalComments' => $this->comments->count(),
-          'totalSymbols' => $this->symbolsCount(),
-          'totalSounds' => $this->soundsCount(),
-          'totalTags' => $this->tagsCount(),
-          'url' => str_slug($this->title)
+          'comments' => new CommentsCollection($this->comments),
+          'user' => $this->user
         ];
     }
 }

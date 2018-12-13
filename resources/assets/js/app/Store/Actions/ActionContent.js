@@ -21,4 +21,9 @@ export default {
   clearSearchResults(context){
     context.commit('clearResultState')
   },
+  retrieveDetail(context, item){
+    return axios.get(`api/details/${item}`).then(data=>{
+      context.commit('storeDetail',data.data)
+    })
+  }
 }
