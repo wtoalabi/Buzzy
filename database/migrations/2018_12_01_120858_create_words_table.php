@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSoundsTable extends Migration
+class CreateWordsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateSoundsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sounds', function (Blueprint $table) {
+        Schema::create('words', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('description_id');
-            $table->string('url');
-            $table->foreign('description_id')->references('id')->on('descriptions')->onDelete('cascade');
+            $table->string('word');
+            $table->string('slug')->unique();
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateSoundsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sounds');
+        Schema::dropIfExists('words');
     }
 }

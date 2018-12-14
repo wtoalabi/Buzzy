@@ -8,7 +8,7 @@ class Tag extends Model
 {
     protected $fillable = ['description_id','tag'];
   
-  public function terms(){
-    return $this->belongsToMany(Term::class, 'term_tags');
+  public function words(){
+    return $this->belongsToMany(Word::class, 'word_tags');
     }
 }

@@ -1,10 +1,13 @@
 <template>
   <div>
-    <div class="loading-container">
+    <div class="loading-container" v-if="!isError">
       <div class="loading-backdrop"></div>
       <div class="loading">
         <vue-spinner class="loading" size="massive" message="buzzzzzin..."></vue-spinner>
       </div>
+    </div>
+    <div v-else>
+      {{error}}
     </div>
   </div>
 </template>
@@ -13,6 +16,14 @@
   import VueSpinner from 'vue-simple-spinner'
   export default {
     components:{VueSpinner},
+    computed: {
+      isError(){
+        return !_.isEmpty(this.$store.state.error)
+      },
+      error(){
+        return this.$store.state.error.response.statusText
+      }
+    }
 
   }
 </script>

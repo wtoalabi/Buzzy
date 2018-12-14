@@ -18,13 +18,12 @@
 });
   
   Route::group(['prefix' => 'api'],function (){
-    Route::get('get-content', 'Terms\TermsController@index');
-    Route::get('bible', 'Terms\TermsController@bible');
+    Route::get('get-content', 'Words\WordsController@index');
     Route::get('get-logged-in-user', function () {
       return auth()->user();
     });
-    Route::get('details/{item}', 'Terms\TermsController@show');
-    Route::post('search', 'Terms\TermsSearchController@index');
+    Route::get('details/{item}', 'Words\WordsController@show');
+    Route::post('search', 'Words\WordsSearchController@index');
     Route::post('logout', 'Auth\LoginController@logout');
   });
   

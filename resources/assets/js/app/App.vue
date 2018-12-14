@@ -29,7 +29,7 @@
     computed: {
       loaded() {
         return !_.isEmpty(this.$store.state.content);
-      }
+      },
     }
   }
 </script>

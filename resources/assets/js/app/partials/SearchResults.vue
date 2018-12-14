@@ -3,7 +3,7 @@
     <router-link :to="`details/${result.url}`" class="result" v-if="results" v-for="result in results" :key="result.id">
       <span class="result__title" v-html="styleTitle(result.title)"></span>
       <div class="result__counts">
-        <span>Comments: {{result.totalComments}}</span>
+        <span>Descriptions: {{result.totalComments}}</span>
         <div class="result__counts--icons">
           <span title="Total Tags" alt="Total Tags" class="result__icons--tags"><i class="fa fa-tag pr-6"></i>{{result.totalTags}}</span>
           <span title="Symbols Found" alt="Symbols Found" class="result__icons--symbol"> <i class="fa fa-microphone pr-1"></i> {{result.totalSymbols}}</span>

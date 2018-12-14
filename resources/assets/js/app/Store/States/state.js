@@ -3,5 +3,6 @@ export default {
   content: [],
   searchResults: [],
   visible: 'hide',
-  itemDetail:[]
+  itemDetail:[],
+  error: ''
 }

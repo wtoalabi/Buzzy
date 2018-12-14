@@ -30,7 +30,7 @@
         const htmlRect = htmlView.getBoundingClientRect()
         const searchRect = searchContainer.getBoundingClientRect()
         const offsetLeft = ((htmlRect.width - searchRect.width)/2)-8
-        return this.listStyles = {marginTop: searchRect.top, width: searchRect.width, marginLeft: offsetLeft}
+        return this.listStyles = {marginTop: window.innerWidth <= 800 ? 60 : searchRect.top, width: searchRect.width, marginLeft: offsetLeft}
       }
     },
     computed: {}

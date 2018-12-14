@@ -1,8 +1,11 @@
 <template>
   <div>
+    <div v-if="loaded">
     <span>Item created by:</span>
     {{details.user.full_name}}
     {{details}}
+    </div>
+    <loading v-else/>
   </div>
 </template>
 
@@ -10,7 +13,6 @@
 
   export default {
     mounted(){
-      console.log(this.$store.state.itemDetail)
     },
     component:{},
     data() {
@@ -20,6 +22,9 @@
     computed: {
       details(){
         return this.$store.state.itemDetail
+      },
+      loaded(){
+        return !_.isEmpty(this.$store.state.itemDetail);
       }
     }
   }

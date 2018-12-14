@@ -13,13 +13,11 @@ require('./utils')
 require('./app/index')
 require('./app/globals/menu')
 require('./components/index')
-import states from './app/globals/states'
+//import states from './app/globals/states'
 const router = require('./app/router/').default;
 import store from './app/Store'
 Vue.config.productionTip = false
-Vue.mixin({
-  data: states
-})
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

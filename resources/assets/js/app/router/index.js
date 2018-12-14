@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router'
 import ProfileRoutes from './profile'
-import ItemDetail from './item_detail'
+import Items from './items'
 import Home from '../Pages/Home'
 
 Vue.use(VueRouter)
@@ -14,7 +14,7 @@ const router = new VueRouter({
       component: Home
     },
     ...ProfileRoutes,
-    ...ItemDetail
+    ...Items,
   ]
 });
 

@@ -1,6 +1,6 @@
 <?php
   
-  use App\Models\Comment;
+  use App\Models\Description;
   use App\Models\Tag;
   use Illuminate\Database\Seeder;
 

@@ -28,6 +28,9 @@
               <img :src="user.avatar" alt="" class="mr-10 is-rounded">
             </a>
           </div>
+          <div class="navbar-item" v-if="isLoggedIn">
+            <router-link to="/add-new" class="button p-6 m-10 is-medium is-warning">Add New Buzz</router-link>
+          </div>
           <div class="navbar-item has-dropdown is-hoverable" v-if="isLoggedIn">
             <div class="navbar-link">Profile
               <div class="navbar-dropdown">

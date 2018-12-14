@@ -10,5 +10,14 @@ export default {
   },
   storeDetail(state,payload){
     return state.itemDetail = payload.data
+  },
+  clearErrors(state){
+    return state.error = ''
+  },
+  deleteCurrentlyStoredItem(state){
+    return state.itemDetail = []
+  },
+  error(state,payload){
+    return state.error = payload
   }
 }
