@@ -16727,6 +16727,43 @@ section.footer {
           justify-content: space-between;
 }
 
+.audio-upload__button {
+  display: none;
+}
+
+.audio-upload {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.audio-upload__custom-icon {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #2196F3;
+}
+
+.audio-upload__custom-icon:hover {
+  color: #9E9E9E;
+}
+
+.file__info--details h1 {
+  font-size: .751rem;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.hide {
+  visibility: hidden;
+}
+
 @media screen and (min-width: 600px) {
   .form-container {
     display: -webkit-box;

@@ -22993,6 +22993,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   phoneticSymbols: function phoneticSymbols(state, payload) {
     return state.optionalFormData.symbols = payload;
+  },
+  audioFile: function audioFile(state, payload) {
+    console.log(payload);
+    return state.optionalFormData.audioFile = payload;
   }
 });
 
@@ -23009,7 +23013,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   itemDetail: [],
   error: '',
   tags: [],
-  optionalFormData: {}
+  optionalFormData: { symbols: '', audioFile: '' }
 });
 
 /***/ }),
@@ -23153,7 +23157,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.hide[data-v-0fc38999]{\r\n  visibility: none;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -23839,6 +23843,8 @@ exports.push([module.i, "\n[data-v-690a798f]::-webkit-input-placeholder {\n    c
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_SoundKeyboard__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_SoundKeyboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__partials_SoundKeyboard__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_Lists_AudioUpload__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_Lists_AudioUpload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__partials_Lists_AudioUpload__);
 //
 //
 //
@@ -23902,13 +23908,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
+
 
 
 
 var tagsCount = 5;
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: { SoundKeyboard: __WEBPACK_IMPORTED_MODULE_0__partials_SoundKeyboard___default.a },
+  components: { SoundKeyboard: __WEBPACK_IMPORTED_MODULE_0__partials_SoundKeyboard___default.a, AudioUpload: __WEBPACK_IMPORTED_MODULE_1__partials_Lists_AudioUpload___default.a },
   mounted: function mounted() {
     this.tagInputEl = document.querySelector('input#tags');
   },
@@ -23921,7 +23927,7 @@ var tagsCount = 5;
       addSymbol: false,
       filteredTags: '',
       selectedTags: [],
-      tagPlaceholder: 'Type up to ' + tagsCount + ' related tags',
+      tagPlaceholder: "Type up to " + tagsCount + " related tags",
       typedValue: '',
       tagInputEl: '',
       selectedSymbols: []
@@ -23970,11 +23976,11 @@ var tagsCount = 5;
     calculateRemainingTags: function calculateRemainingTags() {
       var count = this.selectedTags.length;
       if (count === 0) {
-        this.tagPlaceholder = 'Type up to ' + tagsCount + ' related tags';
+        this.tagPlaceholder = "Type up to " + tagsCount + " related tags";
       } else if (count === tagsCount) {
         this.tagPlaceholder = 'Maxed out...You cant add more...';
       } else if (count <= tagsCount) {
-        this.tagPlaceholder = tagsCount - count + ' more...';
+        this.tagPlaceholder = tagsCount - count + " more...";
       }
     },
     submit: function submit(e) {
@@ -24146,7 +24152,20 @@ var render = function() {
         _c("h1", { staticClass: "optional" }, [_vm._v("Optional")]),
         _vm._v(" "),
         _c("div", { staticClass: "columns" }, [
-          _vm._m(0),
+          _c("div", { staticClass: "column is-flex" }, [
+            _c(
+              "div",
+              { staticClass: "field add-sound" },
+              [
+                _c("label", { staticClass: "label optional-labels" }, [
+                  _vm._v("Upload Audio file")
+                ]),
+                _vm._v(" "),
+                _c("AudioUpload")
+              ],
+              1
+            )
+          ]),
           _vm._v(" "),
           _c(
             "div",
@@ -24175,29 +24194,13 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _vm._m(0)
         ])
       ])
     ])
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "column is-flex" }, [
-      _c("div", { staticClass: "field add-sound" }, [
-        _c("label", { staticClass: "label optional-labels" }, [
-          _vm._v("Upload Audio file")
-        ]),
-        _vm._v(" "),
-        _c("i", { staticClass: "fa fa-upload mr-4" }),
-        _vm._v(" "),
-        _c("p", [_c("em", [_vm._v("Max size should be 15kb")])])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -25352,6 +25355,200 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 213 */,
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
+/* 220 */,
+/* 221 */,
+/* 222 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(225)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(223)
+/* template */
+var __vue_template__ = __webpack_require__(227)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-55186740"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/app/partials/Lists/AudioUpload.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-55186740", Component.options)
+  } else {
+    hotAPI.reload("data-v-55186740", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 223 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    var _this = this;
+
+    var audioUploadButton = document.querySelector('.audio-upload__button');
+    var customUploadIcon = document.querySelector('.audio-upload__custom-icon');
+    var fileInfo = document.querySelector('.file__info');
+    console.log(audioUploadButton);
+    customUploadIcon.addEventListener('click', function () {
+      audioUploadButton.click();
+    });
+    audioUploadButton.addEventListener('change', function (e) {
+      var file = e.target.files[0];
+      var size = Math.floor(file.size / 1024);
+      fileInfo.classList.remove('hide');
+      if (size > 15) {
+        return fileInfo.innerHTML = '<div class="file__info--details"><h1>File too big...try something smaller than ' + size + 'kb</h1></div>';
+      }
+      fileInfo.innerHTML = '<div class="file__info--details"><h1>Size: ' + size + 'kb</h1><h1>Name: ' + file.name + '</h1></div>';
+      fileInfo.classList.remove('hide');
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      var formData = new FormData();
+      formData.append('audio', file);
+      _this.$store.commit('audioFile', formData);
+      reader.onload = function (e) {
+        var audio = e.target.result;
+      };
+    });
+  },
+  data: function data() {
+    return {};
+  },
+
+  methods: {},
+  computed: {}
+});
+
+/***/ }),
+/* 224 */,
+/* 225 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(226);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("3813d03c", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-55186740\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AudioUpload.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-55186740\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AudioUpload.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 226 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 227 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "audio-upload" }, [
+      _c("i", { staticClass: "fa fa-upload mr-4 audio-upload__custom-icon" }),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "audio-upload__button",
+        attrs: { type: "file", accept: "audio/mp3" }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "file__info hide" }),
+      _vm._v(" "),
+      _c("p", [_c("em", [_vm._v("Max size should be 15kb. MP3 only")])])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-55186740", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

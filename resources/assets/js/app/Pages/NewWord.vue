@@ -40,8 +40,7 @@
           <div class="column is-flex">
           <div class="field add-sound">
             <label class="label optional-labels">Upload Audio file</label>
-            <i class="fa fa-upload mr-4"></i>
-            <p><em>Max size should be 15kb</em></p>
+            <AudioUpload />
           </div>
           </div>
           <div class="column field">
@@ -64,10 +63,11 @@
 
 <script>
   import SoundKeyboard from "../partials/SoundKeyboard";
+  import AudioUpload from "../partials/Lists/AudioUpload";
 
   let tagsCount =  5;
   export default {
-    components:{SoundKeyboard},
+    components:{SoundKeyboard, AudioUpload},
     mounted(){
       this.tagInputEl = document.querySelector('input#tags')
     },

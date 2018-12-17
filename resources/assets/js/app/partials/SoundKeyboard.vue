@@ -98,7 +98,4 @@
 </script>
 <style scoped>
 
-.hide{
-  visibility: none;
-}
 </style>
