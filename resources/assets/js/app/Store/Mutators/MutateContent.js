@@ -23,7 +23,7 @@ export default {
   storeTags(state,payload){
     return state.tags = payload
   },
-  sound(state, payload){
-    return state.soundSymbols = payload;
+  phoneticSymbols(state, payload){
+    return state.optionalFormData.symbols = payload;
   }
 }

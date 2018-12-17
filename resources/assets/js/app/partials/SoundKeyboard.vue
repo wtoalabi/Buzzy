@@ -1,6 +1,10 @@
 <template>
   <div class="keyboard">
-    <ul class="keyboard__list">
+    <div class="symbol_input">
+      <input id="symbol" type="text" class="input" placeholder="e.g CPU = /siːpiːˈjuː/" v-model="renderedSymbols" disabled/>
+      <a class="fa fa-keyboard-o ml-10 symbol_input__keyboard" :class="keyboardStyle" @click="toggleKeyboard" title="Open Phonetics Keyboard"></a>
+    </div>
+    <ul class="keyboard__list hide">
       <li v-for="sound in sounds" class="keyboard__item" :data-ipa="sound.ipa">
         {{sound.ipa}}
       </li>
@@ -17,13 +21,43 @@
 <script>
   import sounds from "../globals/sounds";
   export default {
-    props: ['selectedSymbols'],
     mounted(){
-      let soundsArray = document.querySelectorAll('.keyboard__item')
-      soundsArray.forEach((sound)=>{
-        let soundEl = sound;
+      this.arrangeSymbolKeys()
+    },
+    data() {
+      return {
+        control:false,
+        sounds: sounds,
+        addSymbol: false,
+        selectedSymbols: []
+      }
+    },
+    methods: {
+      addSymbols(symbol){
+          this.selectedSymbols.push(symbol)
+      },
+      removeLastSymbol(){
+        this.selectedSymbols.pop()
+      },
+      closeKeyboard(){
+        this.toggleKeyboard()
+      },
+      findSound(el){
+        return sounds.find((sound)=>{
+          return sound.ipa === el.dataset.ipa;
+        })
+      },
+      toggleKeyboard(){
+        let keyboard = document.querySelector('.keyboard__list')
+        keyboard.classList.toggle('hide')
+        this.control = !keyboard.classList.contains('hide');
+      },
+      arrangeSymbolKeys(){
+        let soundsArray = document.querySelectorAll('.keyboard__item')
+        soundsArray.forEach((sound)=>{
+          let soundEl = sound;
           sound.addEventListener('mouseenter', () => {
-              let hoveredEl = document.createElement('div')
+            let hoveredEl = document.createElement('div')
             let sound = this.findSound(soundEl)
             hoveredEl.innerHTML = `<div><h4>Examples: ${sound.examples}</h4></div>`
             hoveredEl.classList.add('hovering')
@@ -37,44 +71,34 @@
           sound.addEventListener('click', (e) => {
             soundEl.innerText = this.findSound(soundEl).ipa
             this.control = true
-            this.$emit('symbolsAdded', soundEl.dataset.ipa)
-
+            this.addSymbols(soundEl.dataset.ipa)
           })
-      })
-    },
-    data() {
-      return {
-        control:false,
-        sounds: sounds,
-      }
-    },
-    methods: {
-      removeLastSymbol(){
-        this.$emit('removeLastSymbol')
-      },
-      closeKeyboard(){
-        this.$emit('closeKeyboard')
-      },
-      findSound(el){
-        //console.dir(el)
-        return sounds.find((sound)=>{
-          return sound.ipa === el.dataset.ipa;
         })
-      },
+      }
     },
     computed: {
       showControl(){
-        if(!_.isEmpty(this.selectedSymbols)){
+        if(!_.isEmpty(this.selectedSymbols) && this.control){
           return true
         }else{
-          return this.control
+          return false;
         }
-      }
+      },
+      renderedSymbols(){
+        let symbols = _.isEmpty(this.selectedSymbols) ? '' : `/ ${this.selectedSymbols.join(' ')} /`
+        this.$store.commit('phoneticSymbols', symbols)
+        return symbols;
+      },
+      keyboardStyle(){
+        return this.control ? 'has-text-success' : 'has-text-black'
+      },
     }
   }
 
 </script>
 <style scoped>
 
-
+.hide{
+  visibility: none;
+}
 </style>

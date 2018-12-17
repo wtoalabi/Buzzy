@@ -22991,8 +22991,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   storeTags: function storeTags(state, payload) {
     return state.tags = payload;
   },
-  sound: function sound(state, payload) {
-    return state.soundSymbols = payload;
+  phoneticSymbols: function phoneticSymbols(state, payload) {
+    return state.optionalFormData.symbols = payload;
   }
 });
 
@@ -23009,7 +23009,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   itemDetail: [],
   error: '',
   tags: [],
-  soundSymbols: []
+  optionalFormData: {}
 });
 
 /***/ }),
@@ -23153,7 +23153,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.hide[data-v-0fc38999]{\r\n  visibility: none;\n}\r\n", ""]);
 
 // exports
 
@@ -23181,63 +23181,86 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['selectedSymbols'],
   mounted: function mounted() {
-    var _this = this;
-
-    var soundsArray = document.querySelectorAll('.keyboard__item');
-    soundsArray.forEach(function (sound) {
-      var soundEl = sound;
-      sound.addEventListener('mouseenter', function () {
-        var hoveredEl = document.createElement('div');
-        var sound = _this.findSound(soundEl);
-        hoveredEl.innerHTML = '<div><h4>Examples: ' + sound.examples + '</h4></div>';
-        hoveredEl.classList.add('hovering');
-        soundEl.appendChild(hoveredEl);
-        //Shift the hovered element to the left if it offsets far too right.
-        hoveredEl.getBoundingClientRect().x < 0 ? hoveredEl.classList.add('hover-left') : '';
-      });
-      sound.addEventListener('mouseleave', function () {
-        soundEl.innerText = _this.findSound(soundEl).ipa;
-      });
-      sound.addEventListener('click', function (e) {
-        soundEl.innerText = _this.findSound(soundEl).ipa;
-        _this.control = true;
-        _this.$emit('symbolsAdded', soundEl.dataset.ipa);
-      });
-    });
+    this.arrangeSymbolKeys();
   },
   data: function data() {
     return {
       control: false,
-      sounds: __WEBPACK_IMPORTED_MODULE_0__globals_sounds__["a" /* default */]
+      sounds: __WEBPACK_IMPORTED_MODULE_0__globals_sounds__["a" /* default */],
+      addSymbol: false,
+      selectedSymbols: []
     };
   },
 
   methods: {
+    addSymbols: function addSymbols(symbol) {
+      this.selectedSymbols.push(symbol);
+    },
     removeLastSymbol: function removeLastSymbol() {
-      this.$emit('removeLastSymbol');
+      this.selectedSymbols.pop();
     },
     closeKeyboard: function closeKeyboard() {
-      this.$emit('closeKeyboard');
+      this.toggleKeyboard();
     },
     findSound: function findSound(el) {
-      //console.dir(el)
       return __WEBPACK_IMPORTED_MODULE_0__globals_sounds__["a" /* default */].find(function (sound) {
         return sound.ipa === el.dataset.ipa;
+      });
+    },
+    toggleKeyboard: function toggleKeyboard() {
+      var keyboard = document.querySelector('.keyboard__list');
+      keyboard.classList.toggle('hide');
+      this.control = !keyboard.classList.contains('hide');
+    },
+    arrangeSymbolKeys: function arrangeSymbolKeys() {
+      var _this = this;
+
+      var soundsArray = document.querySelectorAll('.keyboard__item');
+      soundsArray.forEach(function (sound) {
+        var soundEl = sound;
+        sound.addEventListener('mouseenter', function () {
+          var hoveredEl = document.createElement('div');
+          var sound = _this.findSound(soundEl);
+          hoveredEl.innerHTML = '<div><h4>Examples: ' + sound.examples + '</h4></div>';
+          hoveredEl.classList.add('hovering');
+          soundEl.appendChild(hoveredEl);
+          //Shift the hovered element to the left if it offsets far too right.
+          hoveredEl.getBoundingClientRect().x < 0 ? hoveredEl.classList.add('hover-left') : '';
+        });
+        sound.addEventListener('mouseleave', function () {
+          soundEl.innerText = _this.findSound(soundEl).ipa;
+        });
+        sound.addEventListener('click', function (e) {
+          soundEl.innerText = _this.findSound(soundEl).ipa;
+          _this.control = true;
+          _this.addSymbols(soundEl.dataset.ipa);
+        });
       });
     }
   },
   computed: {
     showControl: function showControl() {
-      if (!_.isEmpty(this.selectedSymbols)) {
+      if (!_.isEmpty(this.selectedSymbols) && this.control) {
         return true;
       } else {
-        return this.control;
+        return false;
       }
+    },
+    renderedSymbols: function renderedSymbols() {
+      var symbols = _.isEmpty(this.selectedSymbols) ? '' : '/ ' + this.selectedSymbols.join(' ') + ' /';
+      this.$store.commit('phoneticSymbols', symbols);
+      return symbols;
+    },
+    keyboardStyle: function keyboardStyle() {
+      return this.control ? 'has-text-success' : 'has-text-black';
     }
   }
 });
@@ -23439,9 +23462,45 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "keyboard" }, [
+    _c("div", { staticClass: "symbol_input" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.renderedSymbols,
+            expression: "renderedSymbols"
+          }
+        ],
+        staticClass: "input",
+        attrs: {
+          id: "symbol",
+          type: "text",
+          placeholder: "e.g CPU = /siːpiːˈjuː/",
+          disabled: ""
+        },
+        domProps: { value: _vm.renderedSymbols },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.renderedSymbols = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("a", {
+        staticClass: "fa fa-keyboard-o ml-10 symbol_input__keyboard",
+        class: _vm.keyboardStyle,
+        attrs: { title: "Open Phonetics Keyboard" },
+        on: { click: _vm.toggleKeyboard }
+      })
+    ]),
+    _vm._v(" "),
     _c(
       "ul",
-      { staticClass: "keyboard__list" },
+      { staticClass: "keyboard__list hide" },
       _vm._l(_vm.sounds, function(sound) {
         return _c(
           "li",
@@ -23767,7 +23826,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n[data-v-690a798f]::-webkit-input-placeholder {\n  color: #8795a1;\n}\n[data-v-690a798f]::-ms-input-placeholder {\n  color: #8795a1;\n}\n[data-v-690a798f]::placeholder {\n  color: #8795a1;\n}\n.add-sound[data-v-690a798f]{\n  margin: 1rem 0;\n}\n.optional[data-v-690a798f]{\n  border-bottom: #eff0f1 solid 3px;\n  margin: 1rem 0;\n  font-size: 1.2rem;\n  font-weight: bold;\n}\n.symbol_input[data-v-690a798f]{\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.symbol_input__keyboard[data-v-690a798f]{\n  font-size: 1.7rem;\n}\n", ""]);
+exports.push([module.i, "\n[data-v-690a798f]::-webkit-input-placeholder {\n    color: #8795a1;\n}\n[data-v-690a798f]::-ms-input-placeholder {\n    color: #8795a1;\n}\n[data-v-690a798f]::placeholder {\n    color: #8795a1;\n}\n.optional-labels[data-v-690a798f]{\n  font-size: 1.2rem;\n}\n", ""]);
 
 // exports
 
@@ -23780,7 +23839,6 @@ exports.push([module.i, "\n[data-v-690a798f]::-webkit-input-placeholder {\n  col
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_SoundKeyboard__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_SoundKeyboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__partials_SoundKeyboard__);
-//
 //
 //
 //
@@ -23871,18 +23929,6 @@ var tagsCount = 5;
   },
 
   methods: {
-    closeKeyboard: function closeKeyboard() {
-      this.addSymbol = false;
-    },
-    removeLastSymbol: function removeLastSymbol() {
-      this.selectedSymbols.pop();
-    },
-    symbolsAdded: function symbolsAdded(a) {
-      this.selectedSymbols.push(a);
-    },
-    showKeyboard: function showKeyboard() {
-      this.addSymbol ^= true;
-    },
     pickTag: function pickTag(e) {
       var _this = this;
 
@@ -23936,7 +23982,7 @@ var tagsCount = 5;
       this.form.tags = this.selectedTags.map(function (tag) {
         return tag.id;
       });
-      this.form.symbols = this.selectedSymbols;
+      this.form.symbols = this.$store.state.optionalFormData.symbols;
       console.dir(this.form);
       //console.dir(this.selectedTags)
     }
@@ -23944,12 +23990,6 @@ var tagsCount = 5;
   computed: {
     tags: function tags() {
       return this.$store.state.tags;
-    },
-    soundSymbols: function soundSymbols() {
-      return _.isEmpty(this.selectedSymbols) ? '' : '/ ' + this.selectedSymbols.join(' ') + ' /';
-    },
-    keyboardStyle: function keyboardStyle() {
-      return this.addSymbol ? 'has-text-success' : 'has-text-black';
     }
   }
 });
@@ -24112,56 +24152,11 @@ var render = function() {
             "div",
             { staticClass: "column field" },
             [
-              _c("label", { staticClass: "label", attrs: { for: "symbol" } }, [
+              _c("label", { staticClass: "label optional-labels" }, [
                 _vm._v("Add Phonetic Sound")
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "symbol_input" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.soundSymbols,
-                      expression: "soundSymbols"
-                    }
-                  ],
-                  staticClass: "input",
-                  attrs: {
-                    id: "symbol",
-                    type: "text",
-                    placeholder: "e.g CPU = /siːpiːˈjuː/",
-                    disabled: ""
-                  },
-                  domProps: { value: _vm.soundSymbols },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.soundSymbols = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("a", {
-                  staticClass: "fa fa-keyboard-o ml-10 symbol_input__keyboard",
-                  class: _vm.keyboardStyle,
-                  attrs: { title: "Open Phonetics Keyboard" },
-                  on: { click: _vm.showKeyboard }
-                })
-              ]),
-              _vm._v(" "),
-              _vm.addSymbol
-                ? _c("SoundKeyboard", {
-                    attrs: { "selected-symbols": _vm.selectedSymbols },
-                    on: {
-                      symbolsAdded: _vm.symbolsAdded,
-                      removeLastSymbol: _vm.removeLastSymbol,
-                      closeKeyboard: _vm.closeKeyboard
-                    }
-                  })
-                : _vm._e()
+              _c("SoundKeyboard")
             ],
             1
           )
@@ -24191,13 +24186,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "column field add-sound" }, [
-      _c("button", { staticClass: "button is-link" }, [
+    return _c("div", { staticClass: "column is-flex" }, [
+      _c("div", { staticClass: "field add-sound" }, [
+        _c("label", { staticClass: "label optional-labels" }, [
+          _vm._v("Upload Audio file")
+        ]),
+        _vm._v(" "),
         _c("i", { staticClass: "fa fa-upload mr-4" }),
-        _vm._v("Upload a sound bit")
-      ]),
-      _vm._v(" "),
-      _c("p", [_c("em", [_vm._v("Max size should be 15kb")])])
+        _vm._v(" "),
+        _c("p", [_c("em", [_vm._v("Max size should be 15kb")])])
+      ])
     ])
   },
   function() {

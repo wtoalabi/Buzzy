@@ -6,5 +6,5 @@ export default {
   itemDetail:[],
   error: '',
   tags: [],
-  soundSymbols: []
+  optionalFormData:{}
 }

@@ -37,17 +37,16 @@
         </div>
         <h1 class="optional">Optional</h1>
         <div class="columns">
-          <div class="column field add-sound">
-            <button class="button is-link"><i class="fa fa-upload mr-4"></i>Upload a sound bit</button>
+          <div class="column is-flex">
+          <div class="field add-sound">
+            <label class="label optional-labels">Upload Audio file</label>
+            <i class="fa fa-upload mr-4"></i>
             <p><em>Max size should be 15kb</em></p>
           </div>
+          </div>
           <div class="column field">
-            <label for="symbol" class="label">Add Phonetic Sound</label>
-            <div class="symbol_input">
-              <input id="symbol" type="text" class="input" placeholder="e.g CPU = /siːpiːˈjuː/" v-model="soundSymbols" disabled/>
-              <a class="fa fa-keyboard-o ml-10 symbol_input__keyboard" :class="keyboardStyle" @click="showKeyboard" title="Open Phonetics Keyboard"></a>
-            </div>
-            <SoundKeyboard v-if="addSymbol" @symbolsAdded="symbolsAdded" @removeLastSymbol="removeLastSymbol" @closeKeyboard="closeKeyboard" :selected-symbols="selectedSymbols"/>
+            <label class="label optional-labels">Add Phonetic Sound</label>
+            <SoundKeyboard/>
           </div>
         </div>
         <div class="submit__buttons">
@@ -88,18 +87,7 @@
       }
     },
     methods: {
-      closeKeyboard(){
-        this.addSymbol = false
-      },
-      removeLastSymbol(){
-        this.selectedSymbols.pop()
-      },
-      symbolsAdded(a){
-        this.selectedSymbols.push(a)
-      },
-      showKeyboard(){
-        this.addSymbol ^= true
-      },
+
       pickTag(e) {
         let value = e.target.value.toLowerCase()
         if (value) {
@@ -148,7 +136,7 @@
       submit(e){
         e.preventDefault()
         this.form.tags = this.selectedTags.map(tag=> tag.id)
-        this.form.symbols = this.selectedSymbols
+        this.form.symbols = this.$store.state.optionalFormData.symbols
         console.dir(this.form)
         //console.dir(this.selectedTags)
       }
@@ -157,12 +145,6 @@
       tags() {
         return this.$store.state.tags
       },
-      soundSymbols(){
-        return _.isEmpty(this.selectedSymbols) ? '' : `/ ${this.selectedSymbols.join(' ')} /`
-      },
-      keyboardStyle(){
-        return this.addSymbol ? 'has-text-success' : 'has-text-black'
-      }
     }
   }
 
@@ -171,20 +153,7 @@
   ::placeholder {
     color: #8795a1;
   }
-  .add-sound{
-    margin: 1rem 0;
-  }
-  .optional{
-    border-bottom: #eff0f1 solid 3px;
-    margin: 1rem 0;
-    font-size: 1.2rem;
-    font-weight: bold;
-  }
-  .symbol_input{
-    display: flex;
-    align-items: center;
-  }
-  .symbol_input__keyboard{
-    font-size: 1.7rem;
-  }
+.optional-labels{
+  font-size: 1.2rem;
+}
 </style>
