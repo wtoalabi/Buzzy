@@ -1,3 +1,119 @@
-.add_item  *{
-  color: $primary;
+.form-container  *{
+  font-size: 1rem;
+}
+
+.form-container{
+  width: 100%;
+  margin: .5rem;
+}
+.add_word {
+  padding: 1rem;
+  background-color: #fff;
+  margin: 0 auto;
+  border-radius: 1rem;
+  width: 100%;
+}
+.add_word__title{
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.125;
+}
+.add_word__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.filtered-tags-list{
+  background-color: #f7f7f8f7;
+}
+.filtered-tags-list:hover{
+  background-color: #f7f7f890;
+}
+.filtered-tags-each{
+  border-bottom: 1px solid #0c1c2b;
+  cursor: pointer;
+  padding: .5rem;
+  font-size: 1.2rem;
+  background-color: #c8c8ce00;
+  color: $dark;
+}
+.filtered-tags-each:hover{
+  background-color: #f7f7f8f7;
+}
+.filtered-tags-each:last-of-type {
+  border-bottom: none;
+}
+.selected-tags{
+  display: flex;
+}
+.selected-tags > span{
+  margin: .3rem;
+  background: #97c2e7;
+  color: $dark
+}
+.selected-tags__each {
+  cursor: pointer;
+}
+
+.tag__highlight{
+  background: #1c2d3e33;
+  text-transform: lowercase;
+}
+
+.submit__buttons{
+  display: flex;
+  justify-content: space-between;
+}
+.keyboard__list{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
+  border: 1px solid #f1f5f8;
+  background-color: #f5f5f5;
+}
+.keyboard__item{
+  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  color: $dark;
+}
+.keyboard__item:hover{
+  background-color: #0ca9ddb0;
+  cursor: pointer;
+}
+.rendered-sound{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+.hovering{
+  position: absolute;
+  bottom: 10px;
+  right: 30px;
+  background-color: $dark;
+  padding: .5rem;
+  color: white !important;
+  z-index: 9999;
+  width: max-content;
+}
+.hover-left{
+  right: 0;
+  left: 30px
+}
+@media screen and (min-width: 600px) {
+  .form-container{
+    display: flex;
+    justify-content: center;
+    padding: 0 2rem;
+  }
+  .add_word {
+    margin: 0 1.5rem;
+    width: 100%;
+  }
+
+  .add_word__form {
+  }
+  .add_word__title{
+    font-size: 2rem;
+  }
 }

@@ -22,7 +22,8 @@
     Route::get('get-logged-in-user', function () {
       return auth()->user();
     });
-    Route::get('details/{item}', 'Words\WordsController@show');
+    Route::get('get-tags','Tags\TagsController@index');
+    Route::get('details/{item}', 'Words\WordsController@showControl');
     Route::post('search', 'Words\WordsSearchController@index');
     Route::post('logout', 'Auth\LoginController@logout');
   });

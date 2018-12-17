@@ -11,4 +11,7 @@ class Tag extends Model
   public function words(){
     return $this->belongsToMany(Word::class, 'word_tags');
     }
+    public function getTagAttribute($value){
+        return ucfirst($value);
+    }
 }

@@ -4,5 +4,7 @@ export default {
   searchResults: [],
   visible: 'hide',
   itemDetail:[],
-  error: ''
+  error: '',
+  tags: [],
+  soundSymbols: []
 }

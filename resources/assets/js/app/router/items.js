@@ -17,5 +17,9 @@ export default [
     name: 'Create New Item',
     path: '/add-new',
     component: NewItem,
+    beforeEnter(to, from, next) {
+      Store.dispatch('retrieveTags')
+      next()
+    }
   }
 ]

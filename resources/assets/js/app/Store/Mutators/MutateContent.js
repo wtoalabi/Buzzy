@@ -19,5 +19,11 @@ export default {
   },
   error(state,payload){
     return state.error = payload
+  },
+  storeTags(state,payload){
+    return state.tags = payload
+  },
+  sound(state, payload){
+    return state.soundSymbols = payload;
   }
 }

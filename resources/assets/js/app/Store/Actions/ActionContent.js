@@ -33,5 +33,12 @@ export default {
     }).catch(error=>{
       context.commit('error', error)
     })
+  },
+  retrieveTags(context){
+    return axios.get('api/get-tags').then(data=>{
+      context.commit('storeTags',data.data.data)
+    }).catch(error=>{
+    console.log(error)
+    })
   }
 }

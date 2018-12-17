@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import ProfileRoutes from './profile'
 import Items from './items'
 import Home from '../Pages/Home'
+import Lorem from "../partials/Lorem";
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,10 @@ const router = new VueRouter({
     },
     ...ProfileRoutes,
     ...Items,
+    {
+      path: '/lorem',
+      component: Lorem
+    }
   ]
 });
 
