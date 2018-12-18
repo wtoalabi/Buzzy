@@ -2,18 +2,19 @@
   <div class="form-container">
     <div class="add_word">
       <h1 class="title add_word__title">Add New Buzzword</h1>
-      <form action="" class="add_word__form">
+      <form action="" class="add_word__form" @keydown="clearErrors($event.target.name)">
         <div class="columns">
           <div class="field column">
             <label class="label" for="word-title">Word Title</label>
             <div class="control">
-              <input id="word-title" class="input" type="text" placeholder="e.g ISP" autocomplete="off" v-model="form.title">
+              <input id="word-title" class="input" name="word" type="text" placeholder="e.g ISP" autocomplete="off" v-model="form.word">
             </div>
+            <div v-if="errors.word" class="has-text-danger">{{errors.word[0]}}</div>
           </div>
           <div class="field column">
             <label for="tags" class="label">Tags</label>
             <div class="control">
-              <input id="tags" autofocus autocomplete="off" class="input" type="text" :placeholder="tagPlaceholder"
+              <input id="tags" autofocus autocomplete="off" name="tags"class="input" type="text" :placeholder="tagPlaceholder"
                      @input="pickTag">
             </div>
             <ul class="filtered-tags-list">
@@ -25,22 +26,25 @@
               <span v-for="each in selectedTags" class="tag selected-tags__each"
                     @click="removeTag(each)">{{each.tag}}</span>
             </div>
+            <div v-if="errors.tags" class="has-text-danger">{{errors.tags[0]}}</div>
           </div>
         </div>
         <div class="">
           <div class="field">
             <label for="description" class="label">Description</label>
             <div class="control">
-              <textarea id="description" class="textarea" placeholder="How would you explain this word?" v-model="form.description"/>
+              <textarea id="description" class="textarea" name="description" placeholder="How would you explain this word?" v-model="form.description"/>
             </div>
           </div>
+          <div v-if="errors.description" class="has-text-danger">{{errors.description[0]}}</div>
         </div>
         <h1 class="optional">Optional</h1>
         <div class="columns">
-          <div class="column is-flex">
+          <div class="column audio-column">
           <div class="field add-sound">
             <label class="label optional-labels">Upload Audio file</label>
             <AudioUpload />
+            <div v-if="errors.audio" class="has-text-danger">{{errors.audio[0]}}</div>
           </div>
           </div>
           <div class="column field">
@@ -50,10 +54,7 @@
         </div>
         <div class="submit__buttons">
           <div class="">
-            <button class="button is-warning" type="submit" @click="submit">Add</button>
-          </div>
-          <div class="submit__button--end">
-            <button class="button is-danger" type="reset">Reset</button>
+            <button class="button is-warning" type="submit" @click="submit">Submit</button>
           </div>
         </div>
       </form>
@@ -74,7 +75,7 @@
     data() {
       return {
         form:{
-          title:'',
+          word:'',
           description: ''
         },
         addSymbol: false,
@@ -136,15 +137,21 @@
       submit(e){
         e.preventDefault()
         this.form.tags = this.selectedTags.map(tag=> tag.id)
-        this.form.symbols = this.$store.state.optionalFormData.symbols
-        console.dir(this.form)
-        //console.dir(this.selectedTags)
-      }
+        this.form.audio = this.$store.state.optionalFormData.audioFileID;
+        this.form.symbol = this.$store.state.optionalFormData.symbols
+        this.$store.dispatch('saveWord', this.form)
+      },
+      clearErrors(e){
+        this.$store.commit('clearFormError',e)
+      } 
     },
     computed: {
       tags() {
         return this.$store.state.tags
       },
+      errors(){
+        return this.$store.state.formErrors;
+      }
     }
   }
 

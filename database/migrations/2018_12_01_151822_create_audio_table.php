@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSoundsTable extends Migration
+class CreateAudioTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateSoundsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sounds', function (Blueprint $table) {
+        Schema::create('audios', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('description_id');
             $table->string('url');
-            $table->foreign('description_id')->references('id')->on('descriptions')->onDelete('cascade');
             $table->timestamps();
         });
     }

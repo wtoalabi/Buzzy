@@ -12,6 +12,7 @@
   */
 
 //Auth::routes();
+auth()->loginUsingId(2);
   
   Route::get('test', function () {
     return view('test');
@@ -23,8 +24,11 @@
       return auth()->user();
     });
     Route::get('get-tags','Tags\TagsController@index');
-    Route::get('details/{item}', 'Words\WordsController@showControl');
+    Route::get('details/{item}', 'Words\WordsController@show');
     Route::post('search', 'Words\WordsSearchController@index');
+    Route::post('save-audio/{name}','Audio\AudioController@store');
+    Route::delete('delete-audio/{id}','Audio\AudioController@destroy');
+    Route::post('save-new-word','Words\WordsController@store');
     Route::post('logout', 'Auth\LoginController@logout');
   });
   

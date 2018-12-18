@@ -26,9 +26,13 @@ export default {
   phoneticSymbols(state, payload){
     return state.optionalFormData.symbols = payload;
   },
-  audioFile(state,payload){
-    console.log(payload)
-    return state.optionalFormData.audioFile = payload;
-    
+  audioFileID(state,payload){
+    return state.optionalFormData.audioFileID = payload;
+  },
+  formErrors(state, payload){
+    state.formErrors = payload
+  },
+  clearFormError(state,error){
+    state.formErrors[error] = ''
   }
 }

@@ -16727,6 +16727,18 @@ section.footer {
           justify-content: space-between;
 }
 
+.audio-column {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .audio-upload__button {
   display: none;
 }
@@ -16758,6 +16770,12 @@ section.footer {
   font-size: .751rem;
   font-style: italic;
   font-weight: bold;
+}
+
+.file__info--close {
+  font-size: 3rem;
+  cursor: pointer;
+  color: #ff3860;
 }
 
 .hide {

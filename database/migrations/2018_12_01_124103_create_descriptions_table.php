@@ -1,11 +1,11 @@
 <?php
-
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
-
-class CreateDescriptionsTable extends Migration
-{
+  
+  use Illuminate\Support\Facades\Schema;
+  use Illuminate\Database\Schema\Blueprint;
+  use Illuminate\Database\Migrations\Migration;
+  
+  class CreateDescriptionsTable extends Migration
+  {
     /**
      * Run the migrations.
      *
@@ -13,15 +13,17 @@ class CreateDescriptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('descriptions', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('word_id');
-            $table->text('body');
-            $table->foreign('word_id')->references('id')->on('words')->onDelete('cascade');
-            $table->timestamps();
-        });
+      Schema::create('descriptions', function (Blueprint $table) {
+        $table->increments('id');
+        $table->unsignedInteger('word_id');
+        $table->unsignedInteger('user_id');
+        $table->text('body');
+        $table->foreign('word_id')->references('id')->on('words')->onDelete('cascade');
+        $table->foreign('user_id')->references('id')->on('users');
+        $table->timestamps();
+      });
     }
-
+    
     /**
      * Reverse the migrations.
      *
@@ -29,6 +31,6 @@ class CreateDescriptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('descriptions');
+      Schema::dropIfExists('descriptions');
     }
-}
+  }

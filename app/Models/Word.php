@@ -7,7 +7,7 @@
   
   class Word extends Model
   {
-    protected $fillable = ['word'];
+    protected $fillable = ['word', 'slug','user_id'];
     protected $with = ['descriptions','tags'];
     protected $withCount =['tags'];
     
@@ -18,7 +18,7 @@
       return $this->hasMany(Description::class);
     }
     public function tags(){
-      return $this->belongsToMany(Tag::class,'word_tags');
+      return $this->belongsToMany(Tag::class,'word_tags')->withTimestamps();
     }
     public function symbolsCount(){
       $count = [];

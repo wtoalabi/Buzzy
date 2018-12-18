@@ -8,11 +8,12 @@
       <li v-for="sound in sounds" class="keyboard__item" :data-ipa="sound.ipa">
         {{sound.ipa}}
       </li>
+      <em>Copied from: 'http://www.antimoon.com/how/pronunc-soundsipa.htm'</em>
     </ul>
     <div class="rendered-sound">
       <span v-if="showControl" class="controls rendered-sound__controls">
-        <a class="mr-6" title="Remove last symbol" @click="removeLastSymbol"><i class="fa fa-arrow-left has-text-danger"></i></a>
-        <a title="Submit symbols" @click="closeKeyboard"><i class="fa fa-check has-text-success"></i></a>
+        <a class="mr-6" title="Remove last symbol" @click="removeLastSymbol"><i class="fa fa-arrow-left has-text-danger rendered-sound__controls--icons"></i></a>
+        <a title="Submit symbols" @click="closeKeyboard"><i class="fa fa-check has-text-success rendered-sound__controls--icons"></i></a>
       </span>
     </div>
   </div>
@@ -97,5 +98,7 @@
 
 </script>
 <style scoped>
-
+  .rendered-sound__controls--icons{
+    font-size: 1.5rem;
+  }
 </style>

@@ -6,5 +6,6 @@ export default {
   itemDetail:[],
   error: '',
   tags: [],
-  optionalFormData:{symbols:'',audioFile:''}
+  optionalFormData:{symbols:'',audioFileID:''},
+  formErrors: {}
 }

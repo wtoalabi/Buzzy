@@ -40,5 +40,12 @@ export default {
     }).catch(error=>{
     console.log(error)
     })
+  },
+  saveWord(context, form){
+    axios.post('api/save-new-word', form).then(data=>{
+
+    }).catch(error=>{
+      context.commit('formErrors', error.response.data.errors);
+    })
   }
 }

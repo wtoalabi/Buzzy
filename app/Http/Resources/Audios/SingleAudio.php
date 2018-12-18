@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Sounds;
+namespace App\Http\Resources\Audios;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SingleSound extends JsonResource
+class SingleAudio extends JsonResource
 {
     /**
      * Transform the resource into an array.

@@ -22120,6 +22120,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     }).catch(function (error) {
       console.log(error);
     });
+  },
+  saveWord: function saveWord(context, form) {
+    axios.post('api/save-new-word', form).then(function (data) {}).catch(function (error) {
+      context.commit('formErrors', error.response.data.errors);
+    });
   }
 });
 
@@ -22994,9 +22999,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   phoneticSymbols: function phoneticSymbols(state, payload) {
     return state.optionalFormData.symbols = payload;
   },
-  audioFile: function audioFile(state, payload) {
-    console.log(payload);
-    return state.optionalFormData.audioFile = payload;
+  audioFileID: function audioFileID(state, payload) {
+    return state.optionalFormData.audioFileID = payload;
+  },
+  formErrors: function formErrors(state, payload) {
+    state.formErrors = payload;
+  },
+  clearFormError: function clearFormError(state, error) {
+    state.formErrors[error] = '';
   }
 });
 
@@ -23013,7 +23023,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   itemDetail: [],
   error: '',
   tags: [],
-  optionalFormData: { symbols: '', audioFile: '' }
+  optionalFormData: { symbols: '', audioFileID: '' },
+  formErrors: {}
 });
 
 /***/ }),
@@ -23157,7 +23168,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.rendered-sound__controls--icons[data-v-0fc38999]{\n  font-size: 1.5rem;\n}\n", ""]);
 
 // exports
 
@@ -23169,6 +23180,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__globals_sounds__ = __webpack_require__(168);
+//
 //
 //
 //
@@ -23505,13 +23517,22 @@ var render = function() {
     _c(
       "ul",
       { staticClass: "keyboard__list hide" },
-      _vm._l(_vm.sounds, function(sound) {
-        return _c(
-          "li",
-          { staticClass: "keyboard__item", attrs: { "data-ipa": sound.ipa } },
-          [_vm._v("\n      " + _vm._s(sound.ipa) + "\n    ")]
-        )
-      })
+      [
+        _vm._l(_vm.sounds, function(sound) {
+          return _c(
+            "li",
+            { staticClass: "keyboard__item", attrs: { "data-ipa": sound.ipa } },
+            [_vm._v("\n      " + _vm._s(sound.ipa) + "\n    ")]
+          )
+        }),
+        _vm._v(" "),
+        _c("em", [
+          _vm._v(
+            "Copied from: 'http://www.antimoon.com/how/pronunc-soundsipa.htm'"
+          )
+        ])
+      ],
+      2
     ),
     _vm._v(" "),
     _c("div", { staticClass: "rendered-sound" }, [
@@ -23524,7 +23545,12 @@ var render = function() {
                 attrs: { title: "Remove last symbol" },
                 on: { click: _vm.removeLastSymbol }
               },
-              [_c("i", { staticClass: "fa fa-arrow-left has-text-danger" })]
+              [
+                _c("i", {
+                  staticClass:
+                    "fa fa-arrow-left has-text-danger rendered-sound__controls--icons"
+                })
+              ]
             ),
             _vm._v(" "),
             _c(
@@ -23533,7 +23559,12 @@ var render = function() {
                 attrs: { title: "Submit symbols" },
                 on: { click: _vm.closeKeyboard }
               },
-              [_c("i", { staticClass: "fa fa-check has-text-success" })]
+              [
+                _c("i", {
+                  staticClass:
+                    "fa fa-check has-text-success rendered-sound__controls--icons"
+                })
+              ]
             )
           ])
         : _vm._e()
@@ -23908,6 +23939,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -23921,7 +23953,7 @@ var tagsCount = 5;
   data: function data() {
     return {
       form: {
-        title: '',
+        word: '',
         description: ''
       },
       addSymbol: false,
@@ -23988,14 +24020,20 @@ var tagsCount = 5;
       this.form.tags = this.selectedTags.map(function (tag) {
         return tag.id;
       });
-      this.form.symbols = this.$store.state.optionalFormData.symbols;
-      console.dir(this.form);
-      //console.dir(this.selectedTags)
+      this.form.audio = this.$store.state.optionalFormData.audioFileID;
+      this.form.symbol = this.$store.state.optionalFormData.symbols;
+      this.$store.dispatch('saveWord', this.form);
+    },
+    clearErrors: function clearErrors(e) {
+      this.$store.commit('clearFormError', e);
     }
   },
   computed: {
     tags: function tags() {
       return this.$store.state.tags;
+    },
+    errors: function errors() {
+      return this.$store.state.formErrors;
     }
   }
 });
@@ -24014,206 +24052,230 @@ var render = function() {
         _vm._v("Add New Buzzword")
       ]),
       _vm._v(" "),
-      _c("form", { staticClass: "add_word__form", attrs: { action: "" } }, [
-        _c("div", { staticClass: "columns" }, [
-          _c("div", { staticClass: "field column" }, [
-            _c(
-              "label",
-              { staticClass: "label", attrs: { for: "word-title" } },
-              [_vm._v("Word Title")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "control" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.form.title,
-                    expression: "form.title"
-                  }
-                ],
-                staticClass: "input",
-                attrs: {
-                  id: "word-title",
-                  type: "text",
-                  placeholder: "e.g ISP",
-                  autocomplete: "off"
-                },
-                domProps: { value: _vm.form.title },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+      _c(
+        "form",
+        {
+          staticClass: "add_word__form",
+          attrs: { action: "" },
+          on: {
+            keydown: function($event) {
+              _vm.clearErrors($event.target.name)
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "columns" }, [
+            _c("div", { staticClass: "field column" }, [
+              _c(
+                "label",
+                { staticClass: "label", attrs: { for: "word-title" } },
+                [_vm._v("Word Title")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "control" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.word,
+                      expression: "form.word"
                     }
-                    _vm.$set(_vm.form, "title", $event.target.value)
+                  ],
+                  staticClass: "input",
+                  attrs: {
+                    id: "word-title",
+                    name: "word",
+                    type: "text",
+                    placeholder: "e.g ISP",
+                    autocomplete: "off"
+                  },
+                  domProps: { value: _vm.form.word },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "word", $event.target.value)
+                    }
                   }
-                }
-              })
+                })
+              ]),
+              _vm._v(" "),
+              _vm.errors.word
+                ? _c("div", { staticClass: "has-text-danger" }, [
+                    _vm._v(_vm._s(_vm.errors.word[0]))
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "field column" }, [
+              _c("label", { staticClass: "label", attrs: { for: "tags" } }, [
+                _vm._v("Tags")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "control" }, [
+                _c("input", {
+                  staticClass: "input",
+                  attrs: {
+                    id: "tags",
+                    autofocus: "",
+                    autocomplete: "off",
+                    name: "tags",
+                    type: "text",
+                    placeholder: _vm.tagPlaceholder
+                  },
+                  on: { input: _vm.pickTag }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "ul",
+                { staticClass: "filtered-tags-list" },
+                _vm._l(_vm.filteredTags, function(each) {
+                  return _c(
+                    "li",
+                    {
+                      staticClass: "filtered-tags-each",
+                      on: {
+                        click: function($event) {
+                          _vm.clickedTag(each.id)
+                        }
+                      }
+                    },
+                    [_c("span", {}, [_vm._v(_vm._s(each.tag))])]
+                  )
+                })
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "selected-tags" },
+                _vm._l(_vm.selectedTags, function(each) {
+                  return _c(
+                    "span",
+                    {
+                      staticClass: "tag selected-tags__each",
+                      on: {
+                        click: function($event) {
+                          _vm.removeTag(each)
+                        }
+                      }
+                    },
+                    [_vm._v(_vm._s(each.tag))]
+                  )
+                })
+              ),
+              _vm._v(" "),
+              _vm.errors.tags
+                ? _c("div", { staticClass: "has-text-danger" }, [
+                    _vm._v(_vm._s(_vm.errors.tags[0]))
+                  ])
+                : _vm._e()
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "field column" }, [
-            _c("label", { staticClass: "label", attrs: { for: "tags" } }, [
-              _vm._v("Tags")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "control" }, [
-              _c("input", {
-                staticClass: "input",
-                attrs: {
-                  id: "tags",
-                  autofocus: "",
-                  autocomplete: "off",
-                  type: "text",
-                  placeholder: _vm.tagPlaceholder
-                },
-                on: { input: _vm.pickTag }
-              })
-            ]),
-            _vm._v(" "),
-            _c(
-              "ul",
-              { staticClass: "filtered-tags-list" },
-              _vm._l(_vm.filteredTags, function(each) {
-                return _c(
-                  "li",
-                  {
-                    staticClass: "filtered-tags-each",
-                    on: {
-                      click: function($event) {
-                        _vm.clickedTag(each.id)
-                      }
+          _c("div", {}, [
+            _c("div", { staticClass: "field" }, [
+              _c(
+                "label",
+                { staticClass: "label", attrs: { for: "description" } },
+                [_vm._v("Description")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "control" }, [
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.description,
+                      expression: "form.description"
                     }
+                  ],
+                  staticClass: "textarea",
+                  attrs: {
+                    id: "description",
+                    name: "description",
+                    placeholder: "How would you explain this word?"
                   },
-                  [_c("span", {}, [_vm._v(_vm._s(each.tag))])]
-                )
-              })
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "selected-tags" },
-              _vm._l(_vm.selectedTags, function(each) {
-                return _c(
-                  "span",
-                  {
-                    staticClass: "tag selected-tags__each",
-                    on: {
-                      click: function($event) {
-                        _vm.removeTag(each)
+                  domProps: { value: _vm.form.description },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
                       }
+                      _vm.$set(_vm.form, "description", $event.target.value)
                     }
-                  },
-                  [_vm._v(_vm._s(each.tag))]
-                )
-              })
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", {}, [
-          _c("div", { staticClass: "field" }, [
-            _c(
-              "label",
-              { staticClass: "label", attrs: { for: "description" } },
-              [_vm._v("Description")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "control" }, [
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.form.description,
-                    expression: "form.description"
                   }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _vm.errors.description
+              ? _c("div", { staticClass: "has-text-danger" }, [
+                  _vm._v(_vm._s(_vm.errors.description[0]))
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("h1", { staticClass: "optional" }, [_vm._v("Optional")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "columns" }, [
+            _c("div", { staticClass: "column audio-column" }, [
+              _c(
+                "div",
+                { staticClass: "field add-sound" },
+                [
+                  _c("label", { staticClass: "label optional-labels" }, [
+                    _vm._v("Upload Audio file")
+                  ]),
+                  _vm._v(" "),
+                  _c("AudioUpload"),
+                  _vm._v(" "),
+                  _vm.errors.audio
+                    ? _c("div", { staticClass: "has-text-danger" }, [
+                        _vm._v(_vm._s(_vm.errors.audio[0]))
+                      ])
+                    : _vm._e()
                 ],
-                staticClass: "textarea",
-                attrs: {
-                  id: "description",
-                  placeholder: "How would you explain this word?"
-                },
-                domProps: { value: _vm.form.description },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.form, "description", $event.target.value)
-                  }
-                }
-              })
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("h1", { staticClass: "optional" }, [_vm._v("Optional")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "columns" }, [
-          _c("div", { staticClass: "column is-flex" }, [
+                1
+              )
+            ]),
+            _vm._v(" "),
             _c(
               "div",
-              { staticClass: "field add-sound" },
+              { staticClass: "column field" },
               [
                 _c("label", { staticClass: "label optional-labels" }, [
-                  _vm._v("Upload Audio file")
+                  _vm._v("Add Phonetic Sound")
                 ]),
                 _vm._v(" "),
-                _c("AudioUpload")
+                _c("SoundKeyboard")
               ],
               1
             )
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "column field" },
-            [
-              _c("label", { staticClass: "label optional-labels" }, [
-                _vm._v("Add Phonetic Sound")
-              ]),
-              _vm._v(" "),
-              _c("SoundKeyboard")
-            ],
-            1
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "submit__buttons" }, [
-          _c("div", {}, [
-            _c(
-              "button",
-              {
-                staticClass: "button is-warning",
-                attrs: { type: "submit" },
-                on: { click: _vm.submit }
-              },
-              [_vm._v("Add")]
-            )
-          ]),
-          _vm._v(" "),
-          _vm._m(0)
-        ])
-      ])
+          _c("div", { staticClass: "submit__buttons" }, [
+            _c("div", {}, [
+              _c(
+                "button",
+                {
+                  staticClass: "button is-warning",
+                  attrs: { type: "submit" },
+                  on: { click: _vm.submit }
+                },
+                [_vm._v("Submit")]
+              )
+            ])
+          ])
+        ]
+      )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "submit__button--end" }, [
-      _c(
-        "button",
-        { staticClass: "button is-danger", attrs: { type: "reset" } },
-        [_vm._v("Reset")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -25437,38 +25499,70 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mounted: function mounted() {
     var _this = this;
 
+    this.parentDIV = document.querySelector('.audio-column');
+    this.cancelIconEl = document.createElement('div');
     var audioUploadButton = document.querySelector('.audio-upload__button');
     var customUploadIcon = document.querySelector('.audio-upload__custom-icon');
-    var fileInfo = document.querySelector('.file__info');
-    console.log(audioUploadButton);
+    this.fileInfo = document.querySelector('.file__info');
+    this.instruction = document.querySelector('.file__info--instruction');
     customUploadIcon.addEventListener('click', function () {
       audioUploadButton.click();
     });
     audioUploadButton.addEventListener('change', function (e) {
+      _this.$store.commit('clearFormError', 'audio');
       var file = e.target.files[0];
-      var size = Math.floor(file.size / 1024);
-      fileInfo.classList.remove('hide');
-      if (size > 15) {
-        return fileInfo.innerHTML = '<div class="file__info--details"><h1>File too big...try something smaller than ' + size + 'kb</h1></div>';
-      }
-      fileInfo.innerHTML = '<div class="file__info--details"><h1>Size: ' + size + 'kb</h1><h1>Name: ' + file.name + '</h1></div>';
-      fileInfo.classList.remove('hide');
-      var reader = new FileReader();
-      reader.readAsDataURL(file);
       var formData = new FormData();
       formData.append('audio', file);
-      _this.$store.commit('audioFile', formData);
-      reader.onload = function (e) {
-        var audio = e.target.result;
-      };
+      var size = Math.floor(file.size / 1024);
+      _this.fileInfo.classList.remove('hide');
+      if (size > 10050) {
+        return _this.fileInfo.innerHTML = '<div class="file__info--details"><h1>File too big...try something smaller than ' + size + 'kb</h1></div>';
+      }
+      _this.fileInfo.innerHTML = '<div class="file__info--details"><h1><h1>Name: ' + file.name + '</h1>Size: ' + size + 'kb</h1></div>';
+      _this.instruction.classList.add('hide');
+      _this.fileInfo.classList.remove('hide');
+      /*let reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload= (e)=>{
+        let audio = e.target.result
+      }*/
+      return axios.post('api/save-audio/' + file.name, formData).then(function (response) {
+        _this.$store.commit('audioFileID', response.data);
+        _this.addCancelIcon();
+      }).catch(function (error) {
+        _this.$store.commit('formErrors', error.response.data.errors);
+      });
     });
   },
   data: function data() {
-    return {};
+    return {
+      parentDIV: '',
+      cancelIconEl: '',
+      fileInfo: '',
+      instruction: ''
+    };
   },
 
-  methods: {},
-  computed: {}
+  methods: {
+    addCancelIcon: function addCancelIcon() {
+      var _this2 = this;
+
+      this.cancelIconEl.innerHTML = '<i title="Cancel Audio File" class="fa fa-close file__info--close"></i>';
+      this.parentDIV.appendChild(this.cancelIconEl);
+      this.cancelIconEl.addEventListener('click', function () {
+        return axios.delete('api/delete-audio/' + _this2.audioFileID).then(function (response) {
+          _this2.fileInfo.innerHTML = '';
+          _this2.instruction.classList.remove('hide');
+          _this2.cancelIconEl.innerHTML = '';
+        });
+      });
+    }
+  },
+  computed: {
+    audioFileID: function audioFileID() {
+      return this.$store.state.optionalFormData.audioFileID;
+    }
+  }
 });
 
 /***/ }),
@@ -25507,7 +25601,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -25532,12 +25626,14 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("input", {
         staticClass: "audio-upload__button",
-        attrs: { type: "file", accept: "audio/mp3" }
+        attrs: { type: "file", accept: "audio/*" }
       }),
       _vm._v(" "),
       _c("div", { staticClass: "file__info hide" }),
       _vm._v(" "),
-      _c("p", [_c("em", [_vm._v("Max size should be 15kb. MP3 only")])])
+      _c("p", { staticClass: "file__info--instruction" }, [
+        _c("em", [_vm._v("Max size should be 150kb.")])
+      ])
     ])
   }
 ]

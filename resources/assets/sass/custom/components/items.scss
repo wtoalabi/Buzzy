@@ -120,6 +120,11 @@
   display: flex;
   justify-content: space-between;
 }
+.audio-column{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .audio-upload__button{
   display:none;
 }
@@ -140,6 +145,11 @@
   font-size: .751rem;
   font-style: italic;
   font-weight: bold;
+}
+.file__info--close{
+  font-size: 3rem;
+  cursor: pointer;
+  color: $danger;
 }
 .hide{
   visibility: hidden;

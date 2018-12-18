@@ -1,9 +1,9 @@
 <?php
-
-use Illuminate\Database\Seeder;
-
-class DatabaseSeeder extends Seeder
-{
+  
+  use Illuminate\Database\Seeder;
+  
+  class DatabaseSeeder extends Seeder
+  {
     /**
      * Seed the application's database.
      *
@@ -11,10 +11,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(UserSeeder::class);
-        $this->call(WordSeeder::class);
-        $this->call(DescriptionSeeder::class);
-        $this->call(TagSeeder::class);
-        $this->call(WordTagsSeeder::class);
+      $this->call(UserSeeder::class);
+      $this->call(TagSeeder::class);
+      /*
+      $this->call(WordSeeder::class);
+      $this->call(AudioSeeder::class);
+     
+      $this->call(WordTagsSeeder::class);
+      $this->call(DescriptionAudioSeeder::class);*/
+      $this->call(DescriptionSeeder::class);
     }
-}
+  }

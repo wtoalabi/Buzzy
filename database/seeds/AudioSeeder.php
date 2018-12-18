@@ -1,9 +1,9 @@
 <?php
   
-  use App\Models\Tag;
+  use App\Models\Audio;
   use Illuminate\Database\Seeder;
 
-class TagSeeder extends Seeder
+class AudioSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class TagSeeder extends Seeder
      */
     public function run()
     {
-          factory(Tag::class, 30)->create();
+      factory(Audio::class, 10)->create();
     }
 }
