@@ -7,7 +7,7 @@
   
   class Word extends Model
   {
-    protected $fillable = ['word', 'slug','user_id'];
+    protected $fillable = ['word', 'sub_title','slug','user_id'];
     protected $with = ['descriptions','tags'];
     protected $withCount =['tags'];
     

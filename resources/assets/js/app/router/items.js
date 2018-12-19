@@ -9,7 +9,6 @@ export default [
     path: '/details/:word',
     component: Details,
     beforeEnter(to, from, next){
-      //Store.dispatch('clearCurrentlyStoredWord')
       Store.dispatch('retrieveDetail',to.params.word)
       next()
     }

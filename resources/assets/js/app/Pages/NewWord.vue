@@ -7,7 +7,7 @@
           <div class="field column">
             <label class="label" for="word-title">Word Title</label>
             <div class="control">
-              <input id="word-title" class="input" name="word" type="text" placeholder="e.g ISP" autocomplete="off" v-model="form.word">
+              <input id="word-title" class="input" name="word" type="text" placeholder="A commonly known but brief title or an Acronymn. E.g ISP" autocomplete="off" v-model="form.word">
             </div>
             <div v-if="errors.word" class="has-text-danger">{{errors.word[0]}}</div>
           </div>
@@ -16,6 +16,15 @@
             <TagsSelector />
             <div v-if="errors.tags" class="has-text-danger">{{errors.tags[0]}}</div>
           </div>
+        </div>
+        <div class="columns">
+          <div class="field column">
+            <label for="sub_title" class="label">Buzzword in Full (Optional)</label>
+            <div class="control">
+              <input id="sub_title" class="input" name="sub_title" placeholder="E.g Internet Service Provider" v-model="form.sub_title"/>
+            </div>
+          </div>
+          <div v-if="errors.sub_title" class="has-text-danger">{{errors.sub_title[0]}}</div>
         </div>
         <div class="">
           <div class="field">
@@ -60,6 +69,7 @@
       return {
         form:{
           word:'',
+          sub_title: '',
           description: ''
         },
       }

@@ -40,6 +40,7 @@
       ]);
       $word = Word::create([
         'word' => request('word'),
+        'sub_title' => request('sub_title'),
         'slug' => str_slug(request('word')),
         'user_id' => $userID
       ]);
@@ -71,7 +72,6 @@
     public function show($word)
     {
       $word = Word::where('slug', $word)->firstorFail();
-      sleep(2);
       return new SingleWordDetail($word);
     }
     

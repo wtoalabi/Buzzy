@@ -23655,7 +23655,6 @@ if (false) {
   path: '/details/:word',
   component: __WEBPACK_IMPORTED_MODULE_0__Pages_Details___default.a,
   beforeEnter: function beforeEnter(to, from, next) {
-    //Store.dispatch('clearCurrentlyStoredWord')
     __WEBPACK_IMPORTED_MODULE_1__Store__["a" /* default */].dispatch('retrieveDetail', to.params.word);
     next();
   }
@@ -23674,6 +23673,10 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(242)
+}
 var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = __webpack_require__(174)
@@ -23682,7 +23685,7 @@ var __vue_template__ = __webpack_require__(175)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -23733,6 +23736,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -23766,15 +23782,42 @@ var render = function() {
     "div",
     [
       _vm.loaded
-        ? _c("div", [
-            _c("span", [_vm._v("Item created by:")]),
-            _vm._v(
-              "\n  " +
-                _vm._s(_vm.details.user.full_name) +
-                "\n  " +
-                _vm._s(_vm.details) +
-                "\n  "
-            )
+        ? _c("div", { staticClass: "details" }, [
+            _c("div", { staticClass: "details__header" }, [
+              _c("div", { staticClass: "details__title" }, [
+                _c("h1", [_vm._v(_vm._s(_vm.details.word))]),
+                _vm._v(" "),
+                _c("h3", [_vm._v(_vm._s(_vm.details.sub_title))]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "details__tags" },
+                  _vm._l(_vm.details.tags, function(tag) {
+                    return _c("span", { staticClass: "tag" }, [
+                      _vm._v(_vm._s(tag.tag))
+                    ])
+                  })
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "details__user-info" }, [
+                _c("div", { staticClass: "details__user-info--avatar-blob" }, [
+                  _c("img", {
+                    attrs: { src: _vm.details.user.avatar, alt: "" }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "mr-2" }, [
+                    _vm._v(_vm._s(_vm.details.user.username))
+                  ]),
+                  _vm._v(" "),
+                  _vm.details.user.full_name
+                    ? _c("div", [
+                        _vm._v("(" + _vm._s(_vm.details.user.full_name) + ")")
+                      ])
+                    : _vm._e()
+                ])
+              ])
+            ])
           ])
         : _c("loading")
     ],
@@ -23946,6 +23989,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -23956,6 +24008,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     return {
       form: {
         word: '',
+        sub_title: '',
         description: ''
       }
     };
@@ -24030,7 +24083,8 @@ var render = function() {
                     id: "word-title",
                     name: "word",
                     type: "text",
-                    placeholder: "e.g ISP",
+                    placeholder:
+                      "A commonly known but brief title or an Acronymn. E.g ISP",
                     autocomplete: "off"
                   },
                   domProps: { value: _vm.form.word },
@@ -24068,6 +24122,50 @@ var render = function() {
               ],
               1
             )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "columns" }, [
+            _c("div", { staticClass: "field column" }, [
+              _c(
+                "label",
+                { staticClass: "label", attrs: { for: "sub_title" } },
+                [_vm._v("Buzzword in Full (Optional)")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "control" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.sub_title,
+                      expression: "form.sub_title"
+                    }
+                  ],
+                  staticClass: "input",
+                  attrs: {
+                    id: "sub_title",
+                    name: "sub_title",
+                    placeholder: "E.g Internet Service Provider"
+                  },
+                  domProps: { value: _vm.form.sub_title },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "sub_title", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _vm.errors.sub_title
+              ? _c("div", { staticClass: "has-text-danger" }, [
+                  _vm._v(_vm._s(_vm.errors.sub_title[0]))
+                ])
+              : _vm._e()
           ]),
           _vm._v(" "),
           _c("div", {}, [
@@ -25863,6 +25961,54 @@ exports = module.exports = __webpack_require__(3)(false);
 
 // module
 exports.push([module.i, "\n.no-tag-found__pick {\n  cursor: pointer;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 234 */,
+/* 235 */,
+/* 236 */,
+/* 237 */,
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(243);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("0b2e0ad0", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b96a49f2\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Details.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b96a49f2\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Details.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 243 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.details {\n  width: 100%;\n  padding: 0 1.5rem;\n}\n.details__header {\n  width: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n}\n.details__title h1 {\n  font-size: 3rem;\n  color: white;\n  font-weight: bold;\n  word-break: break-word;\n}\n.details__title h3 {\n  margin-top: -.7rem;\n}\n.details__tags {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  margin-left: .2rem;\n}\n.details__tags .tag {\n  margin-right: .3rem;\n  background: #1c2d3e;\n  color: white;\n  font-size: .8rem;\n}\n.details__user-info {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  margin-top: 1rem;\n}\n.details__user-info--avatar-blob {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.details__user-info--avatar-blob img {\n  width: 3rem;\n  margin-right: .2rem;\n}\n.details__user-info--name-blob {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n@media screen and (min-width: 500px) {\n.details__title h1 {\n    font-size: 6rem;\n}\n}\n@media screen and (min-width: 980px) {\n.details__header {\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row;\n}\n.details__title h1 {\n    font-size: 7rem;\n}\n.details__user-info {\n    margin-top: 0;\n}\n}\n", ""]);
 
 // exports
 

@@ -1,9 +1,10 @@
 <?php
-
-use Faker\Generator as Faker;
-
-$factory->define(App\Models\Word::class, function (Faker $faker) {
+  
+  use Faker\Generator as Faker;
+  
+  $factory->define(App\Models\Word::class, function (Faker $faker) {
     return [
-        'word' => $faker->randomElement(['GIF','JPEG']),
+      'word' => $faker->randomElement(['GIF', 'JPEG']),
+      'sub_title' => $faker->sentence,
     ];
-});
+  });
