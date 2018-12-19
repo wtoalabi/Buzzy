@@ -3,10 +3,12 @@
   namespace App\Http\Controllers\Words;
   
   use App\Http\Resources\WordList\ListCollection;
+  use App\Http\Resources\Words\SingleWord;
   use App\Http\Resources\Words\SingleWordDetail;
   use App\Http\Resources\Words\WordsCollection;
   use App\Models\Audio;
   use App\Models\Description;
+  use App\Models\SuggestedTag;
   use App\Models\Symbol;
   use App\Models\Word;
   use App\Models\WordTag;
@@ -36,7 +38,6 @@
         'tags.required' => 'You need to select at least one Tag.',
         'word.unique' => 'The word already exists.'
       ]);
-      //dd(request());
       $word = Word::create([
         'word' => request('word'),
         'slug' => str_slug(request('word')),
@@ -55,11 +56,22 @@
           'symbol' => request('symbol')
         ]);
       }
+      $suggestedTags = request('suggestedTags');
+      if($suggestedTags){
+        collect($suggestedTags)->each(function($tag) use($userID){
+          SuggestedTag::create([
+            'user_id' => $userID,
+            'tag' => $tag
+          ]);
+        });
+      }
+      return $word->slug;
     }
     
     public function show($word)
     {
       $word = Word::where('slug', $word)->firstorFail();
+      sleep(2);
       return new SingleWordDetail($word);
     }
     

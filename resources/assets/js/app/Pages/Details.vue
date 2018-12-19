@@ -21,10 +21,10 @@
     methods: {},
     computed: {
       details(){
-        return this.$store.state.itemDetail
+        return this.$store.state.wordDetail
       },
       loaded(){
-        return !_.isEmpty(this.$store.state.itemDetail);
+        return !_.isEmpty(this.$store.state.wordDetail);
       }
     }
   }

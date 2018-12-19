@@ -1,3 +1,5 @@
+import router from "../../router";
+
 export default {
   async initialLoading(context){
     await context.dispatch('getContent')
@@ -27,7 +29,7 @@ export default {
   },
   retrieveDetail(context, item){
     context.commit('clearErrors')
-    context.commit('deleteCurrentlyStoredItem')
+    context.commit('clearCurrentlyStoredWord')
     return axios.get(`api/details/${item}`).then(data=>{
       context.commit('storeDetail',data.data)
     }).catch(error=>{
@@ -42,8 +44,9 @@ export default {
     })
   },
   saveWord(context, form){
-    axios.post('api/save-new-word', form).then(data=>{
-
+    axios.post('api/save-new-word', form).then(word=>{
+      context.dispatch('getContent')
+      router.push({ path: `/details/${word.data}` })
     }).catch(error=>{
       context.commit('formErrors', error.response.data.errors);
     })

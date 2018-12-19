@@ -18,6 +18,7 @@ class SingleWordDetail extends JsonResource
         return [
           'id' => $this->id,
           'word' => $this->word,
+          'slug' => str_slug($this->slug),
           'descriptions' => new DescriptionsCollection($this->descriptions),
           'user' => $this->user
         ];

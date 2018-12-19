@@ -3,9 +3,9 @@ export default {
   content: [],
   searchResults: [],
   visible: 'hide',
-  itemDetail:[],
+  wordDetail:[],
   error: '',
   tags: [],
-  optionalFormData:{symbols:'',audioFileID:''},
+  formData:{symbols:'',audioFileID:'',tags:[],suggestedTags:[]},
   formErrors: {}
 }

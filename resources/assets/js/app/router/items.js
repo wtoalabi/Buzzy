@@ -1,22 +1,23 @@
 import Details from "../Pages/Details";
 import Store from "../Store";
-import NewItem from "../Pages/NewWord";
+import NewWord from "../Pages/NewWord";
 
 
 export default [
   {
-    name: 'Item Detail',
-    path: '/details/:item',
+    name: 'Word Detail',
+    path: '/details/:word',
     component: Details,
     beforeEnter(to, from, next){
-      Store.dispatch('retrieveDetail',to.params.item)
+      //Store.dispatch('clearCurrentlyStoredWord')
+      Store.dispatch('retrieveDetail',to.params.word)
       next()
     }
   },
   {
-    name: 'Create New Item',
+    name: 'Create New Word',
     path: '/add-new',
-    component: NewItem,
+    component: NewWord,
     beforeEnter(to, from, next) {
       Store.dispatch('retrieveTags')
       next()

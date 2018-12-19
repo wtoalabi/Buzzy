@@ -12,20 +12,8 @@
             <div v-if="errors.word" class="has-text-danger">{{errors.word[0]}}</div>
           </div>
           <div class="field column">
-            <label for="tags" class="label">Tags</label>
-            <div class="control">
-              <input id="tags" autofocus autocomplete="off" name="tags"class="input" type="text" :placeholder="tagPlaceholder"
-                     @input="pickTag">
-            </div>
-            <ul class="filtered-tags-list">
-              <li v-for="each in filteredTags" class="filtered-tags-each" @click="clickedTag(each.id)">
-                <span class="">{{each.tag}}</span>
-              </li>
-            </ul>
-            <div class="selected-tags">
-              <span v-for="each in selectedTags" class="tag selected-tags__each"
-                    @click="removeTag(each)">{{each.tag}}</span>
-            </div>
+            <label class="label">Tags</label>
+            <TagsSelector />
             <div v-if="errors.tags" class="has-text-danger">{{errors.tags[0]}}</div>
           </div>
         </div>
@@ -65,80 +53,24 @@
 <script>
   import SoundKeyboard from "../partials/SoundKeyboard";
   import AudioUpload from "../partials/Lists/AudioUpload";
-
-  let tagsCount =  5;
+  import TagsSelector from "../partials/TagsSelector";
   export default {
-    components:{SoundKeyboard, AudioUpload},
-    mounted(){
-      this.tagInputEl = document.querySelector('input#tags')
-    },
+    components:{SoundKeyboard, AudioUpload, TagsSelector},
     data() {
       return {
         form:{
           word:'',
           description: ''
         },
-        addSymbol: false,
-        filteredTags: '',
-        selectedTags: [],
-        tagPlaceholder: `Type up to ${tagsCount} related tags`,
-        typedValue: '',
-        tagInputEl: '',
-        selectedSymbols: [],
       }
     },
     methods: {
-
-      pickTag(e) {
-        let value = e.target.value.toLowerCase()
-        if (value) {
-          this.filteredTags = this.tags.filter((each) => {
-            if (!this.selectedTags.includes(each)) {
-              return each.tag.toLowerCase().includes(value)
-            }
-          })
-        } else {
-          this.filteredTags = []
-        }
-      },
-      clickedTag(tagID) {
-        this.filteredTags = ''
-        this.tagInputEl.value = ''
-
-        if (this.selectedTags.length !== tagsCount) {
-          this.tags.filter((tag) => {
-            if (tag.id === tagID) {
-              this.selectedTags.push(tag)
-            }
-          })
-          this.tagInputEl.focus()
-          return this.calculateRemainingTags()
-        }
-      },
-      removeTag(tag) {
-        let filtered = this.selectedTags.filter((each) => {
-          return tag.id !== each.id
-        })
-        this.selectedTags = filtered
-        this.tagInputEl.focus()
-        return this.calculateRemainingTags()
-      },
-      calculateRemainingTags() {
-        let count = this.selectedTags.length;
-        if(count === 0){
-          this.tagPlaceholder = `Type up to ${tagsCount} related tags`;
-        }
-        else if(count === tagsCount){
-          this.tagPlaceholder = 'Maxed out...You cant add more...';
-        }else if (count <= tagsCount){
-          this.tagPlaceholder = `${tagsCount - count} more...`
-        }
-      },
       submit(e){
         e.preventDefault()
-        this.form.tags = this.selectedTags.map(tag=> tag.id)
-        this.form.audio = this.$store.state.optionalFormData.audioFileID;
-        this.form.symbol = this.$store.state.optionalFormData.symbols
+        this.form.tags = this.$store.state.formData.tags
+        this.form.suggestedTags = this.$store.state.formData.suggestedTags
+        this.form.audio = this.$store.state.formData.audioFileID;
+        this.form.symbol = this.$store.state.formData.symbols
         this.$store.dispatch('saveWord', this.form)
       },
       clearErrors(e){
@@ -146,9 +78,6 @@
       } 
     },
     computed: {
-      tags() {
-        return this.$store.state.tags
-      },
       errors(){
         return this.$store.state.formErrors;
       }
@@ -160,7 +89,4 @@
   ::placeholder {
     color: #8795a1;
   }
-.optional-labels{
-  font-size: 1.2rem;
-}
 </style>

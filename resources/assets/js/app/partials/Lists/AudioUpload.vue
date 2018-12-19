@@ -69,7 +69,7 @@
     },
     computed: {
       audioFileID() {
-        return this.$store.state.optionalFormData.audioFileID
+        return this.$store.state.formData.audioFileID
       }
     }
   }

@@ -22052,9 +22052,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(154);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__router__ = __webpack_require__(148);
 
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   initialLoading: function () {
@@ -22107,7 +22110,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   },
   retrieveDetail: function retrieveDetail(context, item) {
     context.commit('clearErrors');
-    context.commit('deleteCurrentlyStoredItem');
+    context.commit('clearCurrentlyStoredWord');
     return axios.get('api/details/' + item).then(function (data) {
       context.commit('storeDetail', data.data);
     }).catch(function (error) {
@@ -22122,7 +22125,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     });
   },
   saveWord: function saveWord(context, form) {
-    axios.post('api/save-new-word', form).then(function (data) {}).catch(function (error) {
+    axios.post('api/save-new-word', form).then(function (word) {
+      context.dispatch('getContent');
+      __WEBPACK_IMPORTED_MODULE_1__router__["default"].push({ path: '/details/' + word.data });
+    }).catch(function (error) {
       context.commit('formErrors', error.response.data.errors);
     });
   }
@@ -22982,13 +22988,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     return state.searchResults = [];
   },
   storeDetail: function storeDetail(state, payload) {
-    return state.itemDetail = payload.data;
+    return state.wordDetail = payload.data;
   },
   clearErrors: function clearErrors(state) {
     return state.error = '';
   },
+  clearCurrentlyStoredWord: function clearCurrentlyStoredWord(state) {
+    return state.wordDetail = [];
+  },
   deleteCurrentlyStoredItem: function deleteCurrentlyStoredItem(state) {
-    return state.itemDetail = [];
+    return state.wordDetail = [];
   },
   error: function error(state, payload) {
     return state.error = payload;
@@ -22996,11 +23005,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   storeTags: function storeTags(state, payload) {
     return state.tags = payload;
   },
+  selectedTags: function selectedTags(state, payload) {
+    return state.formData.tags = payload;
+  },
+  suggestedTags: function suggestedTags(state, payload) {
+    return state.formData.suggestedTags = payload;
+  },
   phoneticSymbols: function phoneticSymbols(state, payload) {
-    return state.optionalFormData.symbols = payload;
+    return state.formData.symbols = payload;
   },
   audioFileID: function audioFileID(state, payload) {
-    return state.optionalFormData.audioFileID = payload;
+    return state.formData.audioFileID = payload;
   },
   formErrors: function formErrors(state, payload) {
     state.formErrors = payload;
@@ -23020,10 +23035,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   content: [],
   searchResults: [],
   visible: 'hide',
-  itemDetail: [],
+  wordDetail: [],
   error: '',
   tags: [],
-  optionalFormData: { symbols: '', audioFileID: '' },
+  formData: { symbols: '', audioFileID: '', tags: [], suggestedTags: [] },
   formErrors: {}
 });
 
@@ -23636,15 +23651,16 @@ if (false) {
 
 
 /* harmony default export */ __webpack_exports__["a"] = ([{
-  name: 'Item Detail',
-  path: '/details/:item',
+  name: 'Word Detail',
+  path: '/details/:word',
   component: __WEBPACK_IMPORTED_MODULE_0__Pages_Details___default.a,
   beforeEnter: function beforeEnter(to, from, next) {
-    __WEBPACK_IMPORTED_MODULE_1__Store__["a" /* default */].dispatch('retrieveDetail', to.params.item);
+    //Store.dispatch('clearCurrentlyStoredWord')
+    __WEBPACK_IMPORTED_MODULE_1__Store__["a" /* default */].dispatch('retrieveDetail', to.params.word);
     next();
   }
 }, {
-  name: 'Create New Item',
+  name: 'Create New Word',
   path: '/add-new',
   component: __WEBPACK_IMPORTED_MODULE_2__Pages_NewWord___default.a,
   beforeEnter: function beforeEnter(to, from, next) {
@@ -23730,10 +23746,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {},
   computed: {
     details: function details() {
-      return this.$store.state.itemDetail;
+      return this.$store.state.wordDetail;
     },
     loaded: function loaded() {
-      return !_.isEmpty(this.$store.state.itemDetail);
+      return !_.isEmpty(this.$store.state.wordDetail);
     }
   }
 });
@@ -23861,7 +23877,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n[data-v-690a798f]::-webkit-input-placeholder {\n    color: #8795a1;\n}\n[data-v-690a798f]::-ms-input-placeholder {\n    color: #8795a1;\n}\n[data-v-690a798f]::placeholder {\n    color: #8795a1;\n}\n.optional-labels[data-v-690a798f]{\n  font-size: 1.2rem;\n}\n", ""]);
+exports.push([module.i, "\n[data-v-690a798f]::-webkit-input-placeholder {\n  color: #8795a1;\n}\n[data-v-690a798f]::-ms-input-placeholder {\n  color: #8795a1;\n}\n[data-v-690a798f]::placeholder {\n  color: #8795a1;\n}\n", ""]);
 
 // exports
 
@@ -23876,18 +23892,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_SoundKeyboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__partials_SoundKeyboard__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_Lists_AudioUpload__ = __webpack_require__(222);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_Lists_AudioUpload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__partials_Lists_AudioUpload__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_TagsSelector__ = __webpack_require__(229);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_TagsSelector___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__partials_TagsSelector__);
 //
 //
 //
@@ -23944,84 +23950,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var tagsCount = 5;
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: { SoundKeyboard: __WEBPACK_IMPORTED_MODULE_0__partials_SoundKeyboard___default.a, AudioUpload: __WEBPACK_IMPORTED_MODULE_1__partials_Lists_AudioUpload___default.a },
-  mounted: function mounted() {
-    this.tagInputEl = document.querySelector('input#tags');
-  },
+  components: { SoundKeyboard: __WEBPACK_IMPORTED_MODULE_0__partials_SoundKeyboard___default.a, AudioUpload: __WEBPACK_IMPORTED_MODULE_1__partials_Lists_AudioUpload___default.a, TagsSelector: __WEBPACK_IMPORTED_MODULE_2__partials_TagsSelector___default.a },
   data: function data() {
     return {
       form: {
         word: '',
         description: ''
-      },
-      addSymbol: false,
-      filteredTags: '',
-      selectedTags: [],
-      tagPlaceholder: "Type up to " + tagsCount + " related tags",
-      typedValue: '',
-      tagInputEl: '',
-      selectedSymbols: []
+      }
     };
   },
 
   methods: {
-    pickTag: function pickTag(e) {
-      var _this = this;
-
-      var value = e.target.value.toLowerCase();
-      if (value) {
-        this.filteredTags = this.tags.filter(function (each) {
-          if (!_this.selectedTags.includes(each)) {
-            return each.tag.toLowerCase().includes(value);
-          }
-        });
-      } else {
-        this.filteredTags = [];
-      }
-    },
-    clickedTag: function clickedTag(tagID) {
-      var _this2 = this;
-
-      this.filteredTags = '';
-      this.tagInputEl.value = '';
-
-      if (this.selectedTags.length !== tagsCount) {
-        this.tags.filter(function (tag) {
-          if (tag.id === tagID) {
-            _this2.selectedTags.push(tag);
-          }
-        });
-        this.tagInputEl.focus();
-        return this.calculateRemainingTags();
-      }
-    },
-    removeTag: function removeTag(tag) {
-      var filtered = this.selectedTags.filter(function (each) {
-        return tag.id !== each.id;
-      });
-      this.selectedTags = filtered;
-      this.tagInputEl.focus();
-      return this.calculateRemainingTags();
-    },
-    calculateRemainingTags: function calculateRemainingTags() {
-      var count = this.selectedTags.length;
-      if (count === 0) {
-        this.tagPlaceholder = "Type up to " + tagsCount + " related tags";
-      } else if (count === tagsCount) {
-        this.tagPlaceholder = 'Maxed out...You cant add more...';
-      } else if (count <= tagsCount) {
-        this.tagPlaceholder = tagsCount - count + " more...";
-      }
-    },
     submit: function submit(e) {
       e.preventDefault();
-      this.form.tags = this.selectedTags.map(function (tag) {
-        return tag.id;
-      });
-      this.form.audio = this.$store.state.optionalFormData.audioFileID;
-      this.form.symbol = this.$store.state.optionalFormData.symbols;
+      this.form.tags = this.$store.state.formData.tags;
+      this.form.suggestedTags = this.$store.state.formData.suggestedTags;
+      this.form.audio = this.$store.state.formData.audioFileID;
+      this.form.symbol = this.$store.state.formData.symbols;
       this.$store.dispatch('saveWord', this.form);
     },
     clearErrors: function clearErrors(e) {
@@ -24029,9 +23975,6 @@ var tagsCount = 5;
     }
   },
   computed: {
-    tags: function tags() {
-      return this.$store.state.tags;
-    },
     errors: function errors() {
       return this.$store.state.formErrors;
     }
@@ -24109,70 +24052,22 @@ var render = function() {
                 : _vm._e()
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "field column" }, [
-              _c("label", { staticClass: "label", attrs: { for: "tags" } }, [
-                _vm._v("Tags")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "control" }, [
-                _c("input", {
-                  staticClass: "input",
-                  attrs: {
-                    id: "tags",
-                    autofocus: "",
-                    autocomplete: "off",
-                    name: "tags",
-                    type: "text",
-                    placeholder: _vm.tagPlaceholder
-                  },
-                  on: { input: _vm.pickTag }
-                })
-              ]),
-              _vm._v(" "),
-              _c(
-                "ul",
-                { staticClass: "filtered-tags-list" },
-                _vm._l(_vm.filteredTags, function(each) {
-                  return _c(
-                    "li",
-                    {
-                      staticClass: "filtered-tags-each",
-                      on: {
-                        click: function($event) {
-                          _vm.clickedTag(each.id)
-                        }
-                      }
-                    },
-                    [_c("span", {}, [_vm._v(_vm._s(each.tag))])]
-                  )
-                })
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "selected-tags" },
-                _vm._l(_vm.selectedTags, function(each) {
-                  return _c(
-                    "span",
-                    {
-                      staticClass: "tag selected-tags__each",
-                      on: {
-                        click: function($event) {
-                          _vm.removeTag(each)
-                        }
-                      }
-                    },
-                    [_vm._v(_vm._s(each.tag))]
-                  )
-                })
-              ),
-              _vm._v(" "),
-              _vm.errors.tags
-                ? _c("div", { staticClass: "has-text-danger" }, [
-                    _vm._v(_vm._s(_vm.errors.tags[0]))
-                  ])
-                : _vm._e()
-            ])
+            _c(
+              "div",
+              { staticClass: "field column" },
+              [
+                _c("label", { staticClass: "label" }, [_vm._v("Tags")]),
+                _vm._v(" "),
+                _c("TagsSelector"),
+                _vm._v(" "),
+                _vm.errors.tags
+                  ? _c("div", { staticClass: "has-text-danger" }, [
+                      _vm._v(_vm._s(_vm.errors.tags[0]))
+                    ])
+                  : _vm._e()
+              ],
+              1
+            )
           ]),
           _vm._v(" "),
           _c("div", {}, [
@@ -25560,7 +25455,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   computed: {
     audioFileID: function audioFileID() {
-      return this.$store.state.optionalFormData.audioFileID;
+      return this.$store.state.formData.audioFileID;
     }
   }
 });
@@ -25645,6 +25540,332 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-55186740", module.exports)
   }
 }
+
+/***/ }),
+/* 228 */,
+/* 229 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(232)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(230)
+/* template */
+var __vue_template__ = __webpack_require__(231)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/app/partials/TagsSelector.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-a5de1f36", Component.options)
+  } else {
+    hotAPI.reload("data-v-a5de1f36", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 230 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var tagsCount = 5;
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    this.tagInputEl = document.querySelector('input#tags');
+  },
+  data: function data() {
+    return {
+      filteredTags: '',
+      selectedTags: [],
+      tagPlaceholder: 'Type up to ' + tagsCount + ' related tags',
+      typedValue: '',
+      tagInputEl: '',
+      noTag: '',
+      suggestedTags: []
+    };
+  },
+
+  methods: {
+    pickTag: function pickTag(e) {
+      var _this = this;
+
+      this.typedValue = e.target.value.toLowerCase();
+      if (this.typedValue) {
+        this.filteredTags = this.tags.filter(function (each) {
+          if (!_this.selectedTags.includes(each)) {
+            return each.tag.toLowerCase().includes(_this.typedValue);
+          }
+        });
+        this.checkTagAvailability();
+      } else {
+        this.filteredTags = '';
+      }
+    },
+    clickedTag: function clickedTag(tagID) {
+      var _this2 = this;
+
+      this.filteredTags = '';
+      this.tagInputEl.value = '';
+
+      if (this.selectedTags.length !== tagsCount) {
+        this.tags.filter(function (tag) {
+          if (tag.id === tagID) {
+            _this2.selectedTags.push(tag);
+          }
+        });
+        this.tagInputEl.focus();
+        return this.calculateRemainingTags();
+      }
+    },
+    removeTag: function removeTag(tag) {
+      var filtered = this.selectedTags.filter(function (each) {
+        return tag.id !== each.id;
+      });
+      this.selectedTags = filtered;
+      this.tagInputEl.focus();
+      return this.calculateRemainingTags();
+    },
+    suggestTag: function suggestTag() {
+      this.tagInputEl.focus();
+      this.tagInputEl.value = '';
+      this.noTag = false;
+      this.suggestedTags.push(this.typedValue);
+    },
+    checkTagAvailability: function checkTagAvailability() {
+      var _this3 = this;
+
+      var count = this.tags.filter(function (tag) {
+        return tag.tag.includes(_this3.typedValue);
+      });
+      this.noTag = count.length === 0;
+    },
+    calculateRemainingTags: function calculateRemainingTags() {
+      var count = this.selectedTags.length;
+      if (count === 0) {
+        this.tagPlaceholder = 'Type up to ' + tagsCount + ' related tags';
+      } else if (count === tagsCount) {
+        this.tagPlaceholder = 'Maxed out...You cant add more...';
+      } else if (count <= tagsCount) {
+        this.tagPlaceholder = tagsCount - count + ' more...';
+      }
+      this.$store.commit('selectedTags', this.selectedTags.map(function (d) {
+        return d.id;
+      }));
+      this.$store.commit('suggestedTags', this.suggestedTags);
+    }
+  },
+  computed: {
+    tags: function tags() {
+      return this.$store.state.tags;
+    },
+    noTagFound: function noTagFound() {
+      return this.noTag;
+    }
+  }
+});
+
+/***/ }),
+/* 231 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "control" }, [
+      _c("input", {
+        staticClass: "input",
+        attrs: {
+          id: "tags",
+          autofocus: "",
+          autocomplete: "off",
+          name: "tags",
+          type: "text",
+          placeholder: _vm.tagPlaceholder
+        },
+        on: { input: _vm.pickTag }
+      })
+    ]),
+    _vm._v(" "),
+    _c(
+      "ul",
+      { staticClass: "filtered-tags-list" },
+      _vm._l(_vm.filteredTags, function(each) {
+        return _c(
+          "li",
+          {
+            staticClass: "filtered-tags-each",
+            on: {
+              click: function($event) {
+                _vm.clickedTag(each.id)
+              }
+            }
+          },
+          [_c("span", {}, [_vm._v(_vm._s(each.tag))])]
+        )
+      })
+    ),
+    _vm._v(" "),
+    _vm.noTagFound
+      ? _c("span", { staticClass: "no-tag-found has-text-danger" }, [
+          _vm._v("No matching tag found...click "),
+          _c(
+            "u",
+            {
+              staticClass: "no-tag-found__pick",
+              on: { click: _vm.suggestTag }
+            },
+            [_vm._v("here")]
+          ),
+          _vm._v(" to suggest it. ")
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "selected-tags" },
+      [
+        _vm._l(_vm.selectedTags, function(each) {
+          return _c(
+            "span",
+            {
+              staticClass: "tag selected-tags__each",
+              on: {
+                click: function($event) {
+                  _vm.removeTag(each)
+                }
+              }
+            },
+            [_vm._v(_vm._s(each.tag))]
+          )
+        }),
+        _vm._v(" "),
+        _vm._l(_vm.suggestedTags, function(each) {
+          return _vm.suggestedTags.length > 0
+            ? _c(
+                "span",
+                {
+                  staticClass: "tag is-warning",
+                  on: {
+                    click: function($event) {
+                      _vm.removeTag(each)
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(each))]
+              )
+            : _vm._e()
+        })
+      ],
+      2
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-a5de1f36", module.exports)
+  }
+}
+
+/***/ }),
+/* 232 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(233);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("162fd09c", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-a5de1f36\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TagsSelector.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-a5de1f36\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TagsSelector.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 233 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.no-tag-found__pick {\n  cursor: pointer;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);

@@ -16778,6 +16778,10 @@ section.footer {
   color: #ff3860;
 }
 
+.optional-labels {
+  font-size: 1.2rem;
+}
+
 .hide {
   visibility: hidden;
 }
