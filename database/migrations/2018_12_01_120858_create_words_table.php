@@ -15,8 +15,8 @@ class CreateWordsTable extends Migration
     {
         Schema::create('words', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('word');
-            $table->string('sub_title');
+            $table->string('word',15);
+            $table->string('sub_title')->nullable();
             $table->string('slug')->unique();
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

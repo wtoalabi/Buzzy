@@ -31,10 +31,12 @@
     {
       $userID = auth()->user()->id;
       request()->validate([
-        'word' => 'required|unique:words',
+        'word' => 'required|unique:words|max:15',
+        'sub_title' => 'nullable',
         'description' => 'required',
         'tags' => 'required',
       ],[
+        'word.max' => 'You cant have more than :max characters. The suggestion is to make it short and simple, then give the full name in the (Buzzword in Full) section below.',
         'tags.required' => 'You need to select at least one Tag.',
         'word.unique' => 'The word already exists.'
       ]);

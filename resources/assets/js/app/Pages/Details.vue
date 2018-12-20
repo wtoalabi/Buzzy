@@ -6,17 +6,17 @@
           <h1>{{details.word}}</h1>
           <h3>{{details.sub_title}}</h3>
           <div class="details__tags">
-            <span class="tag" v-for="tag in details.tags">{{tag.tag}}</span>
-          </div>
-        </div>
-        <div class="details__user-info">
-          <div class="details__user-info--avatar-blob">
-            <img :src="details.user.avatar" alt="">
-            <span class="mr-2">{{details.user.username}}</span>
-            <div v-if="details.user.full_name">({{details.user.full_name}})</div>
+            <span class="mr-2 tag">Added by {{details.user.username}}</span>
+            <span class="tag details__tags--link" v-for="tag in details.tags">
+              <router-link to="#">{{tag.tag}}</router-link>
+            </span>
           </div>
         </div>
       </div>
+      <template>
+        <div class="description-divider">Descriptions</div>
+        <DescriptionsList />
+      </template>
     </div>
     <loading v-else/>
   </div>
@@ -24,10 +24,12 @@
 
 <script>
 
+  import DescriptionsList from "../partials/DescriptionsList";
+
   export default {
+    components: {DescriptionsList},
     mounted() {
     },
-    component: {},
     data() {
       return {}
     },
@@ -41,74 +43,25 @@
       }
     }
   }
-
 </script>
-
 <style lang="scss">
-  .details{
-    width: 100%;
-    padding: 0 1.5rem;
-  }
-  .details__header{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .details__title h1{
-    font-size: 3rem;
-    color: white;
+  .description-divider{
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-gap: 20px;
+    align-items: center;
+    font-size: 2rem;
     font-weight: bold;
-    word-break: break-word;
+    margin-top: 2rem;
   }
-  .details__title h3{
-    margin-top: -.7rem;
+  .description-divider:before,
+  .description-divider:after{
+    display: block;
+    content: '';
+    height: 10px;
+    background: linear-gradient(to var(--direction, left), #607d8b, transparent)
   }
-  .details__tags{
-    display: flex;
-    margin-left: .2rem;
-  }
-  .details__tags .tag{
-    margin-right: .3rem;
-    background: #1c2d3e;
-    color: white;
-    font-size: .8rem;
-  }
-  .details__user-info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 1rem;
-  }
-  .details__user-info--avatar-blob{
-    display: flex;
-    align-items: center;
-  }
-  .details__user-info--avatar-blob img {
-    width: 3rem;
-    margin-right: .2rem;
-  }
-  .details__user-info--name-blob{
-    display: flex;
-    align-items: center;
-  }
-  @media screen and(min-width: 500px){
-    .details__title h1{
-      font-size: 6rem;
-    }
-  }
-  @media screen and (min-width: 980px){
-    .details__header{
-      justify-content: space-between;
-      align-items: center;
-      flex-direction: row;
-    }
-    .details__title h1{
-      font-size: 7rem;
-    }
-    .details__user-info{
-      margin-top: 0;
-    }
+  .description-divider:after{
+    --direction: right;
   }
 </style>

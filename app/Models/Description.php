@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 class Description extends Model
 {
@@ -17,5 +18,8 @@ class Description extends Model
   }
  public function tags(){
     return $this->hasMany(Tag::class);
+ }
+ public function user(){
+    return $this->belongsTo(User::class);
  }
 }

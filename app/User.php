@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Models\Description;
+use App\Models\Word;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -17,6 +19,7 @@ class User extends Authenticatable
     protected $fillable = [
         'github_id','twitter_id','username','full_name', 'email', 'avatar'
     ];
+    protected $withCount = ['descriptions','words'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -28,6 +31,12 @@ class User extends Authenticatable
     ];
     
     public function avatar(){
-        return $this->avatar ? "images/$this->avatar" : 'images/default.png';
+        return $this->avatar ? $this->avatar : 'images/default.png';
+    }
+    public function words(){
+        return $this->hasMany(Word::class);
+    }
+    public function descriptions(){
+      return $this->hasMany(Description::class);
     }
 }

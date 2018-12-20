@@ -18,7 +18,8 @@ class UserDetail extends JsonResource
           'avatar' => $this->avatar(),
           'full_name' =>$this->full_name,
           'username' => $this->username,
-          'words_count' => 2
+          'words_count' => $this->words_count,
+          'descriptions_count' => $this->descriptions_count
         ];
     }
 }

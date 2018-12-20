@@ -8,8 +8,8 @@
             <label class="label" for="word-title">Word Title</label>
             <div class="control">
               <input id="word-title" class="input" name="word" type="text" placeholder="A commonly known but brief title or an Acronymn. E.g ISP" autocomplete="off" v-model="form.word">
+              <div v-if="errors.word" class="has-text-danger">{{errors.word[0]}}</div>
             </div>
-            <div v-if="errors.word" class="has-text-danger">{{errors.word[0]}}</div>
           </div>
           <div class="field column">
             <label class="label">Tags</label>
@@ -70,7 +70,7 @@
         form:{
           word:'',
           sub_title: '',
-          description: ''
+          description: '',
         },
       }
     },
@@ -90,7 +90,7 @@
     computed: {
       errors(){
         return this.$store.state.formErrors;
-      }
+      },
     }
   }
 
