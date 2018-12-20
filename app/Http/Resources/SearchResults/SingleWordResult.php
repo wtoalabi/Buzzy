@@ -16,12 +16,10 @@ class SingleWordResult extends JsonResource
     {
         return [
           'id' => $this->id,
-          'title' => $this->title,
-          'totalComments' => $this->descriptions->count(),
-          'totalSymbols' => $this->symbolsCount(),
-          'totalSounds' => $this->soundsCount(),
-          'totalTags' => $this->tagsCount(),
-          'url' => str_slug($this->title)
+          'word' => $this->word,
+          'totalDescriptionsCount' => $this->descriptions->count(),
+          'totalTagsCount' => $this->tagsCount(),
+          'slug' => $this->slug
         ];
     }
 }

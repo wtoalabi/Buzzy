@@ -23754,7 +23754,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.description-divider {\n  display: grid;\n  grid-template-columns: 1fr auto 1fr;\n  grid-gap: 20px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 2rem;\n  font-weight: bold;\n  margin-top: 2rem;\n}\n.description-divider:before,\n.description-divider:after {\n  display: block;\n  content: '';\n  height: 10px;\n  background: -webkit-gradient(linear, , from(#607d8b), to(transparent));\n  background: linear-gradient(to var(--direction, left), #607d8b, transparent);\n}\n.description-divider:after {\n  --direction: right;\n}\n", ""]);
+exports.push([module.i, "\n.description-divider {\n  display: grid;\n  grid-template-columns: 1fr auto 1fr;\n  grid-gap: 20px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 1.5rem;\n  font-weight: bold;\n  margin-top: 2rem;\n}\n.description-divider:before,\n.description-divider:after {\n  display: block;\n  content: '';\n  height: 10px;\n  background: -webkit-gradient(linear, , from(#607d8b), to(transparent));\n  background: linear-gradient(to var(--direction, left), #607d8b, transparent);\n}\n.description-divider:after {\n  --direction: right;\n}\n", ""]);
 
 // exports
 
@@ -23899,7 +23899,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.details__descriptions {\n  padding: 1rem;\n  margin: 0 0 1rem 0;\n}\n.details__description {\n  border-radius: 0 0 1rem 1rem;\n  padding: 1rem;\n  background: #3da9f90a;\n  margin-bottom: 1rem;\n  -webkit-box-shadow: 0 0 0.3rem 0 #607D8B;\n          box-shadow: 0 0 0.3rem 0 #607D8B;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.details__description:nth-child(odd) {\n  border-radius: 1rem 1rem 0 0;\n}\n.description__owner{\n  margin-right: 2rem;\n  -ms-flex-preferred-size: 15%;\n      flex-basis: 15%;\n}\n.description__owner a{\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n}\n.description__owner img{\n  width: 4rem;\n  border-radius: 50%;\n  margin: 0 1rem;\n}\n.description__owner .name{\n  color: #f0f8ff8f;\n}\n.description__details{\n  -webkit-box-flex: 2;\n      -ms-flex: 2;\n          flex: 2;\n}\n.description__icons{\n  display: -webkit-inline-box;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.description__icons code{\n  background-color: #ffffff;\n  color: #091d31;\n  font-size: 1.1rem;\n  padding: .3rem;\n  font-weight: 700;\n}\n.description__texts{\n  padding: .5rem 1rem;\n}\n.description__owner-info{\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  //flex-direction: column;\n}\n.description__owner-info > span{\n  margin-right: .4rem;\n}\nspan.description__owner-info--count{\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n@media screen and (max-width: 350px){\n.description__icons code{\n    font-size: .65rem;\n}\n}\n@media screen and (max-width: 500px){\n.details__description{\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: reverse;\n        -ms-flex-direction: column-reverse;\n            flex-direction: column-reverse;\n}\n.details__description .description__owner{\n    width: 3rem;\n}\n}\n@media screen and (min-width: 750px){\n.description__icons{\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.description__owner{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.description__owner img{\n    margin: 0 auto;\n}\n}\n", ""]);
+exports.push([module.i, "\n.details__descriptions {\n  padding: 1rem;\n  margin: 0 0 1rem 0;\n}\n.details__description {\n  border-radius: 0 0 1rem 1rem;\n  padding: 1rem;\n  background: #3da9f90a;\n  margin-bottom: 1rem;\n  -webkit-box-shadow: 0 0 0.3rem 0 #607D8B;\n          box-shadow: 0 0 0.3rem 0 #607D8B;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.details__description:nth-child(odd) {\n  border-radius: 1rem 1rem 0 0;\n}\n.description__owner{\n  margin-right: 2rem;\n  -ms-flex-preferred-size: 15%;\n      flex-basis: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.description__owner a{\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.description__owner img{\n  width: 4rem;\n  border-radius: 50%;\n  margin-bottom: 1rem;\n}\n.description__owner--username{\n  margin: .51rem 0;\n}\n.description__details{\n  -webkit-box-flex: 2;\n      -ms-flex: 2;\n          flex: 2;\n}\n.description__icons{\n  display: -webkit-inline-box;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.description__icons code{\n  background-color: #ffffff;\n  color: #091d31;\n  font-size: 1.1rem;\n  padding: .3rem;\n  font-weight: 700;\n}\n.description__texts{\n  padding: .5rem 1rem;\n}\n.description__owner-info{\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  //flex-direction: column;\n}\n.description__owner-info > span{\n  margin-right: .4rem;\n}\nspan.description__owner-info--count{\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n@media screen and (max-width: 350px){\n.description__icons code{\n    font-size: .65rem;\n}\n}\n@media screen and (max-width: 500px){\n.details__description{\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: reverse;\n        -ms-flex-direction: column-reverse;\n            flex-direction: column-reverse;\n}\n.details__description .description__owner{\n    width: 3rem;\n}\n}\n@media screen and (min-width: 750px){\n.description__icons{\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.description__owner{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.description__owner img{\n    margin-bottom: 0;\n}\n.description__owner--username{\n    margin: 0;\n}\n}\n", ""]);
 
 // exports
 
@@ -23910,7 +23910,6 @@ exports.push([module.i, "\n.details__descriptions {\n  padding: 1rem;\n  margin:
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
@@ -23975,16 +23974,23 @@ var render = function() {
           { staticClass: "description__owner" },
           [
             _c("router-link", { attrs: { to: "#" } }, [
-              _c("img", { attrs: { src: description.user.avatar, alt: "" } }),
-              _vm._v(" "),
-              _c("h3", [_vm._v(_vm._s(description.user.username))])
+              _c("img", { attrs: { src: description.user.avatar, alt: "" } })
             ]),
+            _vm._v(" "),
+            _c(
+              "router-link",
+              {
+                staticClass: "description__owner--username",
+                attrs: { to: "#" }
+              },
+              [_vm._v(_vm._s(description.user.username))]
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "description__owner-info" }, [
               _c(
                 "span",
                 {
-                  staticClass: "description__owner-info--count tag",
+                  staticClass: "description__owner-info--count tag is-white",
                   attrs: { title: "Total number of words authored" }
                 },
                 [
@@ -23997,7 +24003,7 @@ var render = function() {
               _c(
                 "span",
                 {
-                  staticClass: "tag description__owner-info--count",
+                  staticClass: "tag description__owner-info--count is-link",
                   attrs: { title: "Total number of descriptions added" }
                 },
                 [
@@ -25524,7 +25530,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['searchText'],
@@ -25566,20 +25571,31 @@ var render = function() {
             {
               key: result.id,
               staticClass: "result",
-              attrs: { to: "details/" + result.url }
+              attrs: { to: "details/" + result.slug }
             },
             [
               _c("span", {
                 staticClass: "result__title",
-                domProps: { innerHTML: _vm._s(_vm.styleTitle(result.title)) }
+                domProps: { innerHTML: _vm._s(_vm.styleTitle(result.word)) }
               }),
               _vm._v(" "),
               _c("div", { staticClass: "result__counts" }, [
-                _c("span", [
-                  _vm._v("Descriptions: " + _vm._s(result.totalComments))
-                ]),
-                _vm._v(" "),
                 _c("div", { staticClass: "result__counts--icons" }, [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "result__icons--symbol mr-6",
+                      attrs: {
+                        title: "Symbols Found",
+                        alt: "Total Descriptions"
+                      }
+                    },
+                    [
+                      _c("i", { staticClass: "fa fa-comments-o pr-1" }),
+                      _vm._v(" " + _vm._s(result.totalDescriptionsCount))
+                    ]
+                  ),
+                  _vm._v(" "),
                   _c(
                     "span",
                     {
@@ -25587,20 +25603,8 @@ var render = function() {
                       attrs: { title: "Total Tags", alt: "Total Tags" }
                     },
                     [
-                      _c("i", { staticClass: "fa fa-tag pr-6" }),
-                      _vm._v(_vm._s(result.totalTags))
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      staticClass: "result__icons--symbol",
-                      attrs: { title: "Symbols Found", alt: "Symbols Found" }
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-microphone pr-1" }),
-                      _vm._v(" " + _vm._s(result.totalSymbols))
+                      _c("i", { staticClass: "fa fa-tag mr-6" }),
+                      _vm._v(_vm._s(result.totalTagsCount))
                     ]
                   )
                 ])

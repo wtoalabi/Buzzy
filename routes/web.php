@@ -12,7 +12,7 @@
   */
 
 //Auth::routes();
-//auth()->loginUsingId(2);
+auth()->loginUsingId(2);
   
   Route::get('test', function () {
     return view('test');

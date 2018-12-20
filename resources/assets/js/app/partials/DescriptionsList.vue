@@ -4,15 +4,14 @@
       <div class="description__owner">
         <router-link to="#">
           <img :src="description.user.avatar" alt="">
-          <h3>{{description.user.username}}</h3>
-          <!--<h2 v-if="description.user.full_name" class="name">{{description.user.full_name}}</h2>-->
         </router-link>
+        <router-link to="#" class="description__owner--username">{{description.user.username}}</router-link>
         <div class="description__owner-info">
-          <span class="description__owner-info--count tag" title="Total number of words authored">
+          <span class="description__owner-info--count tag is-white" title="Total number of words authored">
             <span class=""><i class="fa fa-file-word-o mr-4"></i></span>
             <span>{{description.user.words_count}}</span>
           </span>
-          <span class="tag description__owner-info--count" title="Total number of descriptions added">
+          <span class="tag description__owner-info--count is-link" title="Total number of descriptions added">
             <span class=""><i class="fa fa-comments-o mr-4"></i></span>
             <span>{{description.user.descriptions_count}}</span>
           </span>
@@ -67,19 +66,21 @@
   .description__owner{
     margin-right: 2rem;
     flex-basis: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .description__owner a{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
   }
   .description__owner img{
     width: 4rem;
     border-radius: 50%;
-    margin: 0 1rem;
+    margin-bottom: 1rem;
   }
-  .description__owner .name{
-    color: #f0f8ff8f;
+  .description__owner--username{
+    margin: .51rem 0;
   }
   .description__details{
     flex: 2;
@@ -122,7 +123,6 @@
     .details__description .description__owner{
       width: 3rem;
     }
-
   }
   @media screen and (min-width: 750px){
     .description__icons{
@@ -135,7 +135,10 @@
       align-items: center;
     }
     .description__owner img{
-      margin: 0 auto;
+      margin-bottom: 0;
+    }
+    .description__owner--username{
+      margin: 0;
     }
   }
 </style>

@@ -50,7 +50,7 @@
     grid-template-columns: 1fr auto 1fr;
     grid-gap: 20px;
     align-items: center;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     margin-top: 2rem;
   }

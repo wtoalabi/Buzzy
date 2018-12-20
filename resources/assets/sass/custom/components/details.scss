@@ -17,15 +17,12 @@
   font-weight: bold;
   word-break: break-word;
 }
-.details__title h3{
-  margin-top: -.7rem;
-}
 .details__tags{
   display: flex;
-  margin-left: .2rem;
+  flex-wrap: wrap;
 }
 .details__tags .tag{
-  margin-right: .3rem;
+  margin: 0.2rem .2rem 0 0;
   background: #1c2d3e;
   color: white;
   font-size: .8rem;
