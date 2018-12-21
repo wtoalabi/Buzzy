@@ -22,7 +22,7 @@ class SingleWordDetail extends JsonResource
           'word' => $this->word,
           'sub_title' => $this->sub_title,
           'slug' => str_slug($this->slug),
-          'descriptions' => new DescriptionsCollection($this->descriptions),
+          'descriptions' => new DescriptionsCollection($this->sortedDescriptions()),
           'user' => new UserDetail($this->user),
           'tags' => new TagsCollection($this->tags)
         ];

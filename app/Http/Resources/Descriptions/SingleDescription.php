@@ -26,7 +26,7 @@ class SingleDescription extends JsonResource
           'user' => new UserDetail($this->user),
           'date_created' => $this->created_at->diffForHumans(),
           'like_counts' => $this->likesCount(),
-          'liked' => $this->liked()
+          'liked' => $this->liked(),
         ];
     }
 }

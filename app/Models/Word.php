@@ -17,6 +17,12 @@
     public function descriptions(){
       return $this->hasMany(Description::class);
     }
+    public function sortedDescriptions(){
+      $descriptionsWithCount = $this->descriptions->each(function ($description){
+        return $description['likesCount'] = $description->likesCount();
+      });
+        return $descriptionsWithCount->sortByDesc('likesCount');
+    }
     public function tags(){
       return $this->belongsToMany(Tag::class,'word_tags')->withTimestamps();
     }
