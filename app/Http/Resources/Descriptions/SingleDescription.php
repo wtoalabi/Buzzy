@@ -25,8 +25,8 @@ class SingleDescription extends JsonResource
           'audio_file' => new SingleAudio($this->audio->first()),
           'user' => new UserDetail($this->user),
           'date_created' => $this->created_at->diffForHumans(),
-          'like_counts' => 10,
-          'liked' => false
+          'like_counts' => $this->likesCount(),
+          'liked' => $this->liked()
         ];
     }
 }

@@ -46,5 +46,15 @@ export default {
   },
   clearFormError(state,error){
     state.formErrors[error] = ''
+  },
+  updateDescriptions(state, payload){
+    let newDescriptions = state.wordDetail.descriptions.map((description)=>{
+      if(description.id === payload.id){
+        return description = payload
+      }else{
+        return description
+      }
+    })
+    return state.wordDetail.descriptions = newDescriptions
   }
 }

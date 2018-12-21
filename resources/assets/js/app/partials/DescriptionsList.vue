@@ -9,7 +9,7 @@
         <div class="description__owner-info">
           <span class="description__owner-info--count tag is-white" title="Total number of words authored">
             <span class=""><i class="fa fa-file-word-o mr-4"></i></span>
-            <span>{{description.user.words_count}}</span>
+            <span :key="likesKey">{{description.user.words_count}}</span>
           </span>
           <span class="tag description__owner-info--count is-link" title="Total number of descriptions added">
             <span class=""><i class="fa fa-comments-o mr-4"></i></span>
@@ -23,14 +23,14 @@
             <code v-if="description.symbol">{{description.symbol.body}}</code><span v-else></span>
             <span>Added {{description.date_created}}</span>
             <div>
-              <span class="tag is-primary description__likes" :title="liked(description).text"><i class="fa fa-heart mr-4" :class="liked(description).color"></i>{{description.like_counts}}</span>
+              <DescriptionLikes :description="description"/>
             </div>
           </div>
           <a v-if="description.audio_file" id="audio-click-link" title="Listen to Pronounciation" class=""><i class="fa fa-volume-up mr-4 has-text-info"></i>Listen to pronounciation
             <audio :src="`storage/audio/${description.user.id}/${description.audio_file.url}`"></audio>
           </a>
         </div>
-        <div class="description__texts">
+        <div class="description__texts" >
           <h3>{{description.body}}</h3>
         </div>
       </div>
@@ -39,17 +39,26 @@
 </template>
 
 <script>
+  import DescriptionLikes from "./DescriptionLikes";
+
   export default {
+    components:{
+      DescriptionLikes
+    },
     mounted(){
       this.setupDescriptionTexts()
       this.setupAudio()
     },
     data() {
       return {
+        likesKey: 0,
         expanded: false
       }
     },
     methods: {
+      updateLikesCount(){
+        this.likesKey +=1
+      },
       setupDescriptionTexts(){
         let descriptions = document.querySelectorAll('.description__texts h3')
         descriptions.forEach((description)=>{
@@ -86,17 +95,10 @@
           audio.play()
         }
       },
-      liked(description){
-        if(description.liked){
-          return {
-            'color' : 'has-text-success',
-            'text': 'Unlike'
-          }
-        }
-        return {
-          'color': 'has-text-danger',
-          'text' : 'Like'
-        }
+    },
+    watch:{
+      descriptions: function(){
+        this.updateLikesCount
       }
     },
     computed: {
@@ -109,7 +111,5 @@
 </script>
 
 <style>
-  .description__likes{
-    cursor: pointer;
-  }
+
 </style>

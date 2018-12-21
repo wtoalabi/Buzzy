@@ -57,5 +57,10 @@ export default {
     }).catch(error=>{
       context.commit('formErrors', error.response.data.errors);
     })
+  },
+  updateDescriptionLikes(context,payload){
+    return axios.post(`api/likes/${payload}`).then(response=>{
+      context.commit('updateDescriptions',response.data.data)
+    })
   }
 }

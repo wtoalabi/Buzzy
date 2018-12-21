@@ -12,7 +12,7 @@
   */
 
 //Auth::routes();
-auth()->loginUsingId(2);
+auth()->loginUsingId(4);
   
   Route::get('test', function () {
     return view('test');
@@ -31,6 +31,8 @@ auth()->loginUsingId(2);
     Route::post('save-new-word','Words\WordsController@store');
     Route::post('save-new-description','Descriptions\DescriptionsController@store');
     Route::post('logout', 'Auth\LoginController@logout');
+    Route::post('likes/{descriptionID}', 'Likes\LikesController@toggleLikes');
+    
   });
   
   Route::get('/', 'HomeController@index');
