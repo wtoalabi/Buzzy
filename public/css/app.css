@@ -17078,6 +17078,16 @@ span.description__owner-info--count {
   border-radius: 0;
 }
 
+.description__footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 @media screen and (max-width: 350px) {
   .description__icons code {
     font-size: .65rem;
@@ -17100,6 +17110,18 @@ span.description__owner-info--count {
 @media screen and (min-width: 500px) {
   .details__title h1 {
     font-size: 6rem;
+  }
+}
+
+@media screen and (min-width: 550px) {
+  .description__footer {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
   }
 }
 

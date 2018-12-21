@@ -23930,7 +23930,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -23943,6 +23943,8 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DescriptionLikes__ = __webpack_require__(261);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DescriptionLikes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DescriptionLikes__);
+//
+//
 //
 //
 //
@@ -24126,19 +24128,7 @@ var render = function() {
             _c("div", [
               description.symbol
                 ? _c("code", [_vm._v(_vm._s(description.symbol.body))])
-                : _c("span"),
-              _vm._v(" "),
-              _c("span", [_vm._v("Added " + _vm._s(description.date_created))]),
-              _vm._v(" "),
-              _c(
-                "div",
-                [
-                  _c("DescriptionLikes", {
-                    attrs: { description: description }
-                  })
-                ],
-                1
-              )
+                : _c("span")
             ]),
             _vm._v(" "),
             description.audio_file
@@ -24171,6 +24161,16 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "description__texts" }, [
             _c("h3", [_vm._v(_vm._s(description.body))])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "description__footer" }, [
+            _c("span", [_vm._v("Added " + _vm._s(description.date_created))]),
+            _vm._v(" "),
+            _c(
+              "div",
+              [_c("DescriptionLikes", { attrs: { description: description } })],
+              1
+            )
           ])
         ])
       ])

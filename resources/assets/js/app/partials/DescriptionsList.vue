@@ -21,10 +21,6 @@
         <div class="description__icons">
           <div>
             <code v-if="description.symbol">{{description.symbol.body}}</code><span v-else></span>
-            <span>Added {{description.date_created}}</span>
-            <div>
-              <DescriptionLikes :description="description"/>
-            </div>
           </div>
           <a v-if="description.audio_file" id="audio-click-link" title="Listen to Pronounciation" class=""><i class="fa fa-volume-up mr-4 has-text-info"></i>Listen to pronounciation
             <audio :src="`storage/audio/${description.user.id}/${description.audio_file.url}`"></audio>
@@ -32,6 +28,12 @@
         </div>
         <div class="description__texts" >
           <h3>{{description.body}}</h3>
+        </div>
+        <div class="description__footer">
+          <span>Added {{description.date_created}}</span>
+          <div>
+            <DescriptionLikes :description="description"/>
+          </div>
         </div>
       </div>
     </div>
@@ -111,5 +113,6 @@
 </script>
 
 <style>
+
 
 </style>
