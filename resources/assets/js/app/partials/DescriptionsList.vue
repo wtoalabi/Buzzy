@@ -23,7 +23,7 @@
           <a v-if="description.audio_file" title="Listen to Pronounciation" class=""><i class="fa fa-volume-up mr-4 has-text-info"></i>Listen to pronounciation</a>
         </div>
         <div class="description__texts">
-          {{description.body}}
+          <h3>{{description.body}}</h3>
         </div>
       </div>
     </div>
@@ -32,8 +32,36 @@
 
 <script>
   export default {
+    mounted(){
+      let descriptions = document.querySelectorAll('.description__texts h3')
+      descriptions.forEach((description)=>{
+        let text = description.textContent
+        if(text.length > 300){
+          let expansion = document.createElement('a')
+          expansion.classList.add('description__toggle-expansion')
+          expansion.innerHTML = "Expand to view more..."
+          description.textContent =   _.truncate(text,{'length': 300})
+          description.appendChild(expansion)
+          expansion.addEventListener('click',()=>{
+          expansion.classList.toggle('description__toggle-expansion--shrink')
+            if(!this.expanded){
+              description.textContent = text
+              expansion.innerHTML = "Click to shrink..."
+              description.appendChild(expansion)
+            }else{
+              description.textContent = _.truncate(text,{'length': 300})
+              expansion.innerHTML = "Expand to view more..."
+              description.appendChild(expansion)
+            }
+            this.expanded = !this.expanded
+          })
+        }
+      })
+    },
     data() {
-      return {}
+      return {
+        expanded: false
+      }
     },
     methods: {},
     computed: {
@@ -91,7 +119,7 @@
     flex-direction: column;
   }
   .description__icons code{
-    background-color: #ffffff;
+    background-color: #ffdd57;
     color: #091d31;
     font-size: 1.1rem;
     padding: .3rem;
@@ -110,6 +138,27 @@
   span.description__owner-info--count{
     display: flex;
     justify-content: space-between;
+  }
+  .description__texts{
+    display: flex;
+    flex-direction: column;
+  }
+  .description__toggle-expansion{
+    padding: .41rem;
+    background-color: #f6fcfff0;
+    color: #0b2339;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    margin-top: -1.3rem;
+    box-shadow: 0px 0px 7px 0px white;
+    border-radius: 1rem;
+  }
+  .description__toggle-expansion--shrink{
+    margin-top: 0;
+    box-shadow: none;
+    border-radius: 0;
   }
   @media screen and (max-width: 350px){
     .description__icons code{
