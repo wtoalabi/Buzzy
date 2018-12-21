@@ -50,5 +50,12 @@ export default {
     }).catch(error=>{
       context.commit('formErrors', error.response.data.errors);
     })
+  },
+  saveDescription(context, payload){
+    axios.post('api/save-new-description', payload.form).then(()=>{
+      context.dispatch('retrieveDetail',payload.slug)
+    }).catch(error=>{
+      context.commit('formErrors', error.response.data.errors);
+    })
   }
 }

@@ -38,11 +38,11 @@
         <h1 class="optional">Optional</h1>
         <div class="columns">
           <div class="column audio-column">
-          <div class="field add-sound">
-            <label class="label optional-labels">Upload Audio file</label>
-            <AudioUpload />
-            <div v-if="errors.audio" class="has-text-danger">{{errors.audio[0]}}</div>
-          </div>
+            <div class="field add-sound">
+              <label class="label optional-labels">Upload Audio file</label>
+              <AudioUpload />
+              <div v-if="errors.audio" class="has-text-danger">{{errors.audio[0]}}</div>
+            </div>
           </div>
           <div class="column field">
             <label class="label optional-labels">Add Phonetic Sound</label>

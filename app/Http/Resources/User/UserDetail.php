@@ -15,6 +15,7 @@ class UserDetail extends JsonResource
     public function toArray($request)
     {
         return [
+          'id' => $this->id,
           'avatar' => $this->avatar(),
           'full_name' =>$this->full_name,
           'username' => $this->username,

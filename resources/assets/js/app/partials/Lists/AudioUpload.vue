@@ -33,11 +33,6 @@
         this.fileInfo.innerHTML = `<div class="file__info--details"><h1><h1>Name: ${file.name}</h1>Size: ${size}kb</h1></div>`
         this.instruction.classList.add('hide')
         this.fileInfo.classList.remove('hide')
-        /*let reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onload= (e)=>{
-          let audio = e.target.result
-        }*/
         return axios.post(`api/save-audio/${file.name}`,formData).then(response=>{
           this.$store.commit('audioFileID', response.data)
           this.addCancelIcon()
@@ -63,6 +58,7 @@
             this.fileInfo.innerHTML = ''
             this.instruction.classList.remove('hide')
             this.cancelIconEl.innerHTML = ''
+            this.$store.commit('removeAudio')
           })
         })
       }

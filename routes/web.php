@@ -29,6 +29,7 @@ auth()->loginUsingId(2);
     Route::post('save-audio/{name}','Audio\AudioController@store');
     Route::delete('delete-audio/{id}','Audio\AudioController@destroy');
     Route::post('save-new-word','Words\WordsController@store');
+    Route::post('save-new-description','Descriptions\DescriptionsController@store');
     Route::post('logout', 'Auth\LoginController@logout');
   });
   

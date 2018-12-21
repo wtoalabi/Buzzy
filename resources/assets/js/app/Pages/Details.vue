@@ -15,6 +15,7 @@
       </div>
       <template>
         <div class="description-divider">Descriptions</div>
+        <NewDescription />
         <DescriptionsList />
       </template>
     </div>
@@ -25,9 +26,10 @@
 <script>
 
   import DescriptionsList from "../partials/DescriptionsList";
+  import NewDescription from "../partials/NewDescription";
 
   export default {
-    components: {DescriptionsList},
+    components: {DescriptionsList, NewDescription},
     mounted() {
     },
     data() {

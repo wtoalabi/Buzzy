@@ -16927,9 +16927,212 @@ section.footer {
           align-items: center;
 }
 
+.details__descriptions {
+  padding: 1rem;
+  margin: 0 0 1rem 0;
+}
+
+.details__description {
+  border-radius: 1rem 1rem 0 0;
+  padding: 1rem;
+  background: #3da9f90a;
+  margin-bottom: 1rem;
+  -webkit-box-shadow: 0 0 0.3rem 0 #607D8B;
+          box-shadow: 0 0 0.3rem 0 #607D8B;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.details__description:nth-child(odd) {
+  border-radius: 0 0 1rem 1rem;
+}
+
+.description__owner {
+  margin-right: 2rem;
+  -ms-flex-preferred-size: 15%;
+      flex-basis: 15%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.description__owner a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.description__owner img {
+  width: 4rem;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.description__owner--username {
+  margin: .51rem 0;
+}
+
+.description__details {
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+}
+
+.description__icons {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.description__icons code {
+  background-color: #bdbfc7;
+  color: #091d31;
+  font-size: 1.1rem;
+  padding: .3rem;
+  font-weight: 700;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.description__texts {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 1rem 0;
+}
+
+.description__owner-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.description__owner-info > span {
+  margin-right: .4rem;
+}
+
+span.description__owner-info--count {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.description__toggle-expansion {
+  padding: .41rem;
+  background-color: #f6fcffeb;
+  color: #0b2339;
+  width: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-weight: bold;
+  margin-top: -1.3rem;
+  -webkit-box-shadow: 0px 0px 7px 0px white;
+          box-shadow: 0px 0px 7px 0px white;
+  border-radius: 0 1rem;
+}
+
+.description__toggle-expansion--shrink {
+  margin-top: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border-radius: 0;
+}
+
+@media screen and (max-width: 350px) {
+  .description__icons code {
+    font-size: .65rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .details__description {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+  }
+
+  .details__description .description__owner {
+    width: 3rem;
+  }
+}
+
 @media screen and (min-width: 500px) {
   .details__title h1 {
     font-size: 6rem;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .description__icons {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+
+  .description__owner {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+
+  .description__owner img {
+    margin-bottom: 0;
+  }
+
+  .description__owner--username {
+    margin: 0;
   }
 }
 

@@ -22133,6 +22133,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     }).catch(function (error) {
       context.commit('formErrors', error.response.data.errors);
     });
+  },
+  saveDescription: function saveDescription(context, payload) {
+    axios.post('api/save-new-description', payload.form).then(function () {
+      context.dispatch('retrieveDetail', payload.slug);
+    }).catch(function (error) {
+      context.commit('formErrors', error.response.data.errors);
+    });
   }
 });
 
@@ -23019,6 +23026,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   audioFileID: function audioFileID(state, payload) {
     return state.formData.audioFileID = payload;
   },
+  removeAudio: function removeAudio(state) {
+    return state.formData.audioFileID = '';
+  },
   formErrors: function formErrors(state, payload) {
     state.formErrors = payload;
   },
@@ -23769,6 +23779,8 @@ exports.push([module.i, "\n.description-divider {\n  display: grid;\n  grid-temp
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_DescriptionsList__ = __webpack_require__(177);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_DescriptionsList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__partials_DescriptionsList__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_NewDescription__ = __webpack_require__(254);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_NewDescription___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__partials_NewDescription__);
 //
 //
 //
@@ -23793,12 +23805,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: { DescriptionsList: __WEBPACK_IMPORTED_MODULE_0__partials_DescriptionsList___default.a },
+  components: { DescriptionsList: __WEBPACK_IMPORTED_MODULE_0__partials_DescriptionsList___default.a, NewDescription: __WEBPACK_IMPORTED_MODULE_1__partials_NewDescription___default.a },
   mounted: function mounted() {},
   data: function data() {
     return {};
@@ -23901,7 +23915,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.details__descriptions {\n  padding: 1rem;\n  margin: 0 0 1rem 0;\n}\n.details__description {\n  border-radius: 0 0 1rem 1rem;\n  padding: 1rem;\n  background: #3da9f90a;\n  margin-bottom: 1rem;\n  -webkit-box-shadow: 0 0 0.3rem 0 #607D8B;\n          box-shadow: 0 0 0.3rem 0 #607D8B;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.details__description:nth-child(odd) {\n  border-radius: 1rem 1rem 0 0;\n}\n.description__owner{\n  margin-right: 2rem;\n  -ms-flex-preferred-size: 15%;\n      flex-basis: 15%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.description__owner a{\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.description__owner img{\n  width: 4rem;\n  border-radius: 50%;\n  margin-bottom: 1rem;\n}\n.description__owner--username{\n  margin: .51rem 0;\n}\n.description__details{\n  -webkit-box-flex: 2;\n      -ms-flex: 2;\n          flex: 2;\n}\n.description__icons{\n  display: -webkit-inline-box;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.description__icons code{\n  background-color: #ffdd57;\n  color: #091d31;\n  font-size: 1.1rem;\n  padding: .3rem;\n  font-weight: 700;\n}\n.description__texts{\n  padding: .5rem 1rem;\n}\n.description__owner-info{\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  //flex-direction: column;\n}\n.description__owner-info > span{\n  margin-right: .4rem;\n}\nspan.description__owner-info--count{\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.description__texts{\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.description__toggle-expansion{\n  padding: .41rem;\n  background-color: #f6fcfff0;\n  color: #0b2339;\n  width: auto;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  font-weight: bold;\n  margin-top: -1.3rem;\n  -webkit-box-shadow: 0px 0px 7px 0px white;\n          box-shadow: 0px 0px 7px 0px white;\n  border-radius: 1rem;\n}\n.description__toggle-expansion--shrink{\n  margin-top: 0;\n  -webkit-box-shadow: none;\n          box-shadow: none;\n  border-radius: 0;\n}\n@media screen and (max-width: 350px){\n.description__icons code{\n    font-size: .65rem;\n}\n}\n@media screen and (max-width: 500px){\n.details__description{\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: reverse;\n        -ms-flex-direction: column-reverse;\n            flex-direction: column-reverse;\n}\n.details__description .description__owner{\n    width: 3rem;\n}\n}\n@media screen and (min-width: 750px){\n.description__icons{\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.description__owner{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.description__owner img{\n    margin-bottom: 0;\n}\n.description__owner--username{\n    margin: 0;\n}\n}\n", ""]);
+exports.push([module.i, "\n.description__likes{\n  cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -23944,35 +23958,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    var _this = this;
-
-    var descriptions = document.querySelectorAll('.description__texts h3');
-    descriptions.forEach(function (description) {
-      var text = description.textContent;
-      if (text.length > 300) {
-        var expansion = document.createElement('a');
-        expansion.classList.add('description__toggle-expansion');
-        expansion.innerHTML = "Expand to view more...";
-        description.textContent = _.truncate(text, { 'length': 300 });
-        description.appendChild(expansion);
-        expansion.addEventListener('click', function () {
-          expansion.classList.toggle('description__toggle-expansion--shrink');
-          if (!_this.expanded) {
-            description.textContent = text;
-            expansion.innerHTML = "Click to shrink...";
-            description.appendChild(expansion);
-          } else {
-            description.textContent = _.truncate(text, { 'length': 300 });
-            expansion.innerHTML = "Expand to view more...";
-            description.appendChild(expansion);
-          }
-          _this.expanded = !_this.expanded;
-        });
-      }
-    });
+    this.setupDescriptionTexts();
+    this.setupAudio();
   },
   data: function data() {
     return {
@@ -23980,7 +23978,58 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     };
   },
 
-  methods: {},
+  methods: {
+    setupDescriptionTexts: function setupDescriptionTexts() {
+      var _this = this;
+
+      var descriptions = document.querySelectorAll('.description__texts h3');
+      descriptions.forEach(function (description) {
+        var text = description.textContent;
+        if (text.length > 300) {
+          var expansion = document.createElement('a');
+          expansion.classList.add('description__toggle-expansion');
+          expansion.innerHTML = "Expand to view more...";
+          description.textContent = _.truncate(text, { 'length': 300 });
+          description.appendChild(expansion);
+          expansion.addEventListener('click', function () {
+            expansion.classList.toggle('description__toggle-expansion--shrink');
+            if (!_this.expanded) {
+              description.textContent = text;
+              expansion.innerHTML = "Click to shrink...";
+              description.appendChild(expansion);
+            } else {
+              description.textContent = _.truncate(text, { 'length': 300 });
+              expansion.innerHTML = "Expand to view more...";
+              description.appendChild(expansion);
+            }
+            _this.expanded = !_this.expanded;
+          });
+        }
+      });
+    },
+    setupAudio: function setupAudio() {
+      var audioClickLinks = document.querySelectorAll('#audio-click-link');
+      audioClickLinks.forEach(function (link) {
+        link.addEventListener('click', playSound);
+      });
+      function playSound(e) {
+        var audio = this.querySelector('audio');
+        audio.play();
+      }
+    },
+    liked: function liked(description) {
+      if (description.liked) {
+        return {
+          'color': 'has-text-success',
+          'text': 'Unlike'
+        };
+      }
+      return {
+        'color': 'has-text-danger',
+        'text': 'Like'
+      };
+    }
+  },
   computed: {
     descriptions: function descriptions() {
       return this.$store.state.wordDetail.descriptions;
@@ -24053,17 +24102,56 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "description__details" }, [
           _c("div", { staticClass: "description__icons" }, [
-            description.symbol
-              ? _c("code", [_vm._v(_vm._s(description.symbol.body))])
-              : _vm._e(),
+            _c("div", [
+              description.symbol
+                ? _c("code", [_vm._v(_vm._s(description.symbol.body))])
+                : _c("span"),
+              _vm._v(" "),
+              _c("span", [_vm._v("Added " + _vm._s(description.date_created))]),
+              _vm._v(" "),
+              _c("div", [
+                _c(
+                  "span",
+                  {
+                    staticClass: "tag is-primary description__likes",
+                    attrs: { title: _vm.liked(description).text }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fa fa-heart mr-4",
+                      class: _vm.liked(description).color
+                    }),
+                    _vm._v(_vm._s(description.like_counts))
+                  ]
+                )
+              ])
+            ]),
             _vm._v(" "),
             description.audio_file
-              ? _c("a", { attrs: { title: "Listen to Pronounciation" } }, [
-                  _c("i", {
-                    staticClass: "fa fa-volume-up mr-4 has-text-info"
-                  }),
-                  _vm._v("Listen to pronounciation")
-                ])
+              ? _c(
+                  "a",
+                  {
+                    attrs: {
+                      id: "audio-click-link",
+                      title: "Listen to Pronounciation"
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fa fa-volume-up mr-4 has-text-info"
+                    }),
+                    _vm._v("Listen to pronounciation\n          "),
+                    _c("audio", {
+                      attrs: {
+                        src:
+                          "storage/audio/" +
+                          description.user.id +
+                          "/" +
+                          description.audio_file.url
+                      }
+                    })
+                  ]
+                )
               : _vm._e()
           ]),
           _vm._v(" "),
@@ -24150,6 +24238,8 @@ var render = function() {
                 _c("div", { staticClass: "description-divider" }, [
                   _vm._v("Descriptions")
                 ]),
+                _vm._v(" "),
+                _c("NewDescription"),
                 _vm._v(" "),
                 _c("DescriptionsList")
               ]
@@ -24457,7 +24547,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -24505,11 +24595,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       _this.fileInfo.innerHTML = '<div class="file__info--details"><h1><h1>Name: ' + file.name + '</h1>Size: ' + size + 'kb</h1></div>';
       _this.instruction.classList.add('hide');
       _this.fileInfo.classList.remove('hide');
-      /*let reader = new FileReader()
-      reader.readAsDataURL(file)
-      reader.onload= (e)=>{
-        let audio = e.target.result
-      }*/
       return axios.post('api/save-audio/' + file.name, formData).then(function (response) {
         _this.$store.commit('audioFileID', response.data);
         _this.addCancelIcon();
@@ -24538,6 +24623,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this2.fileInfo.innerHTML = '';
           _this2.instruction.classList.remove('hide');
           _this2.cancelIconEl.innerHTML = '';
+          _this2.$store.commit('removeAudio');
         });
       });
     }
@@ -26892,6 +26978,339 @@ function toFinite(value) {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (toFinite);
+
+
+/***/ }),
+/* 254 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(259)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(255)
+/* template */
+var __vue_template__ = __webpack_require__(256)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/app/partials/NewDescription.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2717c049", Component.options)
+  } else {
+    hotAPI.reload("data-v-2717c049", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 255 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SoundKeyboard__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SoundKeyboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__SoundKeyboard__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Lists_AudioUpload__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Lists_AudioUpload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Lists_AudioUpload__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    AudioUpload: __WEBPACK_IMPORTED_MODULE_1__Lists_AudioUpload___default.a, SoundKeyboard: __WEBPACK_IMPORTED_MODULE_0__SoundKeyboard___default.a
+  },
+  data: function data() {
+    return {
+      openForm: false,
+      form: {
+        description: ''
+      }
+    };
+  },
+
+  methods: {
+    submit: function submit(e) {
+      e.preventDefault();
+      this.form.word = this.word.id;
+      this.form.audio = this.$store.state.formData.audioFileID;
+      this.form.symbol = this.$store.state.formData.symbols;
+      this.$store.dispatch('saveDescription', { 'form': this.form, 'slug': this.word.slug });
+    },
+    clickedButton: function clickedButton() {
+      this.openForm ^= true;
+    },
+    clearErrors: function clearErrors(e) {
+      this.$store.commit('clearFormError', e);
+    }
+  },
+  computed: {
+    toggleButtonText: function toggleButtonText() {
+      return this.openForm ? 'Close' : 'Add New Description';
+    },
+    errors: function errors() {
+      return this.$store.state.formErrors;
+    },
+    word: function word() {
+      return this.$store.state.wordDetail;
+    }
+  }
+});
+
+/***/ }),
+/* 256 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "new_description" }, [
+      _c(
+        "button",
+        {
+          staticClass: "button is-link button",
+          on: { click: _vm.clickedButton }
+        },
+        [_vm._v(_vm._s(_vm.toggleButtonText))]
+      )
+    ]),
+    _vm._v(" "),
+    _vm.openForm
+      ? _c("div", { staticClass: "new_description__section" }, [
+          _c(
+            "form",
+            {
+              staticClass: "add_word__form",
+              attrs: { action: "" },
+              on: {
+                keydown: function($event) {
+                  _vm.clearErrors($event.target.name)
+                }
+              }
+            },
+            [
+              _c("div", {}, [
+                _c("div", { staticClass: "field" }, [
+                  _c(
+                    "label",
+                    { staticClass: "label", attrs: { for: "description" } },
+                    [_vm._v("Description")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "control" }, [
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.description,
+                          expression: "form.description"
+                        }
+                      ],
+                      staticClass: "textarea",
+                      attrs: {
+                        id: "description",
+                        name: "description",
+                        placeholder: "How would you explain this word?"
+                      },
+                      domProps: { value: _vm.form.description },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "description", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm.errors.description
+                  ? _c("div", { staticClass: "has-text-danger" }, [
+                      _vm._v(_vm._s(_vm.errors.description[0]))
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("h1", { staticClass: "optional" }, [_vm._v("Optional")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "columns" }, [
+                _c("div", { staticClass: "column audio-column" }, [
+                  _c(
+                    "div",
+                    { staticClass: "field add-sound" },
+                    [
+                      _c("label", { staticClass: "label optional-labels" }, [
+                        _vm._v("Upload Audio file")
+                      ]),
+                      _vm._v(" "),
+                      _c("AudioUpload"),
+                      _vm._v(" "),
+                      _vm.errors.audio
+                        ? _c("div", { staticClass: "has-text-danger" }, [
+                            _vm._v(_vm._s(_vm.errors.audio[0]))
+                          ])
+                        : _vm._e()
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "column field" },
+                  [
+                    _c("label", { staticClass: "label optional-labels" }, [
+                      _vm._v("Add Phonetic Sound")
+                    ]),
+                    _vm._v(" "),
+                    _c("SoundKeyboard")
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "submit__buttons" }, [
+                _c("div", {}, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "button is-warning",
+                      attrs: { type: "submit" },
+                      on: { click: _vm.submit }
+                    },
+                    [_vm._v("Submit")]
+                  )
+                ])
+              ])
+            ]
+          )
+        ])
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2717c049", module.exports)
+  }
+}
+
+/***/ }),
+/* 257 */,
+/* 258 */,
+/* 259 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(260);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("0f0929a0", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2717c049\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./NewDescription.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2717c049\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./NewDescription.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 260 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.new_description {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n.new_description .button {\n    margin: 1rem;\n}\n.new_description__section {\n  margin: .5rem 1rem;\n  background: #fff;\n  padding: 1rem;\n  border-radius: 1rem 1rem 0 0;\n}\n@media screen and (min-width: 500px) {\n.new_description {\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n}\n.new_description .button {\n      margin: 0 1rem;\n}\n}\n", ""]);
+
+// exports
 
 
 /***/ })

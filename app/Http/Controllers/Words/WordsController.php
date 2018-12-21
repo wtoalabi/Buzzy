@@ -36,6 +36,7 @@
         'description' => 'required',
         'tags' => 'required',
       ],[
+        'description.required' => 'The description/comment field is required.',
         'word.max' => 'You cant have more than :max characters. The suggestion is to make it short and simple, then give the full name in the (Buzzword in Full) section below.',
         'tags.required' => 'You need to select at least one Tag.',
         'word.unique' => 'The word already exists.'

@@ -23,7 +23,10 @@ class SingleDescription extends JsonResource
           'body' => $this->body,
           'symbol' => new SingleSymbol($this->symbol),
           'audio_file' => new SingleAudio($this->audio->first()),
-          'user' => new UserDetail($this->user)
+          'user' => new UserDetail($this->user),
+          'date_created' => $this->created_at->diffForHumans(),
+          'like_counts' => 10,
+          'liked' => false
         ];
     }
 }
