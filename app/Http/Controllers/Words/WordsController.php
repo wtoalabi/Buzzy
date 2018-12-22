@@ -2,6 +2,8 @@
   
   namespace App\Http\Controllers\Words;
   
+  use App\Helpers\WordsList\Popular;
+  use App\Helpers\WordsList\Trending;
   use App\Http\Resources\WordList\ListCollection;
   use App\Http\Resources\Words\SingleWord;
   use App\Http\Resources\Words\SingleWordDetail;
@@ -12,10 +14,12 @@
   use App\Models\Symbol;
   use App\Models\Word;
   use App\Models\WordTag;
+  use Carbon\Carbon;
   use Illuminate\Http\Request;
   use App\Http\Controllers\Controller;
   use Illuminate\Support\Facades\DB;
-  
+  use Illuminate\Support\Facades\Redis;
+
   class WordsController extends Controller
   {
     public function index()
@@ -26,7 +30,7 @@
         'trending' => $this->trendingWords(),
       ];
     }
-    
+  
     public function store()
     {
       $userID = auth()->user()->id;
@@ -35,7 +39,7 @@
         'sub_title' => 'nullable',
         'description' => 'required',
         'tags' => 'required',
-      ],[
+      ], [
         'description.required' => 'The description/comment field is required.',
         'word.max' => 'You cant have more than :max characters. The suggestion is to make it short and simple, then give the full name in the (Buzzword in Full) section below.',
         'tags.required' => 'You need to select at least one Tag.',
@@ -53,7 +57,7 @@
         'body' => request('description')
       ]);
       $word->tags()->sync(request('tags'));
-      if(request('audio') || request('symbols')){
+      if (request('audio') || request('symbols')) {
         $description->audio()->sync(request('audio'));
         Symbol::create([
           'description_id' => $description->id,
@@ -61,8 +65,8 @@
         ]);
       }
       $suggestedTags = request('suggestedTags');
-      if($suggestedTags){
-        collect($suggestedTags)->each(function($tag) use($userID){
+      if ($suggestedTags) {
+        collect($suggestedTags)->each(function ($tag) use ($userID) {
           SuggestedTag::create([
             'user_id' => $userID,
             'tag' => $tag
@@ -71,37 +75,45 @@
       }
       return $word->slug;
     }
-    
+  
     public function show($word)
     {
       $word = Word::where('slug', $word)->firstorFail();
+      $today = Carbon::now()->toDateString();
+      //Redis::HINCRBY("Views:WordsViewCount:Words", "word-$word->id", 1);
+      Redis::ZINCRBY("Views:DailyTrendingList:$today", 1, "$word->id");
+      Redis::ZINCRBY("Views:PopularList:Words", 1, "$word->id");
       return new SingleWordDetail($word);
     }
-    
+  
     public function popularWords()
     {
+      //$ids = Popular::Get();
       $words = Word::all()->take(8);
-      if($words){
+      if ($words) {
         return new ListCollection($words);
       }
       return [];
     }
-    
+  
     public function recentWords()
     {
       $words = Word::orderBy('created_at', 'desc')->take(8)->get();
-      if($words){
+      if ($words) {
         return new ListCollection($words);
       }
       return [];
     }
-    
+  
     public function trendingWords()
     {
-      $words = Word::orderBy('created_at', 'asc')->get();
-      if($words->count() > 8){
-        return new ListCollection($words->random(8));
-      }
-      return [];
+      //$ids = Trending::Get();
+    
+      /*      $words = Word::orderBy('created_at', 'asc')->get();
+            if($words->count() > 8){
+              return new ListCollection($words->random(8));
+            }
+            return [];
+          }*/
     }
   }
