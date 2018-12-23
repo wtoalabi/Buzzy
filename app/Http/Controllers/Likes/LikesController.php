@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Likes;
 
+use App\Helpers\Redis\Store;
 use App\Http\Resources\Descriptions\SingleDescription;
 use App\Models\Description;
 use Illuminate\Http\Request;
@@ -12,12 +13,8 @@ class LikesController extends Controller
 {
     public function toggleLikes($descriptionID){
       $description = Description::find($descriptionID);
-      $userID = auth()->user()->id;
-      if($description->liked()){
-        Redis::HDEL("Likes:Descriptions:description-$descriptionID", $userID);
-      }else{
-        Redis::HSET("Likes:Descriptions:description-$descriptionID", $userID, 1);
-      }
+      $user = auth()->user()->id;
+      Store::LikesCountFor($user, $description);
       return new SingleDescription($description);
     }
 }

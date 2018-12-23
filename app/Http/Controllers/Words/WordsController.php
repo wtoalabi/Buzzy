@@ -2,23 +2,15 @@
   
   namespace App\Http\Controllers\Words;
   
-  use App\Helpers\WordsList\Popular;
-  use App\Helpers\WordsList\Trending;
+  use App\Helpers\Redis\Store;
   use App\Http\Resources\WordList\ListCollection;
-  use App\Http\Resources\Words\SingleWord;
   use App\Http\Resources\Words\SingleWordDetail;
-  use App\Http\Resources\Words\WordsCollection;
-  use App\Models\Audio;
   use App\Models\Description;
   use App\Models\SuggestedTag;
   use App\Models\Symbol;
   use App\Models\Word;
-  use App\Models\WordTag;
-  use Carbon\Carbon;
   use Illuminate\Http\Request;
   use App\Http\Controllers\Controller;
-  use Illuminate\Support\Facades\DB;
-  use Illuminate\Support\Facades\Redis;
 
   class WordsController extends Controller
   {
@@ -79,10 +71,7 @@
     public function show($word)
     {
       $word = Word::where('slug', $word)->firstorFail();
-      $today = Carbon::now()->toDateString();
-      //Redis::HINCRBY("Views:WordsViewCount:Words", "word-$word->id", 1);
-      Redis::ZINCRBY("Views:DailyTrendingList:$today", 1, "$word->id");
-      Redis::ZINCRBY("Views:PopularList:Words", 1, "$word->id");
+      Store::WordsViewCount($word->id);
       return new SingleWordDetail($word);
     }
   

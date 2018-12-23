@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Redis\Get;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Redis;
@@ -11,7 +12,10 @@ class Description extends Model
  protected $fillable = ['id', 'word_id','body','user_id'];
  protected $with = ['symbol', 'audio'];
  protected $withCount =['symbol','audio'];
-  
+ 
+ public function word(){
+     return $this->belongsTo(Word::class);
+ }
   public function symbol(){
     return $this->hasOne(Symbol::class);
  }
@@ -25,10 +29,10 @@ class Description extends Model
     return $this->belongsTo(User::class);
  }
  public function liked(){
-    $userID = auth()->user()->id;
-     return Redis::HGET("Likes:Descriptions:description-$this->id", $userID);
+    $user = auth()->user()->id;
+     return Get::LikesCountFor($this,$user);
  }
  public function likesCount(){
-     return Redis::HLEN("Likes:Descriptions:description-$this->id");
+     return Get::TotalCountFor($this);
  }
 }
