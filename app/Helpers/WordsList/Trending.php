@@ -16,9 +16,10 @@
       $allDays = Redis::scan(0, 'match', 'Views:Daily*', 'Count', 10000);
       $sortedDays = collect(array_reverse(array_sort($allDays[1])))->take($daysCount)->toArray();
       /*
-       Each day in redis has a list of words viewed with a viewCount attached. To access these days, we need
-       to retrieve all the available days in Redis. Note: we need a cron that keeps the list to just the last 7 days.
-       Once we get the days, we sort them out in a descending order and take the required number of days, default being 7.
+       Each day in redis has a list of words viewed with a viewCount attached. To access these days, we need to
+       retrieve all the available days in Redis. Note: we need a cron that keeps the list to just the last 7 days.
+       Once we get the days, we sort them out in a descending order and take the required number of days, default
+       being 7.
         At this point we have:
           "Views:DailyTrendingList:2019-01-01",
            "Views:DailyTrendingList:2018-12-31",

@@ -4,6 +4,7 @@ import ProfileRoutes from './profile'
 import Items from './items'
 import Home from '../Pages/Home'
 import Lorem from "../partials/Lorem";
+import Store from "../Store";
 
 Vue.use(VueRouter)
 
@@ -12,7 +13,11 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      component: Home
+      component: Home,
+      beforeEnter(to, from ,next){
+        Store.dispatch('getContent')
+        next()
+      }
     },
     ...ProfileRoutes,
     ...Items,

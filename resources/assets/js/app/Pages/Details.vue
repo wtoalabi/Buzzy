@@ -8,7 +8,7 @@
           <div class="details__tags">
             <span class="mr-2 tag">Added by {{details.user.username}}</span>
             <span class="tag details__tags--link" v-for="tag in details.tags">
-              <router-link to="#">{{tag.tag}}</router-link>
+              <router-link :to="`/tags/${tag.slug}`">{{tag.tag}}</router-link>
             </span>
           </div>
         </div>
@@ -30,8 +30,7 @@
 
   export default {
     components: {DescriptionsList, NewDescription},
-    mounted() {
-    },
+    mounted() {},
     data() {
       return {}
     },

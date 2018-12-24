@@ -3,6 +3,8 @@
   namespace App\Http\Controllers\Words;
   
   use App\Helpers\Redis\Store;
+  use App\Helpers\WordsList\Popular;
+  use App\Helpers\WordsList\Trending;
   use App\Http\Resources\WordList\ListCollection;
   use App\Http\Resources\Words\SingleWordDetail;
   use App\Models\Description;
@@ -74,17 +76,7 @@
       Store::WordsViewCount($word->id);
       return new SingleWordDetail($word);
     }
-  
-    public function popularWords()
-    {
-      //$ids = Popular::Get();
-      $words = Word::all()->take(8);
-      if ($words) {
-        return new ListCollection($words);
-      }
-      return [];
-    }
-  
+    
     public function recentWords()
     {
       $words = Word::orderBy('created_at', 'desc')->take(8)->get();
@@ -94,15 +86,21 @@
       return [];
     }
   
-    public function trendingWords()
-    {
-      //$ids = Trending::Get();
+    public function popularWords(){
+      $ids = Popular::List(7);
+      $sorted = $this->findToSort($ids);
+      return new ListCollection($sorted);
+    }
+    public function trendingWords(){
+      $ids = Trending::List(10, 10, 8);
+      $sorted = $this->findToSort($ids);
+      return new ListCollection($sorted);
+    }
     
-      /*      $words = Word::orderBy('created_at', 'asc')->get();
-            if($words->count() > 8){
-              return new ListCollection($words->random(8));
-            }
-            return [];
-          }*/
+    private function findToSort($ids){
+      $words = Word::findMany($ids);
+      return $words->sortBy(function ($model) use ($ids) {
+        return array_search($model->getKey(), $ids);
+      });
     }
   }

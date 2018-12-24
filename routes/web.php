@@ -25,6 +25,7 @@ auth()->loginUsingId(2);
     });
     Route::get('get-tags','Tags\TagsController@index');
     Route::get('details/{item}', 'Words\WordsController@show');
+    Route::get('words-tag/{tag}', 'Tags\TagsController@show');
     Route::post('search', 'Words\WordsSearchController@index');
     Route::post('save-audio/{name}','Audio\AudioController@store');
     Route::delete('delete-audio/{id}','Audio\AudioController@destroy');

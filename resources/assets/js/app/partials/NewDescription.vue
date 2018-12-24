@@ -85,6 +85,9 @@
 </script>
 
 <style lang="scss">
+  ::placeholder {
+    color: black;
+  }
   .new_description {
     display: flex;
     justify-content: center;

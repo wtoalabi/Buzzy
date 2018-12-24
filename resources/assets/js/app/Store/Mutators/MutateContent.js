@@ -2,6 +2,12 @@ export default {
   initialContent(state, payload){
     return state.content = payload
   },
+  loaded(state){
+    state.loaded = true
+  },
+  clearHomeList(state){
+    return state.content = {}
+  },
   searchResult(state,payload){
     return state.searchResults = payload.data
   },
@@ -56,5 +62,11 @@ export default {
       }
     })
     return state.wordDetail.descriptions = newDescriptions
+  },
+  tagWords(state,payload){
+    state.tagWords = payload.data
+  },
+  clearTagWords(state){
+    state.tagWords = []
   }
 }

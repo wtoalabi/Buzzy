@@ -1,6 +1,7 @@
 import Details from "../Pages/Details";
 import Store from "../Store";
 import NewWord from "../Pages/NewWord";
+import TagsPage from "../Pages/TagsPage";
 
 
 export default [
@@ -12,8 +13,7 @@ export default [
       Store.dispatch('retrieveDetail',to.params.word)
       next()
     }
-  },
-  {
+  }, {
     name: 'Create New Word',
     path: '/add-new',
     component: NewWord,
@@ -21,5 +21,13 @@ export default [
       Store.dispatch('retrieveTags')
       next()
     }
+  },{
+    name: 'Tag Words List',
+    path: '/tags/:tag',
+    component: TagsPage,
+    beforeEnter(to, from, next){
+      Store.dispatch('getTagWords',to.params.tag)
+      next()
+    },
   }
 ]

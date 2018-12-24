@@ -28,7 +28,7 @@
     methods: {},
     computed: {
       loaded() {
-        return !_.isEmpty(this.$store.state.content);
+        return this.$store.state.loaded;
       },
     }
   }

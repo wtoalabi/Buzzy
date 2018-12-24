@@ -13090,7 +13090,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Pages_Home___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Pages_Home__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__partials_Lorem__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__partials_Lorem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__partials_Lorem__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Store__ = __webpack_require__(19);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 
 
 
@@ -13105,7 +13107,11 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
   mode: 'hash',
   routes: [{
     path: '/',
-    component: __WEBPACK_IMPORTED_MODULE_4__Pages_Home___default.a
+    component: __WEBPACK_IMPORTED_MODULE_4__Pages_Home___default.a,
+    beforeEnter: function beforeEnter(to, from, next) {
+      __WEBPACK_IMPORTED_MODULE_6__Store__["a" /* default */].dispatch('getContent');
+      next();
+    }
   }].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_2__profile__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_3__items__["a" /* default */]), [{
     path: '/lorem',
     component: __WEBPACK_IMPORTED_MODULE_5__partials_Lorem___default.a
@@ -13269,12 +13275,14 @@ var app = new Vue({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_es_debounce__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash_es_isEmpty__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash_es_truncate__ = __webpack_require__(240);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash_es_chunk__ = __webpack_require__(269);
 
 
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = ({ has: __WEBPACK_IMPORTED_MODULE_0_lodash_es_has__["a" /* default */], isEmpty: __WEBPACK_IMPORTED_MODULE_2_lodash_es_isEmpty__["a" /* default */], debounce: __WEBPACK_IMPORTED_MODULE_1_lodash_es_debounce__["a" /* default */], truncate: __WEBPACK_IMPORTED_MODULE_3_lodash_es_truncate__["a" /* default */] });
+
+/* harmony default export */ __webpack_exports__["a"] = ({ has: __WEBPACK_IMPORTED_MODULE_0_lodash_es_has__["a" /* default */], isEmpty: __WEBPACK_IMPORTED_MODULE_2_lodash_es_isEmpty__["a" /* default */], debounce: __WEBPACK_IMPORTED_MODULE_1_lodash_es_debounce__["a" /* default */], truncate: __WEBPACK_IMPORTED_MODULE_3_lodash_es_truncate__["a" /* default */], chunk: __WEBPACK_IMPORTED_MODULE_4_lodash_es_chunk__["a" /* default */] });
 
 /***/ }),
 /* 42 */
@@ -16929,7 +16937,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {},
   computed: {
     loaded: function loaded() {
-      return !_.isEmpty(this.$store.state.content);
+      return this.$store.state.loaded;
     }
   }
 });
@@ -22093,6 +22101,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     context.commit('clearErrors');
     axios.get('api/get-content').then(function (data) {
       context.commit('initialContent', data.data);
+      context.commit('loaded');
     }).catch(function (error) {
       context.commit('error', error);
       console.log(new Error(error.request.statusText + ', Code: ' + error.request.status));
@@ -22145,6 +22154,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     return axios.post('api/likes/' + payload).then(function (response) {
       context.commit('updateDescriptions', response.data.data);
     });
+  },
+  getTagWords: function getTagWords(context, tag) {
+    return axios.get('api/words-tag/' + tag).then(function (data) {
+      context.commit('tagWords', data.data);
+    }).catch(function (error) {});
   }
 });
 
@@ -22995,6 +23009,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   initialContent: function initialContent(state, payload) {
     return state.content = payload;
   },
+  loaded: function loaded(state) {
+    state.loaded = true;
+  },
+  clearHomeList: function clearHomeList(state) {
+    return state.content = {};
+  },
   searchResult: function searchResult(state, payload) {
     return state.searchResults = payload.data;
   },
@@ -23049,6 +23069,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       }
     });
     return state.wordDetail.descriptions = newDescriptions;
+  },
+  tagWords: function tagWords(state, payload) {
+    state.tagWords = payload.data;
+  },
+  clearTagWords: function clearTagWords(state) {
+    state.tagWords = [];
   }
 });
 
@@ -23059,12 +23085,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
   user: {},
-  content: [],
+  content: {},
+  loaded: false,
   searchResults: [],
   visible: 'hide',
   wordDetail: [],
   error: '',
   tags: [],
+  tagWords: [],
   formData: { symbols: '', audioFileID: '', tags: [], suggestedTags: [] },
   formErrors: {}
 });
@@ -23673,6 +23701,9 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Store__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Pages_NewWord__ = __webpack_require__(183);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Pages_NewWord___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Pages_NewWord__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Pages_TagsPage__ = __webpack_require__(266);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Pages_TagsPage___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Pages_TagsPage__);
+
 
 
 
@@ -23691,6 +23722,14 @@ if (false) {
   component: __WEBPACK_IMPORTED_MODULE_2__Pages_NewWord___default.a,
   beforeEnter: function beforeEnter(to, from, next) {
     __WEBPACK_IMPORTED_MODULE_1__Store__["a" /* default */].dispatch('retrieveTags');
+    next();
+  }
+}, {
+  name: 'Tag Words List',
+  path: '/tags/:tag',
+  component: __WEBPACK_IMPORTED_MODULE_3__Pages_TagsPage___default.a,
+  beforeEnter: function beforeEnter(to, from, next) {
+    __WEBPACK_IMPORTED_MODULE_1__Store__["a" /* default */].dispatch('getTagWords', to.params.tag);
     next();
   }
 }]);
@@ -23930,7 +23969,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -24235,9 +24274,11 @@ var render = function() {
                           "span",
                           { staticClass: "tag details__tags--link" },
                           [
-                            _c("router-link", { attrs: { to: "#" } }, [
-                              _vm._v(_vm._s(tag.tag))
-                            ])
+                            _c(
+                              "router-link",
+                              { attrs: { to: "/tags/" + tag.slug } },
+                              [_vm._v(_vm._s(tag.tag))]
+                            )
                           ],
                           1
                         )
@@ -25344,7 +25385,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -25368,18 +25409,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: { SearchBox: __WEBPACK_IMPORTED_MODULE_0__partials_SearchBox___default.a, HomeList: __WEBPACK_IMPORTED_MODULE_1__partials_HomeList___default.a },
   mounted: function mounted() {},
+  beforeRouteLeave: function beforeRouteLeave(to, from, next) {
+    this.$store.commit('clearHomeList');
+    return next();
+  },
+
+  components: { SearchBox: __WEBPACK_IMPORTED_MODULE_0__partials_SearchBox___default.a, HomeList: __WEBPACK_IMPORTED_MODULE_1__partials_HomeList___default.a },
   data: function data() {
     return {};
   },
 
   methods: {},
-  computed: {}
+  computed: {
+    loaded: function loaded() {
+      return !_.isEmpty(this.$store.state.content);
+    }
+  }
 });
 
 /***/ }),
@@ -26368,7 +26419,7 @@ var render = function() {
     [
       _c("div", { staticClass: "mt-12 home-box" }, [_c("SearchBox")], 1),
       _vm._v(" "),
-      _c("HomeList")
+      _vm.loaded ? _c("HomeList") : _c("loading")
     ],
     1
   )
@@ -27322,7 +27373,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.new_description {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n.new_description .button {\n    margin: 1rem;\n}\n.new_description__section {\n  margin: .5rem 1rem;\n  background: #fff;\n  padding: 1rem;\n  border-radius: 1rem 1rem 0 0;\n}\n@media screen and (min-width: 500px) {\n.new_description {\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n}\n.new_description .button {\n      margin: 0 1rem;\n}\n}\n", ""]);
+exports.push([module.i, "\n::-webkit-input-placeholder {\n  color: black;\n}\n::-ms-input-placeholder {\n  color: black;\n}\n::placeholder {\n  color: black;\n}\n.new_description {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n.new_description .button {\n    margin: 1rem;\n}\n.new_description__section {\n  margin: .5rem 1rem;\n  background: #fff;\n  padding: 1rem;\n  border-radius: 1rem 1rem 0 0;\n}\n@media screen and (min-width: 500px) {\n.new_description {\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n}\n.new_description .button {\n      margin: 0 1rem;\n}\n}\n", ""]);
 
 // exports
 
@@ -27492,6 +27543,295 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-3b0e5826", module.exports)
   }
 }
+
+/***/ }),
+/* 266 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(271)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(267)
+/* template */
+var __vue_template__ = __webpack_require__(268)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/app/Pages/TagsPage.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-76376353", Component.options)
+  } else {
+    hotAPI.reload("data-v-76376353", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 267 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  beforeRouteLeave: function beforeRouteLeave(to, from, next) {
+    this.$store.commit('clearTagWords');
+    next();
+  },
+  mounted: function mounted() {
+    console.log();
+  },
+  data: function data() {
+    return {};
+  },
+
+  methods: {},
+  computed: {
+    loaded: function loaded() {
+      return !_.isEmpty(this.$store.state.tagWords);
+    },
+    tag: function tag() {
+      return this.$route.params.tag;
+    },
+    words: function words() {
+      return _.chunk(this.$store.state.tagWords, 2);
+    }
+  }
+});
+
+/***/ }),
+/* 268 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("h1", { staticClass: "tag-title title" }, [_vm._v(_vm._s(_vm.tag))]),
+      _vm._v(" "),
+      _vm.loaded
+        ? _c(
+            "div",
+            { staticClass: "tags-list" },
+            _vm._l(_vm.words, function(wordChunks) {
+              return _c(
+                "div",
+                { staticClass: "tags-chunk" },
+                _vm._l(wordChunks, function(word) {
+                  return _c(
+                    "router-link",
+                    {
+                      key: word.id,
+                      staticClass: "tags-item",
+                      attrs: { to: "/details/" + word.url }
+                    },
+                    [_vm._v("\n        " + _vm._s(word.word) + "\n      ")]
+                  )
+                })
+              )
+            })
+          )
+        : _c("loading")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-76376353", module.exports)
+  }
+}
+
+/***/ }),
+/* 269 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseSlice_js__ = __webpack_require__(242);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__isIterateeCall_js__ = __webpack_require__(270);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__toInteger_js__ = __webpack_require__(252);
+
+
+
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeCeil = Math.ceil,
+    nativeMax = Math.max;
+
+/**
+ * Creates an array of elements split into groups the length of `size`.
+ * If `array` can't be split evenly, the final chunk will be the remaining
+ * elements.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Array
+ * @param {Array} array The array to process.
+ * @param {number} [size=1] The length of each chunk
+ * @param- {Object} [guard] Enables use as an iteratee for methods like `_.map`.
+ * @returns {Array} Returns the new array of chunks.
+ * @example
+ *
+ * _.chunk(['a', 'b', 'c', 'd'], 2);
+ * // => [['a', 'b'], ['c', 'd']]
+ *
+ * _.chunk(['a', 'b', 'c', 'd'], 3);
+ * // => [['a', 'b', 'c'], ['d']]
+ */
+function chunk(array, size, guard) {
+  if ((guard ? Object(__WEBPACK_IMPORTED_MODULE_1__isIterateeCall_js__["a" /* default */])(array, size, guard) : size === undefined)) {
+    size = 1;
+  } else {
+    size = nativeMax(Object(__WEBPACK_IMPORTED_MODULE_2__toInteger_js__["a" /* default */])(size), 0);
+  }
+  var length = array == null ? 0 : array.length;
+  if (!length || size < 1) {
+    return [];
+  }
+  var index = 0,
+      resIndex = 0,
+      result = Array(nativeCeil(length / size));
+
+  while (index < length) {
+    result[resIndex++] = Object(__WEBPACK_IMPORTED_MODULE_0__baseSlice_js__["a" /* default */])(array, index, (index += size));
+  }
+  return result;
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (chunk);
+
+
+/***/ }),
+/* 270 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__eq_js__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__isArrayLike_js__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__isIndex_js__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__isObject_js__ = __webpack_require__(12);
+
+
+
+
+
+/**
+ * Checks if the given arguments are from an iteratee call.
+ *
+ * @private
+ * @param {*} value The potential iteratee value argument.
+ * @param {*} index The potential iteratee index or key argument.
+ * @param {*} object The potential iteratee object argument.
+ * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
+ *  else `false`.
+ */
+function isIterateeCall(value, index, object) {
+  if (!Object(__WEBPACK_IMPORTED_MODULE_3__isObject_js__["a" /* default */])(object)) {
+    return false;
+  }
+  var type = typeof index;
+  if (type == 'number'
+        ? (Object(__WEBPACK_IMPORTED_MODULE_1__isArrayLike_js__["a" /* default */])(object) && Object(__WEBPACK_IMPORTED_MODULE_2__isIndex_js__["a" /* default */])(index, object.length))
+        : (type == 'string' && index in object)
+      ) {
+    return Object(__WEBPACK_IMPORTED_MODULE_0__eq_js__["a" /* default */])(object[index], value);
+  }
+  return false;
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (isIterateeCall);
+
+
+/***/ }),
+/* 271 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(272);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("2837247b", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-76376353\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TagsPage.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-76376353\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TagsPage.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 272 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.tag-title {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  font-size: 6rem;\n}\n.tags-list {\n  margin: 1rem;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n@media screen and (min-width: 700px) {\n.tags-list {\n      -webkit-box-orient: horizontal;\n      -webkit-box-direction: normal;\n          -ms-flex-direction: row;\n              flex-direction: row;\n}\n}\n.tags-chunk {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  padding: .5rem;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n@media screen and (min-width: 700px) {\n.tags-chunk {\n      padding: 2rem;\n}\n}\n.tags-item {\n  font-size: 2.5rem;\n}\n@media screen and (min-width: 700px) {\n.tags-item {\n      font-size: 1.5rem;\n}\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);

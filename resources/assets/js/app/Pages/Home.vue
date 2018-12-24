@@ -3,7 +3,8 @@
   <div class="mt-12 home-box">
     <SearchBox />
   </div>
-  <HomeList />
+  <HomeList  v-if="loaded"/>
+    <loading v-else/>
   </div>
 </template>
 
@@ -11,14 +12,22 @@
   import SearchBox from "../partials/SearchBox";
   import HomeList from "../partials/HomeList";
   export default {
-    components:{SearchBox,HomeList},
     mounted(){
     },
+    beforeRouteLeave(to, from, next){
+      this.$store.commit('clearHomeList')
+      return next()
+    },
+    components:{SearchBox,HomeList},
     data() {
       return {}
     },
     methods: {},
-    computed: {}
+    computed: {
+      loaded() {
+        return !_.isEmpty(this.$store.state.content);
+      },
+    }
   }
 
 

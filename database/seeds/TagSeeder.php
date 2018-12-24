@@ -10,8 +10,14 @@ class TagSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
-          factory(Tag::class, 30)->create();
+    public function run(){
+      $tags = ['Laravel', 'PHP', 'Javascript', 'ES6', 'VueJS','ReactJS', 'CSS','HTML'];
+      for ($tag = count($tags); $tag>0;){
+        $tag--;
+        factory(Tag::class)->create([
+          'tag' => $tags[$tag],
+          'slug' => str_slug($tags[$tag])
+        ]); 
+      }
     }
 }

@@ -16,7 +16,8 @@ class SingleTag extends JsonResource
     {
         return [
           'id' => $this->id,
-          'tag' => strtolower($this->tag)
+          'tag' => $this->tag,
+          'slug' => $this->slug
         ];
     }
 }

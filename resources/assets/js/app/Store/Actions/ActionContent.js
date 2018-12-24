@@ -10,6 +10,7 @@ export default {
     context.commit('clearErrors')
     axios.get('api/get-content').then(data=>{
       context.commit('initialContent', data.data)
+      context.commit('loaded')
     }).catch(error=>{
       context.commit('error', error)
       console.log(new Error(`${error.request.statusText}, Code: ${error.request.status}`))
@@ -61,6 +62,13 @@ export default {
   updateDescriptionLikes(context,payload){
     return axios.post(`api/likes/${payload}`).then(response=>{
       context.commit('updateDescriptions',response.data.data)
+    })
+  },
+  getTagWords(context,tag){
+    return axios.get(`api/words-tag/${tag}`).then(data=>{
+      context.commit('tagWords',data.data)
+    }).catch(error=>{
+    
     })
   }
 }
