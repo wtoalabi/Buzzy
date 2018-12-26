@@ -6,7 +6,7 @@
           <h1>{{details.word}}</h1>
           <h3>{{details.sub_title}}</h3>
           <div class="details__tags">
-            <span class="mr-2 tag">Added by {{details.user.username}}</span>
+            <router-link :to="`/user/${details.user.username}`" class="mr-2 tag details__user">Added by: {{details.user.username}}</router-link>
             <span class="tag details__tags--link" v-for="tag in details.tags">
               <router-link :to="`/tags/${tag.slug}`">{{tag.tag}}</router-link>
             </span>
@@ -46,6 +46,12 @@
   }
 </script>
 <style lang="scss">
+  .details__tags a.details__user{
+    text-decoration: none;
+  }
+  a.details__user:hover{
+    color: #90CAF9;
+  }
   .description-divider{
     display: grid;
     grid-template-columns: 1fr auto 1fr;

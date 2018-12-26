@@ -16,29 +16,27 @@
         <div class="navbar-start">
         </div>
         <div class="navbar-end">
-          <div class="navbar-item" v-if="!isLoggedIn">
+          <div class="navbar-item" v-if="!loggedIn">
             <div class="tags has-addons are-medium">
               <div class="signup-tag tag is-white signup-text is-size-5">Sign up with: </div>
               <div class="signup-tag twitter tag is-info is-size-5" @click="login('twitter')"><a href="#"><i class="fa fa-twitter mr-6"></i><span>Twitter</span></a></div>
               <div class="signup-tag github tag is-primary is-size-5" @click="login('github')"><a href="#"><i class="fa fa-github mr-6"></i><span>Github</span></a></div>
             </div>
           </div>
+          <template v-else>
           <div class="navbar-item">
-            <a href="/#/settings" class="pr-0">
+            <router-link :to="`/user/${user.username}`" class="pr-0">
               <img :src="user.avatar" alt="" class="mr-10 is-rounded">
-            </a>
+            </router-link>
           </div>
-          <div class="navbar-item" v-if="isLoggedIn">
+          <div class="navbar-item">
             <router-link to="/add-new" class="button p-6 m-10 is-medium is-warning">Add New Buzz</router-link>
           </div>
-          <div class="navbar-item has-dropdown is-hoverable" v-if="isLoggedIn">
-            <div class="navbar-link">Profile
-              <div class="navbar-dropdown">
-                <router-link class="navbar-item" to="account-Settings">Account Settings</router-link>
-                <div class="navbar-item" @click="logout">Logout</div>
-              </div>
-            </div>
-          </div>
+          <template class="">
+            <div class="navbar-item"><router-link class="" :to="`/user/${user.username}`">Profile</router-link></div>
+            <div class="navbar-item"><a class="" @click.prevent="logout">Logout</a></div>
+          </template>
+          </template>
         </div>
       </div>
     </nav>
@@ -47,9 +45,6 @@
 
 <script>
   export default {
-    mounted(){
-
-    },
     data() {
       return {}
     },
@@ -63,13 +58,13 @@
     },
     computed: {
       user(){
-        return this.$store.state.user;
-      },
-      isLoggedIn(){
-        return !_.isEmpty(this.user);
+        return this.$store.state.loggedInUser;
       },
       loaded(){
-        return !_.isEmpty(this.$store.state.content);
+        return this.$store.state.loaded;
+      },
+      loggedIn(){
+        return !_.isEmpty(this.$store.state.loggedInUser)
       }
     }
   }

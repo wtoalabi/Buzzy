@@ -1,7 +1,7 @@
 export default {
   getUser(context) {
     axios.get('api/get-logged-in-user').then(data=>{
-      context.commit('loggedInUser', data.data)
+      context.commit('loggedInUser', data.data.data)
     }).catch(error=>{
       new Error(`${error.request.statusText}, Code: ${error.request.status}`)
     })
@@ -20,5 +20,12 @@ export default {
     const hash = window.location.hash;
     let url = hash.length > 2 ? `${origin}/%23${hash.substr(1,hash.length)}` : window.location.href
     window.location.assign(`auth/${provider}?provider=${url}`)
-  }
+  },
+  retrieveUserDetails(context,username){
+    return axios.get(`api/get-user-details/${username}`).then(data=>{
+      context.commit('userDetails',data.data)
+    }).catch(error=>{
+
+    })
+  },
 }

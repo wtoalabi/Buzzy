@@ -29,8 +29,11 @@ class Description extends Model
     return $this->belongsTo(User::class);
  }
  public function liked(){
-    $user = auth()->user()->id;
-     return Get::LikesCountFor($this,$user);
+   $user = auth()->user();
+    if($user){
+      return Get::LikesCountFor($this,$user->id);
+    }
+    
  }
  public function likesCount(){
      return Get::TotalCountFor($this);

@@ -3,7 +3,10 @@
   box-shadow: aliceblue 2px -1px 1px 0px;
 }
 .navbar-item a {
-  color: $primary;
+  @include media(950px){
+    color: white;
+  }
+  color: #091d31;
   &:hover{
     color: #aebbc7;
   }

@@ -5,7 +5,7 @@
         <router-link to="#">
           <img :src="description.user.avatar" alt="">
         </router-link>
-        <router-link to="#" class="description__owner--username">{{description.user.username}}</router-link>
+        <router-link :to="`/user/${description.user.username}`" class="description__owner--username">{{description.user.username}}</router-link>
         <div class="description__owner-info">
           <span class="description__owner-info--count tag is-white" title="Total number of words authored">
             <span class=""><i class="fa fa-file-word-o mr-4"></i></span>

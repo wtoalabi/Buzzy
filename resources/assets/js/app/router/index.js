@@ -21,10 +21,6 @@ const router = new VueRouter({
     },
     ...ProfileRoutes,
     ...Items,
-    {
-      path: '/lorem',
-      component: Lorem
-    }
   ]
 });
 

@@ -1,5 +1,5 @@
 export default {
-  user: {},
+  loggedInUser: {},
   content: {},
   loaded: false,
   searchResults: [],
@@ -9,5 +9,6 @@ export default {
   tags: [],
   tagWords:[],
   formData:{symbols:'',audioFileID:'',tags:[],suggestedTags:[]},
-  formErrors: {}
+  formErrors: {},
+  userDetails:[]
 }

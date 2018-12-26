@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="new_description">
-      <button class="button is-link button" @click="clickedButton">{{toggleButtonText}}</button>
+      <div class="has-text-warning no-description" v-if="noDescription">This word has no description yet...be the first!</div>
+      <span class="new_description__buttons">
+        <button v-if="isLoggedIn" class="button is-link button" @click="clickedButton">{{toggleButtonText}}</button>
+        <span v-else><LoginButton/></span>
+      </span>
     </div>
     <div v-if="openForm" class="new_description__section">
       <form action="" class="add_word__form" @keydown="clearErrors($event.target.name)">
@@ -41,10 +45,11 @@
 <script>
   import SoundKeyboard from "./SoundKeyboard";
   import AudioUpload from "./Lists/AudioUpload";
+  import LoginButton from "./LoginButton";
 
   export default {
     components:{
-      AudioUpload,SoundKeyboard
+      AudioUpload,SoundKeyboard,LoginButton
     },
     data() {
       return {
@@ -78,6 +83,9 @@
       },
       word(){
         return this.$store.state.wordDetail
+      },
+      noDescription(){
+        return _.isEmpty(this.$store.state.wordDetail.descriptions)
       }
     }
   }
@@ -85,29 +93,46 @@
 </script>
 
 <style lang="scss">
+  /*TODO Remove the tabs line*/
+  @import "../../../sass/custom/components/tabs";
   ::placeholder {
     color: black;
   }
   .new_description {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    .new_description__buttons{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
     .button {
       margin: 1rem;
     }
+    .no-description{
+      margin: .5rem;
+      text-align: center;
+    }
   }
-  .new_description__section{
-    margin: .5rem 1rem;
-    background: #fff;
-    padding: 1rem;
-    border-radius:  1rem 1rem 0 0;
-  }
+  @include media(500px) {
+    .new_description {
+      flex-direction: row;
+      justify-content: space-between;
 
-  @media screen and (min-width: 500px){
-    .new_description{
-      justify-content: flex-end;
       .button {
         margin: 0 1rem;
       }
+      .new_description__buttons {
+        justify-content: flex-end;
+      }
     }
   }
+    .new_description__section {
+      margin: .5rem 1rem;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 1rem 1rem 0 0;
+    }
 </style>

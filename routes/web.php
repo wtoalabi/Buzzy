@@ -20,12 +20,11 @@ auth()->loginUsingId(2);
   
   Route::group(['prefix' => 'api'],function (){
     Route::get('get-content', 'Words\WordsController@index');
-    Route::get('get-logged-in-user', function () {
-      return auth()->user();
-    });
+    Route::get('get-logged-in-user','Users\UsersController@loggedInUser');
     Route::get('get-tags','Tags\TagsController@index');
     Route::get('details/{item}', 'Words\WordsController@show');
     Route::get('words-tag/{tag}', 'Tags\TagsController@show');
+    Route::get('get-user-details/{username}', 'Users\UsersController@show');
     Route::post('search', 'Words\WordsSearchController@index');
     Route::post('save-audio/{name}','Audio\AudioController@store');
     Route::delete('delete-audio/{id}','Audio\AudioController@destroy');

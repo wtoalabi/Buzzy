@@ -1,3 +1,4 @@
+@import "components/functions";
 @import "components/spacing";
 @import "components/navbar";
 @import "components/layout";
@@ -6,6 +7,7 @@
 @import "components/buttons";
 @import "components/items";
 @import "components/details";
+@import "components/tabs";
 .show{
   display: block
 }

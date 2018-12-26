@@ -9,7 +9,7 @@
   {
     protected $fillable = ['word', 'sub_title','slug','user_id'];
     protected $with = ['descriptions','tags'];
-    protected $withCount =['tags'];
+    protected $withCount =['tags','descriptions'];
     
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

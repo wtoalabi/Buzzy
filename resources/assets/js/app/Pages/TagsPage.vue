@@ -24,6 +24,11 @@
     data() {
       return {}
     },
+    watch:{
+      '$route' (to, from){
+
+      }
+    },
     methods: {},
     computed: {
       loaded() {
@@ -54,6 +59,7 @@
     justify-content: center;
     @media screen and(min-width: 700px) {
       flex-direction: row;
+      flex-wrap: wrap;
     }
   }
 
@@ -65,6 +71,7 @@
     align-items: center;
     @media screen and(min-width: 700px) {
       padding: 2rem;
+      text-align: center;
     }
   }
 

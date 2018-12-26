@@ -67,6 +67,6 @@ export default {
     state.tagWords = payload.data
   },
   clearTagWords(state){
-    state.tagWords = []
+    state.tagWords = [];
   }
 }

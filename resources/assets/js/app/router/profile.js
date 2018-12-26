@@ -1,5 +1,6 @@
 import Store from '../Store'
 import Settings from "../Pages/Settings";
+import User from "../Pages/UserPage";
 export default [
   {
     path: '/account-settings',
@@ -8,6 +9,15 @@ export default [
       checkLoggedIn(next)
     }
   },
+  {
+    name: 'UserPage',
+    path: '/user/:username',
+    component: User,
+    beforeEnter(to, from, next) {
+      Store.dispatch('retrieveUserDetails', to.params.username)
+      next()
+    }
+  }
 ]
 
 function checkLoggedIn(next){

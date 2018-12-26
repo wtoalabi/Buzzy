@@ -9,7 +9,7 @@ window.Vue = require('vue');
 window._ = lodash
 require('./app/globals/home')
 require('./bootstrap')
-require('./utils')
+import utils from './utils'
 require('./app/index')
 require('./app/globals/menu')
 require('./components/index')
@@ -17,15 +17,17 @@ require('./components/index')
 const router = require('./app/router/').default;
 import store from './app/Store'
 Vue.config.productionTip = false
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+Vue.mixin({
+    data: utils
+})
 
 const app = new Vue({
     store,
     router,
-    el: '#buzz'
+    el: '#buzz',
 });

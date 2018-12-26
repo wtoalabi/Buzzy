@@ -19,8 +19,9 @@ class SingleWord extends JsonResource
         return [
           'id' => $this->id,
           'word' => $this->word,
-          'descriptions' => new DescriptionsCollection($this->descriptions),
-          'tags' => new WordTagsCollection($this->tags)
+          'descriptions_count' => $this->descriptions_count,
+          'tags' => new WordTagsCollection($this->tags),
+          'slug' => $this->slug
         ];
     }
 }
