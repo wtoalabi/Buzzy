@@ -77,5 +77,5 @@ export default {
     }).catch(error=>{
 
     })
-  }
+  },
 }

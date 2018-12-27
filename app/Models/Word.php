@@ -49,6 +49,8 @@
     }
     public function bookmarked(){
       $user = auth()->user();
-      return Redis::HGET("Bookmarks:Users:$user->id",$this->id);
+      if($user){
+        return Redis::HGET("Bookmarks:Users:$user->id",$this->id);
+      }
     }
   }

@@ -7,9 +7,15 @@ export default {
     return window.location.assign('/')
   },
   userDetails(state, payload) {
-    return state.userDetails = payload
+    state.userDetails = {...payload,bookmarks:[]}
   },
   clearUserDetails(state) {
-    return state.userDetails = []
+    state.userDetails = {words:[],bookmarks:[],user:{}}
+  },
+  userBookmarks(state, payload){
+    if(payload === 'None'){
+      return state.userDetails.bookmarks = payload
+    }
+    return state.userDetails.bookmarks = payload.data
   }
 }

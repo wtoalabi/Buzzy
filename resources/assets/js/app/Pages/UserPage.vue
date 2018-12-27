@@ -43,7 +43,7 @@
         return this.$store.state.userDetails.user;
       },
       loaded(){
-        return !_.isEmpty(this.$store.state.userDetails)
+        return !_.isEmpty(this.$store.state.userDetails.user)
       }
     }
   }

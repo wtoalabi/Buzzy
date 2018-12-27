@@ -28,4 +28,11 @@ export default {
 
     })
   },
+  getUserBookmarks(context){
+    return axios.get('api/user-bookmarks').then(data=>{
+      return context.commit('userBookmarks',data.data)
+    }).catch(error=>{
+    
+    })
+  }
 }

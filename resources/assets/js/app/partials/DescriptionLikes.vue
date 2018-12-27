@@ -31,7 +31,6 @@
   }
 
 </script>
-
 <style>
   .description__likes{
     cursor: pointer;

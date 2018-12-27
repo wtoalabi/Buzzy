@@ -26,14 +26,4 @@ class UsersController extends Controller{
       }
       return null;
     }
-    public function bookmark($word){
-      $word = Word::find($word);
-      $user = auth()->user();
-        if($word->bookmarked()){
-          Redis::HDEL("Bookmarks:Users:$user->id", $word->id);
-        }else{
-          Redis::HSET("Bookmarks:Users:$user->id",$word->id,1);
-        }
-      return new SingleWordDetail($word);
-    }
 }

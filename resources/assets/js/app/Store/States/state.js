@@ -10,5 +10,5 @@ export default {
   tagWords:[],
   formData:{symbols:'',audioFileID:'',tags:[],suggestedTags:[]},
   formErrors: {},
-  userDetails:[]
+  userDetails:{bookmarks:[],user:[],words:[]}
 }
