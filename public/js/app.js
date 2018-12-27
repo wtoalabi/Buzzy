@@ -22181,6 +22181,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     return axios.get('api/words-tag/' + tag).then(function (data) {
       context.commit('tagWords', data.data);
     }).catch(function (error) {});
+  },
+  bookmarkThis: function bookmarkThis(context, payload) {
+    return axios.post('api/bookmark-word/' + payload).then(function (data) {
+      context.commit('storeDetail', data.data);
+    }).catch(function (error) {});
   }
 });
 
@@ -23854,7 +23859,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.details__tags a.details__user {\n  text-decoration: none;\n}\na.details__user:hover {\n  color: #90CAF9;\n}\n.description-divider {\n  display: grid;\n  grid-template-columns: 1fr auto 1fr;\n  grid-gap: 20px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-size: 1.5rem;\n  font-weight: bold;\n  margin-top: 2rem;\n}\n.description-divider:before,\n.description-divider:after {\n  display: block;\n  content: '';\n  height: 10px;\n  background: -webkit-gradient(linear, , from(#607d8b), to(transparent));\n  background: linear-gradient(to var(--direction, left), #607d8b, transparent);\n}\n.description-divider:after {\n  --direction: right;\n}\n", ""]);
+exports.push([module.i, "\n.details__bookmark {\n  cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -23894,6 +23899,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -23906,13 +23916,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     return {};
   },
 
-  methods: {},
+  methods: {
+    bookmarkThis: function bookmarkThis() {
+      this.$store.dispatch('bookmarkThis', this.details.id);
+    }
+  },
   computed: {
     details: function details() {
       return this.$store.state.wordDetail;
     },
     loaded: function loaded() {
       return !_.isEmpty(this.$store.state.wordDetail);
+    },
+    bookmark: function bookmark() {
+      if (this.$store.state.wordDetail.bookmarked) {
+        return {
+          'text': "Bookmarked",
+          'color': "has-text-warning"
+        };
+      }
+      return {
+        'text': "Bookmark this word",
+        'color': "has-text-danger"
+      };
     }
   }
 });
@@ -24307,7 +24333,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "Added by: " + _vm._s(_vm.details.user.username)
+                            "Added by:\n            " +
+                              _vm._s(_vm.details.user.username) +
+                              "\n          "
                           )
                         ]
                       ),
@@ -24329,7 +24357,27 @@ var render = function() {
                     ],
                     2
                   )
-                ])
+                ]),
+                _vm._v(" "),
+                _vm.isLoggedIn
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "has-text-link details__bookmark",
+                        attrs: { title: _vm.bookmark.text },
+                        on: { click: _vm.bookmarkThis }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "fa fa-bookmark",
+                          class: _vm.bookmark.color
+                        }),
+                        _c("span", { staticClass: "ml-6" }, [
+                          _vm._v(_vm._s(_vm.bookmark.text))
+                        ])
+                      ]
+                    )
+                  : _vm._e()
               ]),
               _vm._v(" "),
               [

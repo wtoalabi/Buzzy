@@ -24,6 +24,7 @@ auth()->loginUsingId(2);
     Route::get('get-tags','Tags\TagsController@index');
     Route::get('details/{item}', 'Words\WordsController@show');
     Route::get('words-tag/{tag}', 'Tags\TagsController@show');
+    Route::post('bookmark-word/{word}', 'Users\UsersController@bookmark');
     Route::get('get-user-details/{username}', 'Users\UsersController@show');
     Route::post('search', 'Words\WordsSearchController@index');
     Route::post('save-audio/{name}','Audio\AudioController@store');

@@ -4,7 +4,8 @@
   
   use App\User;
   use Illuminate\Database\Eloquent\Model;
-  
+  use Illuminate\Support\Facades\Redis;
+
   class Word extends Model
   {
     protected $fillable = ['word', 'sub_title','slug','user_id'];
@@ -45,5 +46,9 @@
     }
     public function user(){
         return $this->belongsTo(User::class);
+    }
+    public function bookmarked(){
+      $user = auth()->user();
+      return Redis::HGET("Bookmarks:Users:$user->id",$this->id);
     }
   }

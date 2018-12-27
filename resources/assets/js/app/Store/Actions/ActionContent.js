@@ -70,5 +70,12 @@ export default {
     }).catch(error=>{
     
     })
+  },
+  bookmarkThis(context, payload){
+    return axios.post(`api/bookmark-word/${payload}`).then(data=>{
+      context.commit('storeDetail',data.data)
+    }).catch(error=>{
+
+    })
   }
 }

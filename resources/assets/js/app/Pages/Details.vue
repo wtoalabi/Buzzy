@@ -1,22 +1,27 @@
 <template>
   <div>
+
     <div v-if="loaded" class="details">
       <div class="details__header">
         <div class="details__title">
           <h1>{{details.word}}</h1>
           <h3>{{details.sub_title}}</h3>
           <div class="details__tags">
-            <router-link :to="`/user/${details.user.username}`" class="mr-2 tag details__user">Added by: {{details.user.username}}</router-link>
+            <router-link :to="`/user/${details.user.username}`" class="mr-2 tag details__user">Added by:
+              {{details.user.username}}
+            </router-link>
             <span class="tag details__tags--link" v-for="tag in details.tags">
               <router-link :to="`/tags/${tag.slug}`">{{tag.tag}}</router-link>
             </span>
           </div>
         </div>
+        <div v-if="isLoggedIn" @click="bookmarkThis" class="has-text-link details__bookmark" :title="bookmark.text"><i
+            class="fa fa-bookmark" :class="bookmark.color"></i><span class="ml-6">{{bookmark.text}}</span></div>
       </div>
       <template>
         <div class="description-divider">Descriptions</div>
-        <NewDescription />
-        <DescriptionsList />
+        <NewDescription/>
+        <DescriptionsList/>
       </template>
     </div>
     <loading v-else/>
@@ -30,45 +35,42 @@
 
   export default {
     components: {DescriptionsList, NewDescription},
-    mounted() {},
+    mounted() {
+    },
     data() {
       return {}
     },
-    methods: {},
+    methods: {
+      bookmarkThis() {
+        this.$store.dispatch('bookmarkThis', this.details.id)
+      }
+    },
     computed: {
       details() {
         return this.$store.state.wordDetail
       },
       loaded() {
         return !_.isEmpty(this.$store.state.wordDetail);
+      },
+      bookmark() {
+        if (this.$store.state.wordDetail.bookmarked) {
+          return {
+            'text': "Bookmarked",
+            'color': "has-text-warning"
+          }
+        }
+        return {
+          'text': "Bookmark this word",
+          'color': "has-text-danger"
+        }
       }
     }
   }
 </script>
 <style lang="scss">
-  .details__tags a.details__user{
-    text-decoration: none;
+  .details__bookmark {
+    cursor: pointer;
   }
-  a.details__user:hover{
-    color: #90CAF9;
-  }
-  .description-divider{
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    grid-gap: 20px;
-    align-items: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-top: 2rem;
-  }
-  .description-divider:before,
-  .description-divider:after{
-    display: block;
-    content: '';
-    height: 10px;
-    background: linear-gradient(to var(--direction, left), #607d8b, transparent)
-  }
-  .description-divider:after{
-    --direction: right;
-  }
+
+
 </style>
