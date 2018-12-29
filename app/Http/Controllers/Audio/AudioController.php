@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class AudioController extends Controller
 {
-  public function store()
-  {
+  public function store(){
     $audio = request()->file('audio');
     request()->validate([
       'audio' => 'max:150'

@@ -8,7 +8,8 @@ export default {
   error: '',
   tags: [],
   tagWords:[],
-  formData:{symbols:'',audioFileID:'',tags:[],suggestedTags:[]},
+  formData:{symbols:'',tags:[],suggestedTags:[]},
   formErrors: {},
-  userDetails:{bookmarks:[],user:[],words:[]}
+  userDetails:{bookmarks:[],user:[],words:[]},
+  uploads:{tempFile:'',formData:'',audioID:'',avatarID:''}
 }

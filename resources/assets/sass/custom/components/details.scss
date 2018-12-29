@@ -15,7 +15,7 @@
   font-size: 3rem;
   color: white;
   font-weight: bold;
-  word-break: break-word;
+  word-break: break-word !important;
 }
 .details__tags{
   display: flex;
@@ -223,18 +223,13 @@ span.description__owner-info--count{
   .description__owner--username{
     margin: 0;
   }
-  .details__header{
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: row;
-  }
 }
 @media screen and (min-width: 980px){
   .details__header{
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
-  }
+  }w
   .details__title h1{
     font-size: 7rem;
     line-height: 9rem;

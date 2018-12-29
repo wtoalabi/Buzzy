@@ -20,6 +20,7 @@
   export default {
     beforeRouteLeave(to, from, next){
       this.$store.commit('clearUserDetails')
+      this.$store.commit('clearTempUploads')
       return next()
     },
     components:{

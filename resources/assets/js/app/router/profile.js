@@ -16,7 +16,7 @@ export default [
     beforeEnter(to, from, next) {
       Store.dispatch('retrieveUserDetails', to.params.username)
       next()
-    }
+    },
   }
 ]
 

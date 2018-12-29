@@ -17,5 +17,8 @@ export default {
       return state.userDetails.bookmarks = payload
     }
     return state.userDetails.bookmarks = payload.data
+  },
+  updateUserAccount(state,payload){
+    state.userDetails.user = payload
   }
 }

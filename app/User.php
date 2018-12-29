@@ -31,7 +31,7 @@ class User extends Authenticatable
     ];
     
     public function avatar(){
-        return $this->avatar ? $this->avatar : 'images/default.png';
+        return $this->avatar ? $this->avatarUrl() : 'storage/avatar/default.png';
     }
     public function words(){
         return $this->hasMany(Word::class);
@@ -39,4 +39,8 @@ class User extends Authenticatable
     public function descriptions(){
       return $this->hasMany(Description::class);
     }
+  public function avatarUrl(){
+    $userID = $this->id;
+    return "storage/avatar/$userID/$this->avatar";
+  }
 }

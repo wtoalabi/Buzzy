@@ -44,7 +44,7 @@
 
 <script>
   import SoundKeyboard from "./SoundKeyboard";
-  import AudioUpload from "./Lists/AudioUpload";
+  import AudioUpload from "./Uploads/Audio";
   import LoginButton from "./LoginButton";
 
   export default {
@@ -63,7 +63,7 @@
       submit(e){
         e.preventDefault()
         this.form.word = this.word.id
-        this.form.audio = this.$store.state.formData.audioFileID;
+        this.form.audio = this.$store.state.uploads.audioID;
         this.form.symbol = this.$store.state.formData.symbols
         this.$store.dispatch('saveDescription', {'form':this.form,'slug': this.word.slug})
       },

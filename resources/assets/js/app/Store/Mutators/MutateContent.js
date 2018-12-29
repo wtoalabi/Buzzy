@@ -41,12 +41,6 @@ export default {
   phoneticSymbols(state, payload){
     return state.formData.symbols = payload;
   },
-  audioFileID(state,payload){
-    return state.formData.audioFileID = payload;
-  },
-  removeAudio(state){
-    return state.formData.audioFileID = ''
-  },
   formErrors(state, payload){
     state.formErrors = payload
   },
@@ -68,5 +62,6 @@ export default {
   },
   clearTagWords(state){
     state.tagWords = [];
-  }
+  },
+
 }

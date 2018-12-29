@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="tab-title has-text-white">User Contributed Words</h1>
+    <h1 class="tab-title has-text-white">Contributed Words</h1>
     <div class="words" v-if="hasWords">
       <div v-for="words in chunkedWords" class="chunked-words">
         <div class="" v-for="word in words">
