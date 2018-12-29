@@ -13621,57 +13621,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 49 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(216)
-}
-var normalizeComponent = __webpack_require__(0)
-/* script */
-var __vue_script__ = __webpack_require__(218)
-/* template */
-var __vue_template__ = __webpack_require__(219)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = "data-v-ab63a808"
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/app/partials/Uploads/Audio.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-ab63a808", Component.options)
-  } else {
-    hotAPI.reload("data-v-ab63a808", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 49 */,
 /* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24152,16 +24102,6 @@ var render = function() {
                   on: { click: _vm.isActive }
                 },
                 [_vm._v("Bookmarks")]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "tab-link",
-                  attrs: { id: "history" },
-                  on: { click: _vm.isActive }
-                },
-                [_vm._v("History")]
               )
             ]
           : _vm._e(),
@@ -24190,8 +24130,6 @@ var render = function() {
           : _vm._e(),
         _vm._v(" "),
         _vm.activeTab === "bookmarks" ? _c("BookmarksTab") : _vm._e(),
-        _vm._v(" "),
-        _vm.activeTab === "history" ? _c("HistoryTab") : _vm._e(),
         _vm._v(" "),
         _vm.activeTab === "social-profiles" ? _c("SocialProfilesTab") : _vm._e()
       ],
@@ -25075,10 +25013,10 @@ exports.push([module.i, "/*TODO Remove the tabs line*/\n.details-container {\n  
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SoundKeyboard__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SoundKeyboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__SoundKeyboard__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Uploads_Audio__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Uploads_Audio___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Uploads_Audio__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LoginButton__ = __webpack_require__(220);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LoginButton___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__LoginButton__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__LoginButton__ = __webpack_require__(220);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__LoginButton___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__LoginButton__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AudioUploads__ = __webpack_require__(315);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AudioUploads___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__AudioUploads__);
 //
 //
 //
@@ -25130,7 +25068,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    AudioUpload: __WEBPACK_IMPORTED_MODULE_1__Uploads_Audio___default.a, SoundKeyboard: __WEBPACK_IMPORTED_MODULE_0__SoundKeyboard___default.a, LoginButton: __WEBPACK_IMPORTED_MODULE_2__LoginButton___default.a
+    SoundKeyboard: __WEBPACK_IMPORTED_MODULE_0__SoundKeyboard___default.a, LoginButton: __WEBPACK_IMPORTED_MODULE_1__LoginButton___default.a, AudioUploads: __WEBPACK_IMPORTED_MODULE_2__AudioUploads___default.a
   },
   data: function data() {
     return {
@@ -25173,173 +25111,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 216 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(217);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(2)("4d7b3b74", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ab63a808\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Audio.vue", function() {
-     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ab63a808\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Audio.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 217 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(1)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 218 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    var _this = this;
-
-    this.parentDIV = document.querySelector('.audio-column');
-    this.cancelIconEl = document.createElement('div');
-    var audioUploadButton = document.querySelector('.audio-upload__button');
-    var customUploadIcon = document.querySelector('.audio-upload__custom-icon');
-    this.fileInfo = document.querySelector('.file__info');
-    this.instruction = document.querySelector('.file__info--instruction');
-    customUploadIcon.addEventListener('click', function () {
-      audioUploadButton.click();
-    });
-    audioUploadButton.addEventListener('change', function (e) {
-      _this.$store.commit('clearFormError', 'audio');
-      var file = e.target.files[0];
-      var formData = new FormData();
-      formData.append('audio', file);
-      var size = Math.floor(file.size / 1024);
-      _this.fileInfo.classList.remove('hide');
-      if (size > 10050) {
-        return _this.fileInfo.innerHTML = '<div class="file__info--details"><h1>File too big...try something smaller than ' + size + 'kb</h1></div>';
-      }
-      _this.fileInfo.innerHTML = '<div class="file__info--details"><h1><h1>Name: ' + file.name + '</h1>Size: ' + size + 'kb</h1></div>';
-      _this.instruction.classList.add('hide');
-      _this.fileInfo.classList.remove('hide');
-      /*let reader = new FileReader()
-      reader.readAsDataURL(file)
-      reader.onload= (e)=>{
-        let audio = e.target.result
-      }*/
-      return axios.post('api/save-audio/' + file.name, formData).then(function (response) {
-        _this.$store.commit('audioFileID', response.data);
-        _this.addCancelIcon();
-      }).catch(function (error) {
-        _this.$store.commit('formErrors', error.response.data.errors);
-      });
-    });
-  },
-  data: function data() {
-    return {
-      parentDIV: '',
-      cancelIconEl: '',
-      fileInfo: '',
-      instruction: ''
-    };
-  },
-
-  methods: {
-    addCancelIcon: function addCancelIcon() {
-      var _this2 = this;
-
-      this.cancelIconEl.innerHTML = '<i title="Cancel Audio File" class="fa fa-close file__info--close"></i>';
-      this.parentDIV.appendChild(this.cancelIconEl);
-      this.cancelIconEl.addEventListener('click', function () {
-        return axios.delete('api/delete-audio/' + _this2.audioFileID).then(function (response) {
-          _this2.fileInfo.innerHTML = '';
-          _this2.instruction.classList.remove('hide');
-          _this2.cancelIconEl.innerHTML = '';
-        });
-      });
-    }
-  },
-  computed: {
-    audioFileID: function audioFileID() {
-      return this.$store.state.optionalFormData.audioFileID;
-    }
-  }
-});
-
-/***/ }),
-/* 219 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "audio-upload" }, [
-      _c("i", { staticClass: "fa fa-upload mr-4 audio-upload__custom-icon" }),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "audio-upload__button",
-        attrs: { type: "file", accept: "audio/*" }
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "file__info hide" }),
-      _vm._v(" "),
-      _c("p", { staticClass: "file__info--instruction" }, [
-        _c("em", [_vm._v("Max size should be 150kb.")])
-      ])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-ab63a808", module.exports)
-  }
-}
-
-/***/ }),
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
 /* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25631,7 +25406,7 @@ var render = function() {
                         _vm._v("Upload Audio file")
                       ]),
                       _vm._v(" "),
-                      _c("AudioUpload"),
+                      _c("AudioUploads"),
                       _vm._v(" "),
                       _vm.errors.audio
                         ? _c("div", { staticClass: "has-text-danger" }, [
@@ -25893,13 +25668,10 @@ exports.push([module.i, "\n[data-v-690a798f]::-webkit-input-placeholder {\n  col
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_SoundKeyboard__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_SoundKeyboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__partials_SoundKeyboard__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_Uploads_Audio__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_Uploads_Audio___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__partials_Uploads_Audio__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_TagsSelector__ = __webpack_require__(231);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_TagsSelector___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__partials_TagsSelector__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__partials_Uploads_FileUploads__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__partials_Uploads_FileUploads___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__partials_Uploads_FileUploads__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__globals_mixins_audioUpload__ = __webpack_require__(311);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_TagsSelector__ = __webpack_require__(231);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_TagsSelector___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__partials_TagsSelector__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_AudioUploads__ = __webpack_require__(315);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_AudioUploads___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__partials_AudioUploads__);
 //
 //
 //
@@ -25961,15 +25733,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
-
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_4__globals_mixins_audioUpload__["a" /* default */]],
-  components: { SoundKeyboard: __WEBPACK_IMPORTED_MODULE_0__partials_SoundKeyboard___default.a, AudioUpload: __WEBPACK_IMPORTED_MODULE_1__partials_Uploads_Audio___default.a, TagsSelector: __WEBPACK_IMPORTED_MODULE_2__partials_TagsSelector___default.a, FileUploads: __WEBPACK_IMPORTED_MODULE_3__partials_Uploads_FileUploads___default.a },
+  components: { SoundKeyboard: __WEBPACK_IMPORTED_MODULE_0__partials_SoundKeyboard___default.a, TagsSelector: __WEBPACK_IMPORTED_MODULE_1__partials_TagsSelector___default.a, AudioUploads: __WEBPACK_IMPORTED_MODULE_2__partials_AudioUploads___default.a },
   data: function data() {
     return {
       form: {
@@ -26515,9 +26284,7 @@ var render = function() {
                     _vm._v("Upload Audio file")
                   ]),
                   _vm._v(" "),
-                  _c("FileUploads", {
-                    attrs: { type: "audio", maxSize: "50", variant: "audio" }
-                  }),
+                  _c("AudioUploads"),
                   _vm._v(" "),
                   _vm.errors.audio
                     ? _c("div", { staticClass: "has-text-danger" }, [
@@ -29877,6 +29644,110 @@ if (false) {
     return state.userDetails.user = payload;
   }
 });
+
+/***/ }),
+/* 315 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(316)
+/* template */
+var __vue_template__ = __webpack_require__(317)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/app/partials/AudioUploads.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-44925d29", Component.options)
+  } else {
+    hotAPI.reload("data-v-44925d29", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 316 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Uploads_FileUploads__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Uploads_FileUploads___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Uploads_FileUploads__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__globals_mixins_audioUpload__ = __webpack_require__(311);
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__globals_mixins_audioUpload__["a" /* default */]],
+  components: { FileUploads: __WEBPACK_IMPORTED_MODULE_0__Uploads_FileUploads___default.a },
+  data: function data() {
+    return {};
+  },
+
+  methods: {},
+  computed: {}
+});
+
+/***/ }),
+/* 317 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("FileUploads", {
+        attrs: { type: "audio", maxSize: "50", variant: "audio" }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-44925d29", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

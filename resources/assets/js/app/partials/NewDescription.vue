@@ -23,7 +23,7 @@
           <div class="column audio-column">
             <div class="field add-sound">
               <label class="label optional-labels">Upload Audio file</label>
-              <AudioUpload />
+              <AudioUploads />
               <div v-if="errors.audio" class="has-text-danger">{{errors.audio[0]}}</div>
             </div>
           </div>
@@ -44,12 +44,13 @@
 
 <script>
   import SoundKeyboard from "./SoundKeyboard";
-  import AudioUpload from "./Uploads/Audio";
   import LoginButton from "./LoginButton";
+  import AudioUploads from "./AudioUploads";
+
 
   export default {
     components:{
-      AudioUpload,SoundKeyboard,LoginButton
+      SoundKeyboard,LoginButton,AudioUploads
     },
     data() {
       return {

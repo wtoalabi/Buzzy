@@ -5,7 +5,7 @@
       <template v-if="sameUser">
         <div id="account-settings" class="tab-link" @click="isActive">Account Settings</div>
         <div id="bookmarks" class="tab-link" @click="isActive">Bookmarks</div>
-        <div id="history" class="tab-link" @click="isActive">History</div>
+        <!--<div id="history" class="tab-link" @click="isActive">History</div>-->
       </template>
       <div id="social-profiles" class="tab-link" @click="isActive">Social Profiles</div>
     </div>
@@ -13,7 +13,7 @@
       <WordsTab v-if="activeTab === 'words'"/>
       <AccountSettingsTab v-if="activeTab === 'account-settings'"/>
       <BookmarksTab v-if="activeTab === 'bookmarks'"/>
-      <HistoryTab v-if="activeTab === 'history'"/>
+      <!--<HistoryTab v-if="activeTab === 'history'"/>-->
       <SocialProfilesTab  v-if="activeTab === 'social-profiles'"/>
     </div>
   </div>

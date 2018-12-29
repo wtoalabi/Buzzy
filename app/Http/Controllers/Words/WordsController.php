@@ -13,6 +13,7 @@
   use App\Models\Word;
   use Illuminate\Http\Request;
   use App\Http\Controllers\Controller;
+  use mysql_xdevapi\Exception;
 
   class WordsController extends Controller
   {
@@ -27,6 +28,14 @@
   
     public function store()
     {
+      $lastCreatedTime = auth()->user()->words->last()->created_at;
+      $now = now();
+      $nowMinus30Seconds = $now->subSeconds(30);
+      if($nowMinus30Seconds->lt($lastCreatedTime)){
+        throw new \Exception('Too fast! Slow down a bit!',202);
+        //return response('Too fast! Slow down a bit!');
+      }
+      
       $userID = auth()->user()->id;
       request()->validate([
         'word' => 'required|unique:words|max:15',

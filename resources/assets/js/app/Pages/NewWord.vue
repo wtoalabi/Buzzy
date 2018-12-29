@@ -40,7 +40,7 @@
           <div class="column audio-column">
             <div class="field add-sound">
               <label class="label optional-labels">Upload Audio file</label>
-              <FileUploads type="audio" maxSize="50" variant="audio"/>
+              <AudioUploads/>
               <div v-if="errors.audio" class="has-text-danger">{{errors.audio[0]}}</div>
             </div>
           </div>
@@ -61,13 +61,10 @@
 
 <script>
   import SoundKeyboard from "../partials/SoundKeyboard";
-  import AudioUpload from "../partials/Uploads/Audio";
   import TagsSelector from "../partials/TagsSelector";
-  import FileUploads from "../partials/Uploads/FileUploads";
-  import audioUploads from '../globals/mixins/audioUpload'
+  import AudioUploads from "../partials/AudioUploads";
   export default {
-    mixins:[audioUploads],
-    components:{SoundKeyboard, AudioUpload, TagsSelector,FileUploads},
+    components:{SoundKeyboard, TagsSelector,AudioUploads},
     data() {
       return {
         form:{

@@ -10,6 +10,12 @@ use App\Http\Controllers\Controller;
 class DescriptionsController extends Controller
 {
     public function store(){
+      $lastCreatedTime = auth()->user()->descriptions->last()->created_at;
+      $now = now();
+      $nowMinus30Seconds = $now->subSeconds(30);
+      if($nowMinus30Seconds->lt($lastCreatedTime)){
+        return response('Too fast! Slow down a bit!');
+      }
         request()->validate([
           'description' => 'required'
         ],[

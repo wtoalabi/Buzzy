@@ -16765,7 +16765,7 @@ section.footer {
 .file-upload__custom-icon {
   cursor: pointer;
   font-size: 2.5rem;
-  color: white;
+  color: #03A9F4;
 }
 
 .file-upload__custom-icon:hover {
@@ -17135,6 +17135,10 @@ span.description__owner-info--count {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.description__footer span {
+  font-size: .8remc;
 }
 
 @media screen and (max-width: 500px) {

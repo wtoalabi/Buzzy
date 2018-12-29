@@ -184,6 +184,9 @@ span.description__owner-info--count{
 .description__footer{
   display: flex;
   flex-direction: column;
+  span{
+    font-size: .8remc;
+  }
 }
 
 @media screen and (max-width: 500px){
