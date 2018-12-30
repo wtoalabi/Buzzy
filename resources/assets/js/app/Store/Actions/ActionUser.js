@@ -25,7 +25,8 @@ export default {
     return axios.get(`api/get-user-details/${username}`).then(data=>{
       context.commit('userDetails',data.data)
     }).catch(error=>{
-
+      context.commit('error', error)
+      return console.dir(new Error(error.response.data))
     })
   },
   getUserBookmarks(context){

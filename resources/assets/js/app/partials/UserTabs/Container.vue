@@ -33,7 +33,7 @@
     data() {
       return {
         prevTab: '',
-        activeTab: 'words'
+        activeTab: 'social-profiles'
       }
     },
     methods: {
@@ -54,7 +54,7 @@
         }
       },
       defaultTab(){
-        if(this.activeTab ==='words'){
+        if(this.activeTab ==='social-profilesuser'){
           return 'active-tab'
         }
       }

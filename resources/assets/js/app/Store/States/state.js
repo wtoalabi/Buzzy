@@ -10,6 +10,6 @@ export default {
   tagWords:[],
   formData:{symbols:'',tags:[],suggestedTags:[]},
   formErrors: {},
-  userDetails:{bookmarks:[],user:[],words:[]},
+  userDetails:{bookmarks:[],user:[],words:[],social_profiles:{}},
   uploads:{tempFile:'',formData:'',audioID:'',avatarID:''}
 }

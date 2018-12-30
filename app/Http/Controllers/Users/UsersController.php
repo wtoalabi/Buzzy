@@ -2,6 +2,8 @@
   
   namespace App\Http\Controllers\Users;
   
+  use App\Helpers\Profiles\SocialProfiles;
+  use App\Http\Resources\User\SocialProfilesCollection;
   use App\Http\Resources\User\UserDetail;
   use App\Http\Resources\Words\SingleWordDetail;
   use App\Http\Resources\Words\WordsCollection;
@@ -16,10 +18,14 @@
     public function show($user)
     {
       $user = User::where('username', $user)->first();
-      return [
-        'words' => new WordsCollection($user->words),
-        'user' => new UserDetail($user)
-      ];
+      if($user) {
+        return [
+          'words' => new WordsCollection($user->words),
+          'user' => new UserDetail($user),
+          'social_profiles' => $user->social_profiles->pluck('username','network')
+        ];
+      }
+      return response('Profiles not found', 404);
     }
     
     public function store()

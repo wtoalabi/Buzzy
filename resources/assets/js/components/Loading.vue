@@ -21,7 +21,7 @@
         return !_.isEmpty(this.$store.state.error)
       },
       error(){
-        return this.$store.state.error.response.statusText
+        return this.$store.state.error.response.data
       }
     }
 

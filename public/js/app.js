@@ -22955,7 +22955,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       prevTab: '',
-      activeTab: 'words'
+      activeTab: 'social-profiles'
     };
   },
 
@@ -22977,7 +22977,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     },
     defaultTab: function defaultTab() {
-      if (this.activeTab === 'words') {
+      if (this.activeTab === 'social-profilesuser') {
         return 'active-tab';
       }
     }
@@ -23760,17 +23760,21 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(318)
+}
 var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = __webpack_require__(188)
 /* template */
-var __vue_template__ = __webpack_require__(189)
+var __vue_template__ = __webpack_require__(320)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-70df3365"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -23814,38 +23818,96 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {},
   data: function data() {
-    return {};
+    return {
+      sending: false,
+      input: '',
+      networks: {}
+    };
   },
 
-  methods: {},
-  computed: {}
+  methods: {
+    submit: function submit(network) {
+      var _this = this;
+
+      this.sending = network;
+      this.input = '';
+      axios.post('api/save-social-profile/' + network, { username: this.networks[network] }).then(function (response) {
+        _this.sending = '';
+        _this.$store.commit('userSocialProfile', response.data);
+      }).catch(function (error) {
+        _this.sending = '';
+      });
+    },
+    inputIs: function inputIs(network) {
+      return this.input === network;
+    },
+    showCheckmark: function showCheckmark(network) {
+      this.input = network;
+    }
+  },
+  computed: {
+    profiles: function profiles() {
+      return this.$store.state.userDetails.social_profiles;
+    },
+    sameUser: function sameUser() {
+      if (this.$store.state.loggedInUser) {
+        return this.$store.state.loggedInUser.id === this.$store.state.userDetails.user.id;
+      }
+    }
+  }
 });
 
 /***/ }),
-/* 189 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n  List of Social Profiles!\n")])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-70df3365", module.exports)
-  }
-}
-
-/***/ }),
+/* 189 */,
 /* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27695,7 +27757,10 @@ if (false) {
   retrieveUserDetails: function retrieveUserDetails(context, username) {
     return axios.get('api/get-user-details/' + username).then(function (data) {
       context.commit('userDetails', data.data);
-    }).catch(function (error) {});
+    }).catch(function (error) {
+      context.commit('error', error);
+      return console.dir(new Error(error.response.data));
+    });
   },
   getUserBookmarks: function getUserBookmarks(context) {
     return axios.get('api/user-bookmarks').then(function (data) {
@@ -27739,7 +27804,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     state.userDetails = _extends({}, payload, { bookmarks: [] });
   },
   clearUserDetails: function clearUserDetails(state) {
-    state.userDetails = { words: [], bookmarks: [], user: {} };
+    state.userDetails = { words: [], bookmarks: [], user: {}, social_profiles: {} };
   },
   userBookmarks: function userBookmarks(state, payload) {
     if (payload === 'None') {
@@ -27749,6 +27814,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   updateUserAccount: function updateUserAccount(state, payload) {
     state.userDetails.user = payload;
+  },
+  userSocialProfile: function userSocialProfile(state, payload) {
+    state.userDetails.social_profiles = payload;
   }
 });
 
@@ -27841,7 +27909,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   tagWords: [],
   formData: { symbols: '', tags: [], suggestedTags: [] },
   formErrors: {},
-  userDetails: { bookmarks: [], user: [], words: [] },
+  userDetails: { bookmarks: [], user: [], words: [], social_profiles: {} },
   uploads: { tempFile: '', formData: '', audioID: '', avatarID: '' }
 });
 
@@ -28761,7 +28829,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return !_.isEmpty(this.$store.state.error);
     },
     error: function error() {
-      return this.$store.state.error.response.statusText;
+      return this.$store.state.error.response.data;
     }
   }
 
@@ -29748,6 +29816,359 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-44925d29", module.exports)
+  }
+}
+
+/***/ }),
+/* 318 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(319);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("1e42193d", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-70df3365\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SocialProfilesTab.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-70df3365\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SocialProfilesTab.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 319 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.input-section[data-v-70df3365] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.input-section i[data-v-70df3365] {\n    margin-left: .3rem;\n    color: #87da87;\n    font-size: 1.5rem;\n    cursor: pointer;\n}\n.profiles .profiles__title[data-v-70df3365] {\n  font-size: 2rem;\n}\n.profiles .profiles__networks[data-v-70df3365] {\n  font-size: 1.5rem;\n}\n.profiles .twitter[data-v-70df3365] {\n  color: #1b95e0;\n}\n.profiles .facebook[data-v-70df3365] {\n  color: #4267b2;\n}\n.profiles .github[data-v-70df3365] {\n  color: #ce9178;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 320 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm.sameUser
+      ? _c("form", { attrs: { action: "" } }, [
+          _c("div", { staticClass: "field column" }, [
+            _c(
+              "label",
+              { staticClass: "label", attrs: { for: "network-facebook" } },
+              [_vm._v("Facebook")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "control input-section" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.networks.facebook,
+                    expression: "networks.facebook"
+                  }
+                ],
+                staticClass: "input",
+                attrs: {
+                  id: "network-facebook",
+                  name: "facebook",
+                  type: "text",
+                  placeholder: "Facebook Username",
+                  autocomplete: "off"
+                },
+                domProps: { value: _vm.networks.facebook },
+                on: {
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.networks, "facebook", $event.target.value)
+                    },
+                    function($event) {
+                      _vm.showCheckmark("facebook")
+                    }
+                  ]
+                }
+              }),
+              _vm._v(" "),
+              _vm.inputIs("facebook")
+                ? _c("i", {
+                    staticClass: "fa fa-check",
+                    attrs: { title: "Click to submit" },
+                    on: {
+                      click: function($event) {
+                        _vm.submit("facebook")
+                      }
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.sending === "facebook"
+                ? _c("i", { staticClass: "fa fa-refresh fa-spin" })
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _vm.profiles.facebook
+              ? _c("i", [
+                  _c(
+                    "a",
+                    {
+                      attrs: {
+                        href:
+                          "http://www.facebook.com/" + _vm.profiles.facebook,
+                        target: "_blank"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "http://www.facebook.com/" +
+                          _vm._s(_vm.profiles.facebook)
+                      )
+                    ]
+                  )
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field column" }, [
+            _c(
+              "label",
+              { staticClass: "label", attrs: { for: "network-twitter" } },
+              [_vm._v("Twitter")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "control input-section" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.networks.twitter,
+                    expression: "networks.twitter"
+                  }
+                ],
+                staticClass: "input",
+                attrs: {
+                  id: "network-twitter",
+                  name: "twitter",
+                  type: "text",
+                  placeholder: "Twitter Username",
+                  autocomplete: "off"
+                },
+                domProps: { value: _vm.networks.twitter },
+                on: {
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.networks, "twitter", $event.target.value)
+                    },
+                    function($event) {
+                      _vm.showCheckmark("twitter")
+                    }
+                  ]
+                }
+              }),
+              _vm._v(" "),
+              _vm.inputIs("twitter")
+                ? _c("i", {
+                    staticClass: "fa fa-check",
+                    attrs: { title: "Click to submit" },
+                    on: {
+                      click: function($event) {
+                        _vm.submit("twitter")
+                      }
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.sending === "twitter"
+                ? _c("i", { staticClass: "fa fa-refresh fa-spin" })
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _vm.profiles.twitter
+              ? _c("i", [
+                  _c(
+                    "a",
+                    {
+                      attrs: {
+                        href: "http://www.twitter.com/" + _vm.profiles.twitter,
+                        target: "_blank"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "http://www.twitter.com/" + _vm._s(_vm.profiles.twitter)
+                      )
+                    ]
+                  )
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field column" }, [
+            _c(
+              "label",
+              { staticClass: "label", attrs: { for: "network-github" } },
+              [_vm._v("Guthub")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "control input-section" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.networks.github,
+                    expression: "networks.github"
+                  }
+                ],
+                staticClass: "input",
+                attrs: {
+                  id: "network-github",
+                  name: "github",
+                  type: "text",
+                  placeholder: "Github Username",
+                  autocomplete: "off"
+                },
+                domProps: { value: _vm.networks.github },
+                on: {
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.networks, "github", $event.target.value)
+                    },
+                    function($event) {
+                      _vm.showCheckmark("github")
+                    }
+                  ]
+                }
+              }),
+              _vm._v(" "),
+              _vm.inputIs("github")
+                ? _c("i", {
+                    staticClass: "fa fa-check",
+                    attrs: { title: "Click to submit" },
+                    on: {
+                      click: function($event) {
+                        _vm.submit("github")
+                      }
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.sending === "github"
+                ? _c("i", { staticClass: "fa fa-refresh fa-spin" })
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _vm.profiles.github
+              ? _c("i", [
+                  _c(
+                    "a",
+                    {
+                      attrs: {
+                        href: "http://www.github.com/" + _vm.profiles.github,
+                        target: "_blank"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "http://www.github.com/" + _vm._s(_vm.profiles.github)
+                      )
+                    ]
+                  )
+                ])
+              : _vm._e()
+          ])
+        ])
+      : _c("div", { staticClass: "profiles" }, [
+          _c("h1", { staticClass: "profiles__title" }, [
+            _vm._v("User Social Profiles")
+          ]),
+          _vm._v(" "),
+          _vm.profiles.facebook
+            ? _c("div", { staticClass: "profiles__networks" }, [
+                _c("span", [_vm._v("Facebook: ")]),
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href: "http://www.facebook.com/" + _vm.profiles.facebook,
+                      target: "_blank"
+                    }
+                  },
+                  [_c("i", { staticClass: "fa fa-facebook-official facebook" })]
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.profiles.twitter
+            ? _c("div", { staticClass: "profiles__networks" }, [
+                _c("span", [_vm._v("Twitter: ")]),
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href: "http://www.twiiter.com/" + _vm.profiles.twitter,
+                      target: "_blank"
+                    }
+                  },
+                  [_c("i", { staticClass: "fa  fa-twitter twitter" })]
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.profiles.github
+            ? _c("div", { staticClass: "profiles__networks" }, [
+                _c("span", [_vm._v("Github: ")]),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href: "http://www.github.com/" + _vm.profiles.github,
+                      target: "_blank"
+                    }
+                  },
+                  [_c("i", { staticClass: "fa fa-github-square github" })]
+                )
+              ])
+            : _vm._e()
+        ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-70df3365", module.exports)
   }
 }
 

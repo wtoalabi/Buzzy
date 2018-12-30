@@ -10,7 +10,7 @@ export default {
     state.userDetails = {...payload,bookmarks:[]}
   },
   clearUserDetails(state) {
-    state.userDetails = {words:[],bookmarks:[],user:{}}
+    state.userDetails = {words:[],bookmarks:[],user:{},social_profiles:{}}
   },
   userBookmarks(state, payload){
     if(payload === 'None'){
@@ -20,5 +20,8 @@ export default {
   },
   updateUserAccount(state,payload){
     state.userDetails.user = payload
+  },
+  userSocialProfile(state,payload){
+    state.userDetails.social_profiles = payload
   }
 }
