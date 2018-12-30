@@ -30,6 +30,6 @@ class CreateWordTagTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('word_tag');
+        Schema::dropIfExists('word_tags');
     }
 }

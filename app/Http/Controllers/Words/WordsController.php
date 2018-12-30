@@ -33,7 +33,6 @@
       $nowMinus30Seconds = $now->subSeconds(30);
       if($nowMinus30Seconds->lt($lastCreatedTime)){
         throw new \Exception('Too fast! Slow down a bit!',202);
-        //return response('Too fast! Slow down a bit!');
       }
       
       $userID = auth()->user()->id;

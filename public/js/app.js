@@ -25061,6 +25061,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -25372,7 +25373,8 @@ var render = function() {
                       attrs: {
                         id: "description",
                         name: "description",
-                        placeholder: "How would you explain this word?"
+                        placeholder:
+                          "How would you explain\n              this word?"
                       },
                       domProps: { value: _vm.form.description },
                       on: {

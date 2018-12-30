@@ -14,7 +14,7 @@ class DescriptionsController extends Controller
       $now = now();
       $nowMinus30Seconds = $now->subSeconds(30);
       if($nowMinus30Seconds->lt($lastCreatedTime)){
-        return response('Too fast! Slow down a bit!');
+        throw new \Exception('Too fast! Slow down a bit!',202);
       }
         request()->validate([
           'description' => 'required'

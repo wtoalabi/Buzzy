@@ -30,6 +30,6 @@
      */
     public function down()
     {
-      Schema::dropIfExists('description_audios');
+      Schema::dropIfExists('description_audio');
     }
   }

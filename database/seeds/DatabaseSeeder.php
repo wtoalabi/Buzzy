@@ -19,5 +19,6 @@
       $this->call(WordTagsSeeder::class);
       $this->call(DescriptionSeeder::class);
       $this->call(DescriptionAudioSeeder::class);
+      $this->call(SocialProfileSeeder::class);
     }
   }

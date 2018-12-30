@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Description;
+use App\Models\SocialProfile;
 use App\Models\Word;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -42,5 +43,8 @@ class User extends Authenticatable
   public function avatarUrl(){
     $userID = $this->id;
     return "storage/avatar/$userID/$this->avatar";
+  }
+  public function social_profiles(){
+      return $this->hasMany(SocialProfile::class);
   }
 }
