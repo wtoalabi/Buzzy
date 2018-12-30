@@ -17138,7 +17138,8 @@ span.description__owner-info--count {
 }
 
 .description__footer span {
-  font-size: .8remc;
+  font-size: .8rem;
+  font-style: italic;
 }
 
 @media screen and (max-width: 500px) {

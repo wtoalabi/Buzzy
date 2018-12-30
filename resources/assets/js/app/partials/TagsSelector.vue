@@ -9,8 +9,7 @@
         <span class="">{{each.tag}}</span>
       </li>
     </ul>
-    <span v-if="noTagFound" class="no-tag-found has-text-danger">No matching tag found...click <u @click="suggestTag"
-                                                                                                  class="no-tag-found__pick">here</u> to suggest it. </span>
+    <span v-if="noTagFound" class="no-tag-found has-text-danger">No matching tag found...click <u @click="suggestTag" class="no-tag-found__pick">here</u> to suggest it. </span>
     <div class="selected-tags">
     <span v-for="each in selectedTags" class="tag selected-tags__each"
           @click="removeTag(each)">{{each.tag}}</span>
@@ -41,16 +40,16 @@
     methods: {
       pickTag(e) {
         this.typedValue = e.target.value.toLowerCase()
-        if (this.typedValue) {
-          this.filteredTags = this.tags.filter((each) => {
-            if (!this.selectedTags.includes(each)) {
-              return each.tag.toLowerCase().includes(this.typedValue)
-            }
-          })
-          this.checkTagAvailability()
-        } else {
-          this.filteredTags = ''
-        }
+        if (!/^\s*$/.test(this.typedValue)) {
+            this.filteredTags = this.tags.filter((each) => {
+              if (!this.selectedTags.includes(each)) {
+                return each.tag.toLowerCase().includes(this.typedValue)
+              }
+            })
+            this.checkTagAvailability()
+          } else {
+            this.filteredTags = ''
+          }
       },
       clickedTag(tagID) {
         this.filteredTags = ''
@@ -70,7 +69,11 @@
         let filtered = this.selectedTags.filter((each) => {
           return tag.id !== each.id
         })
+        let filterSuggested =this.suggestedTags.filter((each) => {
+          return tag !== each
+        })
         this.selectedTags = filtered
+        this.suggestedTags = filterSuggested
         this.tagInputEl.focus()
         return this.calculateRemainingTags()
       },
@@ -78,7 +81,9 @@
         this.tagInputEl.focus()
         this.tagInputEl.value = ''
         this.noTag = false
-        this.suggestedTags.push(this.typedValue)
+        if(!this.suggestedTags.includes(this.typedValue)){
+          this.suggestedTags.push(this.typedValue)
+        }
       },
       checkTagAvailability() {
         let count = this.tags.filter((tag) => {
@@ -104,7 +109,9 @@
         return this.$store.state.tags
       },
       noTagFound() {
-        return this.noTag
+        if(this.typedValue.length >0){
+          return this.noTag
+        }
       }
     }
   }

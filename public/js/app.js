@@ -22955,7 +22955,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       prevTab: '',
-      activeTab: 'social-profiles'
+      activeTab: 'words'
     };
   },
 
@@ -22977,7 +22977,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     },
     defaultTab: function defaultTab() {
-      if (this.activeTab === 'social-profilesuser') {
+      if (this.activeTab === 'words') {
         return 'active-tab';
       }
     }
@@ -25952,7 +25952,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 var tagsCount = 5;
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -25976,7 +25975,7 @@ var tagsCount = 5;
       var _this = this;
 
       this.typedValue = e.target.value.toLowerCase();
-      if (this.typedValue) {
+      if (!/^\s*$/.test(this.typedValue)) {
         this.filteredTags = this.tags.filter(function (each) {
           if (!_this.selectedTags.includes(each)) {
             return each.tag.toLowerCase().includes(_this.typedValue);
@@ -26007,7 +26006,11 @@ var tagsCount = 5;
       var filtered = this.selectedTags.filter(function (each) {
         return tag.id !== each.id;
       });
+      var filterSuggested = this.suggestedTags.filter(function (each) {
+        return tag !== each;
+      });
       this.selectedTags = filtered;
+      this.suggestedTags = filterSuggested;
       this.tagInputEl.focus();
       return this.calculateRemainingTags();
     },
@@ -26015,7 +26018,9 @@ var tagsCount = 5;
       this.tagInputEl.focus();
       this.tagInputEl.value = '';
       this.noTag = false;
-      this.suggestedTags.push(this.typedValue);
+      if (!this.suggestedTags.includes(this.typedValue)) {
+        this.suggestedTags.push(this.typedValue);
+      }
     },
     checkTagAvailability: function checkTagAvailability() {
       var _this3 = this;
@@ -26045,7 +26050,9 @@ var tagsCount = 5;
       return this.$store.state.tags;
     },
     noTagFound: function noTagFound() {
-      return this.noTag;
+      if (this.typedValue.length > 0) {
+        return this.noTag;
+      }
     }
   }
 });
