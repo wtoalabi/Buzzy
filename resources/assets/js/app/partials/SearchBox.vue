@@ -32,7 +32,6 @@
               this.search_container = {
                 height: resultRect.height
               }
-
               this.setStyles(e)
             })
           }, 800)()

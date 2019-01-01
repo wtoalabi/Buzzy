@@ -4,8 +4,9 @@
       <span class="result__title" v-html="styleTitle(result.word)"></span>
       <div class="result__counts">
         <div class="result__counts--icons">
-          <span title="Symbols Found" alt="Total Descriptions" class="result__icons--symbol mr-6"> <i class="fa fa-comments-o pr-1"></i> {{result.totalDescriptionsCount}}</span>
-          <span title="Total Tags" alt="Total Tags" class="result__icons--tags"><i class="fa fa-tag mr-6"></i>{{result.totalTagsCount}}</span>
+          <span title="Views Count" alt="Views Count" class="result__icons mr-6"> <i class="fa fa-eye pr-1"></i> {{result.viewsCount}}</span>
+          <span title="Descriptions Count" alt="Total Descriptions" class="result__icons mr-6"> <i class="fa fa-comments-o pr-1"></i> {{result.totalDescriptionsCount}}</span>
+          <span title="Total Tags" alt="Total Tags" class="result__icons"><i class="fa fa-tag mr-6"></i>{{result.totalTagsCount}}</span>
         </div>
       </div>
     </router-link>
@@ -67,16 +68,11 @@
     display: flex;
     justify-content: space-evenly;
   }
-  .result__icons--tags{
+  .result__icons{
     color: #091d3196;
-  }
-  .result__icons--symbol{
-    color: #091d3196;
-  }
-  .result__icons--sound{
-    color: #6084bc;
+    font-size: .9rem;
   }
   .highlight{
-    background-color: #091d3124;
+    background-color: #ffdd57;
   }
 </style>

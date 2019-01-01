@@ -17,7 +17,7 @@ class SingleWord extends JsonResource
         return [
           'id' => $this->id,
           'word' => $this->word,
-          'url' => str_slug($this->word)
+          'url' => str_slug($this->word),
         ];
     }
 }

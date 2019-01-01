@@ -19,7 +19,8 @@ class SingleWordResult extends JsonResource
           'word' => $this->word,
           'totalDescriptionsCount' => $this->descriptions->count(),
           'totalTagsCount' => $this->tagsCount(),
-          'slug' => $this->slug
+          'slug' => $this->slug,
+          'viewsCount' => $this->viewsCount()
         ];
     }
 }

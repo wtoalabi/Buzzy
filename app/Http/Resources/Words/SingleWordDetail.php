@@ -25,7 +25,8 @@ class SingleWordDetail extends JsonResource
           'descriptions' => new DescriptionsCollection($this->sortedDescriptions()),
           'user' => new UserDetail($this->user),
           'tags' => new TagsCollection($this->tags),
-          'bookmarked' => $this->bookmarked()
+          'bookmarked' => $this->bookmarked(),
+          'viewsCount' => $this->viewsCount()
         ];
     }
 }

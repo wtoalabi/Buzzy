@@ -9,11 +9,12 @@
         <span class="">{{each.tag}}</span>
       </li>
     </ul>
-    <span v-if="noTagFound" class="no-tag-found has-text-danger">No matching tag found...click <u @click="suggestTag" class="no-tag-found__pick">here</u> to suggest it. </span>
+    <span v-if="noTagFound" class="no-tag-found has-text-danger">No matching tag found...click <u @click="suggestTag"
+                                                                                                  class="no-tag-found__pick">here</u> to suggest it. </span>
     <div class="selected-tags">
-    <span v-for="each in selectedTags" class="tag selected-tags__each"
+    <span title="Click to remove" v-for="each in selectedTags" class="tag selected-tags__each"
           @click="removeTag(each)">{{each.tag}}</span>
-      <span v-if="suggestedTags.length > 0" v-for="each in suggestedTags" class="tag is-warning"
+      <span title="Click to remove" v-if="suggestedTags.length > 0" v-for="each in suggestedTags" class="tag is-warning suggested-tags"
           @click="removeTag(each)">{{each}}</span>
     </div>
 
@@ -41,15 +42,16 @@
       pickTag(e) {
         this.typedValue = e.target.value.toLowerCase()
         if (!/^\s*$/.test(this.typedValue)) {
-            this.filteredTags = this.tags.filter((each) => {
-              if (!this.selectedTags.includes(each)) {
-                return each.tag.toLowerCase().includes(this.typedValue)
-              }
-            })
-            this.checkTagAvailability()
-          } else {
-            this.filteredTags = ''
-          }
+          this.filteredTags = this.tags.filter((each) => {
+            if (!this.selectedTags.includes(each)) {
+              return each.tag.toLowerCase().includes(this.typedValue)
+            }
+          })
+          this.checkTagAvailability()
+        } else {
+          this.filteredTags = ''
+          this.noTag = ''
+        }
       },
       clickedTag(tagID) {
         this.filteredTags = ''
@@ -69,11 +71,11 @@
         let filtered = this.selectedTags.filter((each) => {
           return tag.id !== each.id
         })
-        let filterSuggested =this.suggestedTags.filter((each) => {
+        let filteredSuggested =this.suggestedTags.filter((each) => {
           return tag !== each
         })
         this.selectedTags = filtered
-        this.suggestedTags = filterSuggested
+        this.suggestedTags = filteredSuggested
         this.tagInputEl.focus()
         return this.calculateRemainingTags()
       },
@@ -87,7 +89,7 @@
       },
       checkTagAvailability() {
         let count = this.tags.filter((tag) => {
-          return tag.tag.includes(this.typedValue)
+          return tag.slug.includes(this.typedValue)
         })
         this.noTag = count.length === 0;
       },
@@ -109,9 +111,7 @@
         return this.$store.state.tags
       },
       noTagFound() {
-        if(this.typedValue.length >0){
-          return this.noTag
-        }
+        return this.noTag
       }
     }
   }

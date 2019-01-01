@@ -46,6 +46,9 @@
 .selected-tags{
   display: flex;
 }
+.suggested-tags{
+  cursor: pointer;
+}
 .selected-tags > span{
   margin: .3rem;
   background: #97c2e7;

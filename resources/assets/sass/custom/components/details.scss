@@ -130,13 +130,14 @@ a.details__user:hover{
 }
 .description__details{
   flex: 2;
+  width: 100%;
 }
 .description__icons{
   display: inline-flex;
   justify-content: space-between;
   flex-direction: column;
 }
-.description__icons code{
+.description__icons span{
   background-color: #bdbfc7;
   color: #091d31;
   font-size: .65rem;
@@ -153,6 +154,9 @@ a.details__user:hover{
   display: flex;
   flex-direction: column;
   padding: 1rem 0;
+  h3{
+    word-break: break-all;
+  }
 }
 .description__owner-info{
   display: flex;
@@ -205,7 +209,7 @@ span.description__owner-info--count{
   }
 
 }
-@media screen and(min-width: 550px){
+@media screen and(min-width: 350px){
   .description__footer{
     flex-direction: row;
     justify-content: space-between;

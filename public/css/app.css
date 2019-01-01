@@ -16622,6 +16622,10 @@ section.footer {
   display: flex;
 }
 
+.suggested-tags {
+  cursor: pointer;
+}
+
 .selected-tags > span {
   margin: .3rem;
   background: #97c2e7;
@@ -17036,6 +17040,7 @@ a.details__user:hover {
   -webkit-box-flex: 2;
       -ms-flex: 2;
           flex: 2;
+  width: 100%;
 }
 
 .description__icons {
@@ -17051,7 +17056,7 @@ a.details__user:hover {
           flex-direction: column;
 }
 
-.description__icons code {
+.description__icons span {
   background-color: #bdbfc7;
   color: #091d31;
   font-size: .65rem;
@@ -17067,7 +17072,7 @@ a.details__user:hover {
 }
 
 @media screen and (min-width: 350px) {
-  .description__icons code {
+  .description__icons span {
     font-size: 1.1rem;
   }
 }
@@ -17081,6 +17086,10 @@ a.details__user:hover {
       -ms-flex-direction: column;
           flex-direction: column;
   padding: 1rem 0;
+}
+
+.description__texts h3 {
+  word-break: break-all;
 }
 
 .description__owner-info {
@@ -17161,7 +17170,7 @@ span.description__owner-info--count {
   }
 }
 
-@media screen and (min-width: 550px) {
+@media screen and (min-width: 350px) {
   .description__footer {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;

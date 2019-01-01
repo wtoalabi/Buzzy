@@ -14,7 +14,7 @@
   use Illuminate\Http\Request;
   use App\Http\Controllers\Controller;
   use mysql_xdevapi\Exception;
-
+  
   class WordsController extends Controller
   {
     public function index()
@@ -25,16 +25,18 @@
         'trending' => $this->trendingWords(),
       ];
     }
-  
+    
     public function store()
     {
-      $lastCreatedTime = auth()->user()->words->last()->created_at;
-      $now = now();
-      $nowMinus30Seconds = $now->subSeconds(30);
-      if($nowMinus30Seconds->lt($lastCreatedTime)){
-        throw new \Exception('Too fast! Slow down a bit!',202);
+      $userWords = auth()->user()->words;
+      if (!$userWords->isEmpty()) {
+        $lastCreatedTime = $userWords->last()->created_at;
+        $now = now();
+        $nowMinus30Seconds = $now->subSeconds(30);
+        if ($nowMinus30Seconds->lt($lastCreatedTime)) {
+          throw new \Exception('Too fast! Slow down a bit!', 202);
+        }
       }
-      
       $userID = auth()->user()->id;
       request()->validate([
         'word' => 'required|unique:words|max:15',
@@ -59,13 +61,14 @@
         'body' => request('description')
       ]);
       $word->tags()->sync(request('tags'));
-      if (request('audio') || request('symbols')) {
-        $description->audio()->sync(request('audio'));
+      $audio = request('audio');
+      $symbol = request('symbol');
+        $audio ? $description->audio()->sync(request('audio')) : '';
+        $symbol ?
         Symbol::create([
           'description_id' => $description->id,
           'symbol' => request('symbol')
-        ]);
-      }
+        ]) : '';
       $suggestedTags = request('suggestedTags');
       if ($suggestedTags) {
         collect($suggestedTags)->each(function ($tag) use ($userID) {
@@ -77,7 +80,7 @@
       }
       return $word->slug;
     }
-  
+    
     public function show($word)
     {
       $word = Word::where('slug', $word)->firstorFail();
@@ -93,19 +96,23 @@
       }
       return [];
     }
-  
-    public function popularWords(){
+    
+    public function popularWords()
+    {
       $ids = Popular::List(7);
       $sorted = $this->findToSort($ids);
       return new ListCollection($sorted);
     }
-    public function trendingWords(){
+    
+    public function trendingWords()
+    {
       $ids = Trending::List(10, 10, 8);
       $sorted = $this->findToSort($ids);
       return new ListCollection($sorted);
     }
     
-    private function findToSort($ids){
+    private function findToSort($ids)
+    {
       $words = Word::findMany($ids);
       return $words->sortBy(function ($model) use ($ids) {
         return array_search($model->getKey(), $ids);

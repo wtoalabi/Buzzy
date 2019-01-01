@@ -53,4 +53,7 @@
         return Redis::HGET("Bookmarks:Users:$user->id",$this->id);
       }
     }
+    public function viewsCount(){
+        return Redis::ZSCORE("Views:PopularList:Words", $this->id) ?? 0;
+    }
   }

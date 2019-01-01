@@ -1,6 +1,7 @@
 <template>
   <div>
-    <FileUploads type="audio" maxSize="50" variant="audio"/>
+    <loading v-if="sending"/>
+    <FileUploads type="audio" maxSize="100" variant="audio"/>
   </div>
 </template>
 
@@ -11,7 +12,9 @@
     mixins:[audioUploads],
     components:{FileUploads},
     data() {
-      return {}
+      return {
+        sending: false
+      }
     },
     methods: {},
     computed: {}

@@ -20,7 +20,8 @@
       <div class="description__details">
         <div class="description__icons">
           <div>
-            <code v-if="description.symbol">{{description.symbol.body}}</code><span v-else></span>
+            <span v-if="description.symbol">{{description.symbol.body}}</span>
+            <template v-else></template>
           </div>
           <a v-if="description.audio_file" id="audio-click-link" title="Listen to Pronounciation" class=""><i class="fa fa-volume-up mr-4 has-text-info"></i>Listen to pronounciation
             <audio :src="description.audio_file.url"></audio>

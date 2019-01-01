@@ -79,7 +79,7 @@
         e.preventDefault()
         this.form.tags = this.$store.state.formData.tags
         this.form.suggestedTags = this.$store.state.formData.suggestedTags
-        this.form.audio = this.$store.state.formData.audioFileID;
+        this.form.audio = this.$store.state.uploads.audioID;
         this.form.symbol = this.$store.state.formData.symbols
         this.$store.dispatch('saveWord', this.form)
       },

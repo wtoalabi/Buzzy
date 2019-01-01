@@ -17,7 +17,9 @@ export default {
       })
     },
     saveFile(){
+      this.sending = true
       return axios.post(`api/save-audio/${this.file.name}`,this.uploads.formData).then(response=>{
+        this.sending = false
         this.$store.commit('audioFileID', response.data)
         this.addCancelIcon()
       }).catch(error=>{

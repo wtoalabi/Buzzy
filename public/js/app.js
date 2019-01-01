@@ -18567,7 +18567,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     axios.post('api/save-new-description', payload.form).then(function () {
       context.dispatch('retrieveDetail', payload.slug);
     }).catch(function (error) {
-      context.commit('formErrors', error.response.data.errors);
+      context.commit('formErrors', {});
     });
   },
   updateDescriptionLikes: function updateDescriptionLikes(context, payload) {
@@ -22557,22 +22557,13 @@ var render = function() {
     _c(
       "ul",
       { staticClass: "keyboard__list hide" },
-      [
-        _vm._l(_vm.sounds, function(sound) {
-          return _c(
-            "li",
-            { staticClass: "keyboard__item", attrs: { "data-ipa": sound.ipa } },
-            [_vm._v("\n      " + _vm._s(sound.ipa) + "\n    ")]
-          )
-        }),
-        _vm._v(" "),
-        _c("em", [
-          _vm._v(
-            "Copied from: 'http://www.antimoon.com/how/pronunc-soundsipa.htm'"
-          )
-        ])
-      ],
-      2
+      _vm._l(_vm.sounds, function(sound) {
+        return _c(
+          "li",
+          { staticClass: "keyboard__item", attrs: { "data-ipa": sound.ipa } },
+          [_vm._v("\n      " + _vm._s(sound.ipa) + "\n    ")]
+        )
+      })
     ),
     _vm._v(" "),
     _c("div", { staticClass: "rendered-sound" }, [
@@ -24376,7 +24367,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.details__bookmark {\n  cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.details__bookmark {\n  cursor: pointer;\n  margin-right: 10px;\n}\n.details__bookmark_with_view {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n", ""]);
 
 // exports
 
@@ -24391,6 +24382,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_DescriptionsList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__partials_DescriptionsList__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_NewDescription__ = __webpack_require__(212);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_NewDescription___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__partials_NewDescription__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -24546,7 +24542,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -24559,6 +24555,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DescriptionLikes__ = __webpack_require__(206);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DescriptionLikes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DescriptionLikes__);
+//
 //
 //
 //
@@ -24909,11 +24906,15 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "description__details" }, [
           _c("div", { staticClass: "description__icons" }, [
-            _c("div", [
-              description.symbol
-                ? _c("code", [_vm._v(_vm._s(description.symbol.body))])
-                : _c("span")
-            ]),
+            _c(
+              "div",
+              [
+                description.symbol
+                  ? _c("span", [_vm._v(_vm._s(description.symbol.body))])
+                  : void 0
+              ],
+              2
+            ),
             _vm._v(" "),
             description.audio_file
               ? _c(
@@ -25585,25 +25586,33 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _vm.isLoggedIn
-                  ? _c(
-                      "div",
-                      {
-                        staticClass: "has-text-link details__bookmark",
-                        attrs: { title: _vm.bookmark.text },
-                        on: { click: _vm.bookmarkThis }
-                      },
-                      [
-                        _c("i", {
-                          staticClass: "fa fa-bookmark",
-                          class: _vm.bookmark.color
-                        }),
-                        _c("span", { staticClass: "ml-6" }, [
-                          _vm._v(_vm._s(_vm.bookmark.text))
-                        ])
-                      ]
-                    )
-                  : _vm._e()
+                _c("div", { staticClass: "details__bookmark_with_view" }, [
+                  _vm.isLoggedIn
+                    ? _c(
+                        "div",
+                        {
+                          staticClass: "has-text-link details__bookmark",
+                          attrs: { title: _vm.bookmark.text },
+                          on: { click: _vm.bookmarkThis }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fa fa-bookmark",
+                            class: _vm.bookmark.color
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "ml-6" }, [
+                            _vm._v(_vm._s(_vm.bookmark.text))
+                          ])
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("span", { attrs: { title: "Views Count" } }, [
+                    _c("i", { staticClass: "fa fa-eye mr-6" }),
+                    _vm._v(_vm._s(_vm.details.viewsCount))
+                  ])
+                ])
               ]),
               _vm._v(" "),
               [
@@ -25818,7 +25827,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       e.preventDefault();
       this.form.tags = this.$store.state.formData.tags;
       this.form.suggestedTags = this.$store.state.formData.suggestedTags;
-      this.form.audio = this.$store.state.formData.audioFileID;
+      this.form.audio = this.$store.state.uploads.audioID;
       this.form.symbol = this.$store.state.formData.symbols;
       this.$store.dispatch('saveWord', this.form);
     },
@@ -25952,6 +25961,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 var tagsCount = 5;
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -25984,6 +25994,7 @@ var tagsCount = 5;
         this.checkTagAvailability();
       } else {
         this.filteredTags = '';
+        this.noTag = '';
       }
     },
     clickedTag: function clickedTag(tagID) {
@@ -26006,11 +26017,11 @@ var tagsCount = 5;
       var filtered = this.selectedTags.filter(function (each) {
         return tag.id !== each.id;
       });
-      var filterSuggested = this.suggestedTags.filter(function (each) {
+      var filteredSuggested = this.suggestedTags.filter(function (each) {
         return tag !== each;
       });
       this.selectedTags = filtered;
-      this.suggestedTags = filterSuggested;
+      this.suggestedTags = filteredSuggested;
       this.tagInputEl.focus();
       return this.calculateRemainingTags();
     },
@@ -26026,7 +26037,7 @@ var tagsCount = 5;
       var _this3 = this;
 
       var count = this.tags.filter(function (tag) {
-        return tag.tag.includes(_this3.typedValue);
+        return tag.slug.includes(_this3.typedValue);
       });
       this.noTag = count.length === 0;
     },
@@ -26050,9 +26061,7 @@ var tagsCount = 5;
       return this.$store.state.tags;
     },
     noTagFound: function noTagFound() {
-      if (this.typedValue.length > 0) {
-        return this.noTag;
-      }
+      return this.noTag;
     }
   }
 });
@@ -26124,6 +26133,7 @@ var render = function() {
             "span",
             {
               staticClass: "tag selected-tags__each",
+              attrs: { title: "Click to remove" },
               on: {
                 click: function($event) {
                   _vm.removeTag(each)
@@ -26139,7 +26149,8 @@ var render = function() {
             ? _c(
                 "span",
                 {
-                  staticClass: "tag is-warning",
+                  staticClass: "tag is-warning suggested-tags",
+                  attrs: { title: "Click to remove" },
                   on: {
                     click: function($event) {
                       _vm.removeTag(each)
@@ -26870,7 +26881,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this.search_container = {
             height: resultRect.height
           };
-
           _this.setStyles(e);
         });
       }, 800)();
@@ -26988,7 +26998,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.results{\n}\n.result{\n  padding: 1rem;\n  border-bottom: 1px solid #b2beca;\n  font-size: 2rem;\n  color: #0c1c2b;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  text-transform: uppercase;\n}\n.result a{\n}\n.result:last-of-type{\n  border-bottom: none;\n}\n.result__title{\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n}\n.result__counts{\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  font-size: 1rem;\n  font-weight: 500;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.result__counts--icons{\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: space-evenly;\n      -ms-flex-pack: space-evenly;\n          justify-content: space-evenly;\n}\n.result__icons--tags{\n  color: #091d3196;\n}\n.result__icons--symbol{\n  color: #091d3196;\n}\n.result__icons--sound{\n  color: #6084bc;\n}\n.highlight{\n  background-color: #091d3124;\n}\n", ""]);
+exports.push([module.i, "\n.results{\n}\n.result{\n  padding: 1rem;\n  border-bottom: 1px solid #b2beca;\n  font-size: 2rem;\n  color: #0c1c2b;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  text-transform: uppercase;\n}\n.result a{\n}\n.result:last-of-type{\n  border-bottom: none;\n}\n.result__title{\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n}\n.result__counts{\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  font-size: 1rem;\n  font-weight: 500;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.result__counts--icons{\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: space-evenly;\n      -ms-flex-pack: space-evenly;\n          justify-content: space-evenly;\n}\n.result__icons{\n  color: #091d3196;\n  font-size: .9rem;\n}\n.highlight{\n  background-color: #ffdd57;\n}\n", ""]);
 
 // exports
 
@@ -26999,6 +27009,7 @@ exports.push([module.i, "\n.results{\n}\n.result{\n  padding: 1rem;\n  border-bo
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -27068,9 +27079,21 @@ var render = function() {
                   _c(
                     "span",
                     {
-                      staticClass: "result__icons--symbol mr-6",
+                      staticClass: "result__icons mr-6",
+                      attrs: { title: "Views Count", alt: "Views Count" }
+                    },
+                    [
+                      _c("i", { staticClass: "fa fa-eye pr-1" }),
+                      _vm._v(" " + _vm._s(result.viewsCount))
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      staticClass: "result__icons mr-6",
                       attrs: {
-                        title: "Symbols Found",
+                        title: "Descriptions Count",
                         alt: "Total Descriptions"
                       }
                     },
@@ -27083,7 +27106,7 @@ var render = function() {
                   _c(
                     "span",
                     {
-                      staticClass: "result__icons--tags",
+                      staticClass: "result__icons",
                       attrs: { title: "Total Tags", alt: "Total Tags" }
                     },
                     [
@@ -28391,9 +28414,13 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("h1", [
       _vm._v("Say hi on "),
-      _c("i", { staticClass: "fa fa-twitter has-text-link" }),
-      _vm._v(" or "),
-      _c("i", { staticClass: "fa fa-envelope" })
+      _c(
+        "a",
+        {
+          attrs: { target: "_blank", href: "http://www.twitter.com/wtoalabi" }
+        },
+        [_c("i", { staticClass: "fa fa-twitter has-text-link" })]
+      )
     ])
   }
 ]
@@ -29611,7 +29638,9 @@ if (false) {
     saveFile: function saveFile() {
       var _this2 = this;
 
+      this.sending = true;
       return axios.post('api/save-audio/' + this.file.name, this.uploads.formData).then(function (response) {
+        _this2.sending = false;
         _this2.$store.commit('audioFileID', response.data);
         _this2.addCancelIcon();
       }).catch(function (error) {
@@ -29784,6 +29813,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -29791,7 +29821,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mixins: [__WEBPACK_IMPORTED_MODULE_1__globals_mixins_audioUpload__["a" /* default */]],
   components: { FileUploads: __WEBPACK_IMPORTED_MODULE_0__Uploads_FileUploads___default.a },
   data: function data() {
-    return {};
+    return {
+      sending: false
+    };
   },
 
   methods: {},
@@ -29809,8 +29841,10 @@ var render = function() {
   return _c(
     "div",
     [
+      _vm.sending ? _c("loading") : _vm._e(),
+      _vm._v(" "),
       _c("FileUploads", {
-        attrs: { type: "audio", maxSize: "50", variant: "audio" }
+        attrs: { type: "audio", maxSize: "100", variant: "audio" }
       })
     ],
     1
@@ -29861,7 +29895,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.input-section[data-v-70df3365] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.input-section i[data-v-70df3365] {\n    margin-left: .3rem;\n    color: #87da87;\n    font-size: 1.5rem;\n    cursor: pointer;\n}\n.profiles .profiles__title[data-v-70df3365] {\n  font-size: 2rem;\n}\n.profiles .profiles__networks[data-v-70df3365] {\n  font-size: 1.5rem;\n}\n.profiles .twitter[data-v-70df3365] {\n  color: #1b95e0;\n}\n.profiles .facebook[data-v-70df3365] {\n  color: #4267b2;\n}\n.profiles .github[data-v-70df3365] {\n  color: #ce9178;\n}\n", ""]);
+exports.push([module.i, "\n.input-section[data-v-70df3365] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.input-section i[data-v-70df3365] {\n    margin-left: .3rem;\n    color: #87da87;\n    font-size: 1.5rem;\n    cursor: pointer;\n}\n.input-section ~ i > a[data-v-70df3365] {\n  word-break: break-all;\n}\n.profiles .profiles__title[data-v-70df3365] {\n  font-size: 2rem;\n}\n.profiles .profiles__networks[data-v-70df3365] {\n  font-size: 1.5rem;\n}\n.profiles .twitter[data-v-70df3365] {\n  color: #1b95e0;\n}\n.profiles .facebook[data-v-70df3365] {\n  color: #4267b2;\n}\n.profiles .github[data-v-70df3365] {\n  color: #ce9178;\n}\n", ""]);
 
 // exports
 

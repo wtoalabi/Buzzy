@@ -108,6 +108,9 @@
       cursor: pointer;
     }
   }
+  .input-section ~ i > a{
+      word-break: break-all;
+  }
 
   .profiles {
     .profiles__title {

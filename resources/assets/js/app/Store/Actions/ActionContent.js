@@ -56,7 +56,7 @@ export default {
     axios.post('api/save-new-description', payload.form).then(()=>{
       context.dispatch('retrieveDetail',payload.slug)
     }).catch(error=>{
-      context.commit('formErrors', error.response.data.errors);
+      context.commit('formErrors', {});
     })
   },
   updateDescriptionLikes(context,payload){

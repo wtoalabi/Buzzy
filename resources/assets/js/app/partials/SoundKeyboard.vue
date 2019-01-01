@@ -8,7 +8,7 @@
       <li v-for="sound in sounds" class="keyboard__item" :data-ipa="sound.ipa">
         {{sound.ipa}}
       </li>
-      <em>Copied from: 'http://www.antimoon.com/how/pronunc-soundsipa.htm'</em>
+      <!--<em>Copied from: 'http://www.antimoon.com/how/pronunc-soundsipa.htm'</em>-->
     </ul>
     <div class="rendered-sound">
       <span v-if="showControl" class="controls rendered-sound__controls">

@@ -15,8 +15,13 @@
             </span>
           </div>
         </div>
-        <div v-if="isLoggedIn" @click="bookmarkThis" class="has-text-link details__bookmark" :title="bookmark.text"><i
-            class="fa fa-bookmark" :class="bookmark.color"></i><span class="ml-6">{{bookmark.text}}</span></div>
+        <div class="details__bookmark_with_view">
+          <div v-if="isLoggedIn" @click="bookmarkThis" class="has-text-link details__bookmark" :title="bookmark.text">
+            <i class="fa fa-bookmark" :class="bookmark.color"></i>
+            <span class="ml-6">{{bookmark.text}}</span>
+          </div>
+          <span title="Views Count"><i class="fa fa-eye mr-6"></i>{{details.viewsCount}}</span>
+        </div>
       </div>
       <template>
         <div class="description-divider">Descriptions</div>
@@ -70,7 +75,12 @@
 <style lang="scss">
   .details__bookmark {
     cursor: pointer;
+    margin-right: 10px;
   }
-
+  .details__bookmark_with_view{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
 </style>
