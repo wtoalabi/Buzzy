@@ -3,6 +3,7 @@
     <div class="wrapper">
       <Navbar/>
       <section class="main-content" v-if="loaded">
+        <announcement></announcement>
         <router-view/>
       </section>
         <div v-else>

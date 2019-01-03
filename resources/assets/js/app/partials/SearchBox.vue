@@ -83,7 +83,7 @@
     padding: 1.3rem 2rem 1.3rem 4.7rem;
     border-radius: 2rem;
     -webkit-appearance: none;
-    background: white url(http://buzz.loc/svg/search.svg) no-repeat 1.8rem 60%;
+    background: white url(https://buzzwords.xyz/svg/search.svg) no-repeat 1.8rem 60%;
     color: #1c2d3e;
     font-size: 1.2rem;
     display: flex;

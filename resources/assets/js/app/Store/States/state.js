@@ -5,7 +5,13 @@ export default {
   searchResults: [],
   visible: 'hide',
   wordDetail:[],
-  error: '',
+  announcement:{
+    message:{
+      type: 'success',
+      text: '',
+      duration: 5000,
+    },
+  },
   tags: [],
   tagWords:[],
   formData:{symbols:'',tags:[],suggestedTags:[]},

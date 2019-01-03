@@ -4,7 +4,7 @@
       <div class="field column">
         <label class="label" for="network-facebook">Facebook</label>
         <div class="control input-section">
-          <input id="network-facebook" class="input" name="facebook" type="text" placeholder="Facebook Username"
+          <input id="network-facebook" class="input" name="facebook" type="text" :placeholder="profiles.facebook"
                  autocomplete="off" v-model="networks.facebook" @input="showCheckmark('facebook')">
           <i title="Click to submit" class="fa fa-check" v-if="inputIs('facebook')" @click="submit('facebook')"></i>
           <i class="fa fa-refresh fa-spin" v-if="sending === 'facebook'"></i>
@@ -14,7 +14,7 @@
       <div class="field column">
         <label class="label" for="network-twitter">Twitter</label>
         <div class="control input-section">
-          <input id="network-twitter" class="input" name="twitter" type="text" placeholder="Twitter Username"
+          <input id="network-twitter" class="input" name="twitter" type="text" :placeholder="profiles.twitter"
                  autocomplete="off" v-model="networks.twitter" @input="showCheckmark('twitter')">
           <i title="Click to submit" class="fa fa-check" v-if="inputIs('twitter')" @click="submit('twitter')"></i>
           <i class="fa fa-refresh fa-spin" v-if="sending === 'twitter'"></i>
@@ -24,7 +24,7 @@
       <div class="field column">
         <label class="label" for="network-github">Guthub</label>
         <div class="control input-section">
-          <input id="network-github" class="input" name="github" type="text" placeholder="Github Username"
+          <input id="network-github" class="input" name="github" type="text" :placeholder="profiles.github"
                  autocomplete="off" v-model="networks.github" @input="showCheckmark('github')">
           <i title="Click to submit" class="fa fa-check" v-if="inputIs('github')" @click="submit('github')"></i>
           <i class="fa fa-refresh fa-spin" v-if="sending === 'github'"></i>
@@ -66,6 +66,7 @@
         this.input = ''
         axios.post(`api/save-social-profile/${network}`, {username: this.networks[network]}).then(response => {
           this.sending = ''
+          this.$store.commit('message','Successfully Saved')
           this.$store.commit('userSocialProfile', response.data)
         }).catch(error => {
           this.sending = ''

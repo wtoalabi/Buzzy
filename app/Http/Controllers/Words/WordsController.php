@@ -34,7 +34,7 @@
         $now = now();
         $nowMinus30Seconds = $now->subSeconds(30);
         if ($nowMinus30Seconds->lt($lastCreatedTime)) {
-          throw new \Exception('Too fast! Slow down a bit!', 202);
+          return response('Too fast! Slow down a bit!', 405);
         }
       }
       $userID = auth()->user()->id;
@@ -83,9 +83,12 @@
     
     public function show($word)
     {
-      $word = Word::where('slug', $word)->firstorFail();
-      Store::WordsViewCount($word->id);
-      return new SingleWordDetail($word);
+      $word = Word::where('slug', $word)->first();
+      if($word){
+        Store::WordsViewCount($word->id);
+        return new SingleWordDetail($word);
+      }
+      return response('Word not found...', 404);
     }
     
     public function recentWords()

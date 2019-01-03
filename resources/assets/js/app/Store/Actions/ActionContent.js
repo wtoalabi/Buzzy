@@ -12,8 +12,7 @@ export default {
       context.commit('initialContent', data.data)
       context.commit('loaded')
     }).catch(error=>{
-      context.commit('error', error)
-      console.log(new Error(`${error.request.statusText}, Code: ${error.request.status}`))
+      context.commit('serverError',error)
     })
   },
   getResult(context,searchText){
@@ -34,7 +33,7 @@ export default {
     return axios.get(`api/details/${item}`).then(data=>{
       context.commit('storeDetail',data.data)
     }).catch(error=>{
-      context.commit('error', error)
+      context.commit('serverError',error)
     })
   },
   retrieveTags(context){
@@ -57,6 +56,7 @@ export default {
       context.dispatch('retrieveDetail',payload.slug)
     }).catch(error=>{
       context.commit('formErrors', {});
+      context.commit('serverError',error)
     })
   },
   updateDescriptionLikes(context,payload){

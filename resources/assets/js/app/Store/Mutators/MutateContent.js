@@ -1,4 +1,9 @@
 export default {
+  message(state,payload){
+    state.announcement.message.type = 'success'
+    state.announcement.message.text = payload,
+    state.announcement.message.duration = 5000
+  },
   initialContent(state, payload){
     return state.content = payload
   },
