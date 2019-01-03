@@ -13527,7 +13527,7 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
   }].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_2__profile__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_3__items__["a" /* default */]))
 });
 router.beforeEach(function (to, from, next) {
-  var urlBeforeLogin = window.localStorage.getItem('urlBeforeLogin');
+  var urlBeforeLogin = window.localStorage.getItem('urlBeforeLogin').substr(2);
   if (urlBeforeLogin) {
     window.localStorage.clear();
     _this.default.push('/' + urlBeforeLogin);
@@ -28360,7 +28360,7 @@ if (false) {
   },
   login: function login(context, provider) {
     var hash = window.location.hash;
-    window.localStorage.setItem('urlBeforeLogin', hash.substr(2));
+    window.localStorage.setItem('urlBeforeLogin', hash);
     window.location.assign('auth/' + provider);
   },
   retrieveUserDetails: function retrieveUserDetails(context, username) {

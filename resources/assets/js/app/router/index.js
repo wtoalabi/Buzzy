@@ -25,7 +25,7 @@ const router = new VueRouter({
   ]
 });
 router.beforeEach((to, from, next) => {
-  let urlBeforeLogin = window.localStorage.getItem('urlBeforeLogin');
+  let urlBeforeLogin = window.localStorage.getItem('urlBeforeLogin').substr(2);
   if (urlBeforeLogin) {
     window.localStorage.clear()
     this.default.push('/' + urlBeforeLogin)

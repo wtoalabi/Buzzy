@@ -17,7 +17,7 @@ export default {
   },
   login(context, provider){
     const hash = window.location.hash;
-      window.localStorage.setItem('urlBeforeLogin', hash.substr(2))
+      window.localStorage.setItem('urlBeforeLogin', hash)
       window.location.assign(`auth/${provider}`)
   },
   retrieveUserDetails(context,username){
