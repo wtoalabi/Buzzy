@@ -88,7 +88,8 @@
       },
       noDescription(){
         return _.isEmpty(this.$store.state.wordDetail.descriptions)
-      }
+      },
+      
     }
   }
 
