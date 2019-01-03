@@ -25,10 +25,10 @@ const router = new VueRouter({
   ]
 });
 router.beforeEach((to, from, next) => {
-  let urlBeforeLogin = window.localStorage.getItem('urlBeforeLogin').substr(2);
+  let urlBeforeLogin = window.localStorage.getItem('urlBeforeLogin');
   if (urlBeforeLogin) {
     window.localStorage.clear()
-    this.default.push('/' + urlBeforeLogin)
+    this.default.push('/' + urlBeforeLogin.substr(2))
     Store.commit('message', 'Logged In!')
   }
   next()

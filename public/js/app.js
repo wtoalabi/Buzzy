@@ -13527,10 +13527,10 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
   }].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_2__profile__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_3__items__["a" /* default */]))
 });
 router.beforeEach(function (to, from, next) {
-  var urlBeforeLogin = window.localStorage.getItem('urlBeforeLogin').substr(2);
+  var urlBeforeLogin = window.localStorage.getItem('urlBeforeLogin');
   if (urlBeforeLogin) {
     window.localStorage.clear();
-    _this.default.push('/' + urlBeforeLogin);
+    _this.default.push('/' + urlBeforeLogin.substr(2));
     __WEBPACK_IMPORTED_MODULE_6__Store__["a" /* default */].commit('message', 'Logged In!');
   }
   next();
