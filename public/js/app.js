@@ -13532,7 +13532,7 @@ router.beforeEach(function (to, from, next) {
     window.localStorage.clear();
     _this.default.push('/' + urlBeforeLogin);
   } else {
-    _this.default.push('/');
+    //this.default.push('/')
   }
   __WEBPACK_IMPORTED_MODULE_6__Store__["a" /* default */].commit('message', 'Logged In!');
   next();

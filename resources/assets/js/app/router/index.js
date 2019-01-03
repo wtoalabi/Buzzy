@@ -30,7 +30,7 @@ router.beforeEach((to, from, next) => {
     window.localStorage.clear()
     this.default.push('/' + urlBeforeLogin)
   }else{
-    this.default.push('/')
+    //this.default.push('/')
   }
   Store.commit('message', 'Logged In!')
   next()
