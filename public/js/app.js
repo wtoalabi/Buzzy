@@ -25622,6 +25622,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     clearErrors: function clearErrors(e) {
       this.$store.commit('clearFormError', e);
+    },
+    loggedIn: function loggedIn() {
+      return !_.isEmpty(this.$store.state.loggedInUser);
     }
   },
   computed: {
@@ -25967,7 +25970,7 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       _c("span", { staticClass: "new_description__buttons" }, [
-        _vm.isLoggedIn
+        _vm.loggedIn
           ? _c(
               "button",
               {
