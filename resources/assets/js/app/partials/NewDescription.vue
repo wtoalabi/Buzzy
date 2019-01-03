@@ -75,9 +75,6 @@
       clearErrors(e){
         this.$store.commit('clearFormError',e)
       },
-      loggedIn(){
-        return !_.isEmpty(this.$store.state.loggedInUser)
-      }
     },
     computed: {
       toggleButtonText(){
@@ -92,7 +89,9 @@
       noDescription(){
         return _.isEmpty(this.$store.state.wordDetail.descriptions)
       },
-
+      loggedIn(){
+        return !_.isEmpty(this.$store.state.loggedInUser)
+      }
     }
   }
 

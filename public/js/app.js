@@ -25622,9 +25622,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     clearErrors: function clearErrors(e) {
       this.$store.commit('clearFormError', e);
-    },
-    loggedIn: function loggedIn() {
-      return !_.isEmpty(this.$store.state.loggedInUser);
     }
   },
   computed: {
@@ -25639,6 +25636,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     noDescription: function noDescription() {
       return _.isEmpty(this.$store.state.wordDetail.descriptions);
+    },
+    loggedIn: function loggedIn() {
+      return !_.isEmpty(this.$store.state.loggedInUser);
     }
   }
 });
