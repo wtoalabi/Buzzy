@@ -28405,7 +28405,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   loggedInUser: function loggedInUser(state, payload) {
-    return state.loggedInUser = payload;
+    payload ? state.loggedInUser = payload : null;
   },
   clearUserData: function clearUserData(state) {
     state.user = {};

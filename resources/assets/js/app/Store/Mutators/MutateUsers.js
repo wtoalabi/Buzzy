@@ -1,6 +1,6 @@
 export default {
   loggedInUser(state, payload) {
-    return state.loggedInUser = payload
+    payload ? state.loggedInUser = payload : null
   },
   clearUserData(state) {
     state.user = {}
