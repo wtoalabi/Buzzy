@@ -13531,10 +13531,8 @@ router.beforeEach(function (to, from, next) {
   if (urlBeforeLogin) {
     window.localStorage.clear();
     _this.default.push('/' + urlBeforeLogin);
-  } else {
-    //this.default.push('/')
+    __WEBPACK_IMPORTED_MODULE_6__Store__["a" /* default */].commit('message', 'Logged In!');
   }
-  __WEBPACK_IMPORTED_MODULE_6__Store__["a" /* default */].commit('message', 'Logged In!');
   next();
 });
 
@@ -28361,11 +28359,8 @@ if (false) {
     }).catch(function (error) {});
   },
   login: function login(context, provider) {
-    var hash = window.location.hash.substr(2);
-    console.log('hash', hash);
-    if (hash) {
-      window.localStorage.setItem('urlBeforeLogin', hash);
-    }
+    var hash = window.location.hash;
+    window.localStorage.setItem('urlBeforeLogin', hash.substr(2));
     window.location.assign('auth/' + provider);
   },
   retrieveUserDetails: function retrieveUserDetails(context, username) {

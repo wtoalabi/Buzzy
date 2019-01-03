@@ -29,10 +29,8 @@ router.beforeEach((to, from, next) => {
   if (urlBeforeLogin) {
     window.localStorage.clear()
     this.default.push('/' + urlBeforeLogin)
-  }else{
-    //this.default.push('/')
+    Store.commit('message', 'Logged In!')
   }
-  Store.commit('message', 'Logged In!')
   next()
 })
 

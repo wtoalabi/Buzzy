@@ -16,12 +16,9 @@ export default {
     })
   },
   login(context, provider){
-    const hash = window.location.hash.substr(2);
-    console.log('hash',hash)
-    if(hash){
-      window.localStorage.setItem('urlBeforeLogin', hash)
-    }
-    window.location.assign(`auth/${provider}`)
+    const hash = window.location.hash;
+      window.localStorage.setItem('urlBeforeLogin', hash.substr(2))
+      window.location.assign(`auth/${provider}`)
   },
   retrieveUserDetails(context,username){
     return axios.get(`api/get-user-details/${username}`).then(data=>{
