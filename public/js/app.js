@@ -13529,10 +13529,12 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
 router.beforeEach(function (to, from, next) {
   var urlBeforeLogin = window.localStorage.getItem('urlBeforeLogin');
   if (urlBeforeLogin) {
-    __WEBPACK_IMPORTED_MODULE_6__Store__["a" /* default */].commit('message', 'Logged In!');
     window.localStorage.clear();
-    return _this.default.push('/' + urlBeforeLogin);
+    _this.default.push('/' + urlBeforeLogin);
+  } else {
+    _this.default.push('/');
   }
+  __WEBPACK_IMPORTED_MODULE_6__Store__["a" /* default */].commit('message', 'Logged In!');
   next();
 });
 
@@ -28359,8 +28361,11 @@ if (false) {
     }).catch(function (error) {});
   },
   login: function login(context, provider) {
-    var hash = window.location.hash;
-    window.localStorage.setItem('urlBeforeLogin', hash.substr(2));
+    var hash = window.location.hash.substr(2);
+    console.log('hash', hash);
+    if (hash) {
+      window.localStorage.setItem('urlBeforeLogin', hash);
+    }
     window.location.assign('auth/' + provider);
   },
   retrieveUserDetails: function retrieveUserDetails(context, username) {

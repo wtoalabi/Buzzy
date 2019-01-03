@@ -14,7 +14,7 @@ const router = new VueRouter({
     {
       path: '/',
       component: Home,
-      beforeEnter(to, from ,next){
+      beforeEnter(to, from, next) {
         //window.location.search.endsWith('logged-in') ? Store.commit('message','Logged In!') : ''
         Store.dispatch('getContent')
         next()
@@ -22,15 +22,17 @@ const router = new VueRouter({
     },
     ...ProfileRoutes,
     ...Items,
-    ]
+  ]
 });
 router.beforeEach((to, from, next) => {
   let urlBeforeLogin = window.localStorage.getItem('urlBeforeLogin');
-  if(urlBeforeLogin){
-    Store.commit('message','Logged In!')
+  if (urlBeforeLogin) {
     window.localStorage.clear()
-    return this.default.push('/'+urlBeforeLogin)
+    this.default.push('/' + urlBeforeLogin)
+  }else{
+    this.default.push('/')
   }
+  Store.commit('message', 'Logged In!')
   next()
 })
 
