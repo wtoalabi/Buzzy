@@ -38,8 +38,6 @@
     public function __construct()
     {
       $this->middleware('guest')->except('logout');
-      $provider = request('provider');
-      session()->put('previousURL', $provider);
     }
     
     public function redirectToGithub()

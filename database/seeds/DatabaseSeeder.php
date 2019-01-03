@@ -12,7 +12,7 @@
     public function run()
     {
       $this->call(ClearRedis::class);
-      $this->call(UserSeeder::class);
+      //$this->call(UserSeeder::class);
       $this->call(TagSeeder::class);
       //$this->call(WordSeeder::class);
       //$this->call(AudioSeeder::class);
