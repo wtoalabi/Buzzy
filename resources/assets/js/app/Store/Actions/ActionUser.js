@@ -16,10 +16,9 @@ export default {
     })
   },
   login(context, provider){
-    const origin = window.location.origin;
     const hash = window.location.hash;
-    let url = hash.length > 2 ? `${origin}/%23${hash.substr(1,hash.length)}` : window.location.href
-    window.location.assign(`auth/${provider}?provider=${url}`)
+    window.localStorage.setItem('urlBeforeLogin', hash.substr(2))
+    window.location.assign(`auth/${provider}`)
   },
   retrieveUserDetails(context,username){
     return axios.get(`api/get-user-details/${username}`).then(data=>{

@@ -93,11 +93,8 @@
      * @param $user
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function login($user)
-    {
+    public function login($user){
       Auth::login($user);
-      $url = session()->get('previousURL');
-      session()->forget('previousURL');
-      return redirect($url);
+      return redirect('#/');
     }
   }

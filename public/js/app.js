@@ -13500,6 +13500,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__partials_Lorem__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__partials_Lorem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__partials_Lorem__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Store__ = __webpack_require__(10);
+var _this = this;
+
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 
@@ -13518,10 +13520,20 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
     path: '/',
     component: __WEBPACK_IMPORTED_MODULE_4__Pages_Home___default.a,
     beforeEnter: function beforeEnter(to, from, next) {
+      //window.location.search.endsWith('logged-in') ? Store.commit('message','Logged In!') : ''
       __WEBPACK_IMPORTED_MODULE_6__Store__["a" /* default */].dispatch('getContent');
       next();
     }
   }].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_2__profile__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_3__items__["a" /* default */]))
+});
+router.beforeEach(function (to, from, next) {
+  var urlBeforeLogin = window.localStorage.getItem('urlBeforeLogin');
+  if (urlBeforeLogin) {
+    __WEBPACK_IMPORTED_MODULE_6__Store__["a" /* default */].commit('message', 'Logged In!');
+    window.localStorage.clear();
+    return _this.default.push('/' + urlBeforeLogin);
+  }
+  next();
 });
 
 /* harmony default export */ __webpack_exports__["default"] = (router);
@@ -28347,10 +28359,9 @@ if (false) {
     }).catch(function (error) {});
   },
   login: function login(context, provider) {
-    var origin = window.location.origin;
     var hash = window.location.hash;
-    var url = hash.length > 2 ? origin + '/%23' + hash.substr(1, hash.length) : window.location.href;
-    window.location.assign('auth/' + provider + '?provider=' + url);
+    window.localStorage.setItem('urlBeforeLogin', hash.substr(2));
+    window.location.assign('auth/' + provider);
   },
   retrieveUserDetails: function retrieveUserDetails(context, username) {
     return axios.get('api/get-user-details/' + username).then(function (data) {

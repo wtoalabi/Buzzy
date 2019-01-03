@@ -15,13 +15,23 @@ const router = new VueRouter({
       path: '/',
       component: Home,
       beforeEnter(to, from ,next){
+        //window.location.search.endsWith('logged-in') ? Store.commit('message','Logged In!') : ''
         Store.dispatch('getContent')
         next()
       }
     },
     ...ProfileRoutes,
     ...Items,
-  ]
+    ]
 });
+router.beforeEach((to, from, next) => {
+  let urlBeforeLogin = window.localStorage.getItem('urlBeforeLogin');
+  if(urlBeforeLogin){
+    Store.commit('message','Logged In!')
+    window.localStorage.clear()
+    return this.default.push('/'+urlBeforeLogin)
+  }
+  next()
+})
 
 export default router
