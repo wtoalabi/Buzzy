@@ -15,7 +15,6 @@ const router = new VueRouter({
       path: '/',
       component: Home,
       beforeEnter(to, from, next) {
-        //window.location.search.endsWith('logged-in') ? Store.commit('message','Logged In!') : ''
         Store.dispatch('getContent')
         next()
       }

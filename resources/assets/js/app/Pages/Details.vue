@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div v-if="loaded" class="details">
       <div class="details__header">
         <div class="details__title">
@@ -40,8 +39,6 @@
 
   export default {
     components: {DescriptionsList, NewDescription},
-    mounted() {
-    },
     data() {
       return {}
     },
@@ -55,7 +52,7 @@
         return this.$store.state.wordDetail
       },
       loaded() {
-        return !_.isEmpty(this.$store.state.wordDetail);
+        return this.$store.state.loaded;
       },
       bookmark() {
         if (this.$store.state.wordDetail.bookmarked) {

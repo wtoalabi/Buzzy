@@ -12334,7 +12334,6 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
     path: '/',
     component: __WEBPACK_IMPORTED_MODULE_4__Pages_Home___default.a,
     beforeEnter: function beforeEnter(to, from, next) {
-      //window.location.search.endsWith('logged-in') ? Store.commit('message','Logged In!') : ''
       __WEBPACK_IMPORTED_MODULE_6__Store__["a" /* default */].dispatch('getContent');
       next();
     }
@@ -18555,13 +18554,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return context.dispatch('getContent');
-
-            case 2:
-              _context.next = 4;
               return context.dispatch('getUser');
 
-            case 4:
+            case 2:
             case 'end':
               return _context.stop();
           }
@@ -18577,6 +18572,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   }(),
   getContent: function getContent(context) {
     context.commit('clearErrors');
+    context.commit('fetching');
     axios.get('api/get-content').then(function (data) {
       context.commit('initialContent', data.data);
       context.commit('loaded');
@@ -18599,8 +18595,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   retrieveDetail: function retrieveDetail(context, item) {
     context.commit('clearErrors');
     context.commit('clearCurrentlyStoredWord');
+    context.commit('fetching');
     return axios.get('api/details/' + item).then(function (data) {
       context.commit('storeDetail', data.data);
+      context.commit('loaded');
     }).catch(function (error) {
       context.commit('serverError', error);
     });
@@ -24882,7 +24880,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -24890,7 +24887,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: { DescriptionsList: __WEBPACK_IMPORTED_MODULE_0__partials_DescriptionsList___default.a, NewDescription: __WEBPACK_IMPORTED_MODULE_1__partials_NewDescription___default.a },
-  mounted: function mounted() {},
   data: function data() {
     return {};
   },
@@ -24905,7 +24901,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this.$store.state.wordDetail;
     },
     loaded: function loaded() {
-      return !_.isEmpty(this.$store.state.wordDetail);
+      return this.$store.state.loaded;
     },
     bookmark: function bookmark() {
       if (this.$store.state.wordDetail.bookmarked) {
@@ -28449,6 +28445,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   loaded: function loaded(state) {
     state.loaded = true;
+  },
+  fetching: function fetching(state) {
+    state.loaded = false;
   },
   clearHomeList: function clearHomeList(state) {
     return state.content = {};

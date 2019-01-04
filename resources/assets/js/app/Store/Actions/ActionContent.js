@@ -2,12 +2,13 @@ import router from "../../router";
 
 export default {
   async initialLoading(context){
-    await context.dispatch('getContent')
+    //await context.dispatch('getContent')
     await context.dispatch('getUser')
   },
 
   getContent(context){
     context.commit('clearErrors')
+    context.commit('fetching')
     axios.get('api/get-content').then(data=>{
       context.commit('initialContent', data.data)
       context.commit('loaded')
@@ -30,8 +31,10 @@ export default {
   retrieveDetail(context, item){
     context.commit('clearErrors')
     context.commit('clearCurrentlyStoredWord')
+    context.commit('fetching')
     return axios.get(`api/details/${item}`).then(data=>{
       context.commit('storeDetail',data.data)
+      context.commit('loaded')
     }).catch(error=>{
       context.commit('serverError',error)
     })
