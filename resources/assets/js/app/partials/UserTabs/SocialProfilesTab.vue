@@ -66,7 +66,7 @@
         this.input = ''
         axios.post(`api/save-social-profile/${network}`, {username: this.networks[network]}).then(response => {
           this.sending = ''
-          this.$store.commit('message','Successfully Saved')
+          this.$store.commit('message',{type:'success', text:'Successfully Saved!'})
           this.$store.commit('userSocialProfile', response.data)
         }).catch(error => {
           this.sending = ''

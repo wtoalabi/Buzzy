@@ -49,7 +49,7 @@
     },
     computed: {
       sameUser(){
-        if(this.$store.state.loggedInUser) {
+        if(!_.isEmpty(this.$store.state.loggedInUser)) {
           return this.$store.state.loggedInUser.id === this.$store.state.userDetails.user.id
         }
       },

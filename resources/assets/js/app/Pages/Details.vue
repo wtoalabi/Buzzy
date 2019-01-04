@@ -15,7 +15,7 @@
           </div>
         </div>
         <div class="details__bookmark_with_view">
-          <div v-if="isLoggedIn" @click="bookmarkThis" class="has-text-link details__bookmark" :title="bookmark.text">
+          <div v-if="loggedIn" @click="bookmarkThis" class="has-text-link details__bookmark" :title="bookmark.text">
             <i class="fa fa-bookmark" :class="bookmark.color"></i>
             <span class="ml-6">{{bookmark.text}}</span>
           </div>
@@ -65,6 +65,9 @@
           'text': "Bookmark this word",
           'color': "has-text-danger"
         }
+      },
+      loggedIn(){
+        return !_.isEmpty(this.$store.state.loggedInUser)
       }
     }
   }

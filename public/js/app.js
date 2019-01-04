@@ -12344,7 +12344,7 @@ router.beforeEach(function (to, from, next) {
   if (urlBeforeLogin) {
     window.localStorage.clear();
     _this.default.push('/' + urlBeforeLogin.substr(2));
-    __WEBPACK_IMPORTED_MODULE_6__Store__["a" /* default */].commit('message', 'Logged In!');
+    __WEBPACK_IMPORTED_MODULE_6__Store__["a" /* default */].commit('message', { type: 'success', text: 'Logged in!' });
   }
   next();
 });
@@ -23019,7 +23019,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   computed: {
     sameUser: function sameUser() {
-      if (this.$store.state.loggedInUser) {
+      if (!_.isEmpty(this.$store.state.loggedInUser)) {
         return this.$store.state.loggedInUser.id === this.$store.state.userDetails.user.id;
       }
     },
@@ -24039,7 +24039,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.input = '';
       axios.post('api/save-social-profile/' + network, { username: this.networks[network] }).then(function (response) {
         _this.sending = '';
-        _this.$store.commit('message', 'Successfully Saved');
+        _this.$store.commit('message', { type: 'success', text: 'Successfully Saved!' });
         _this.$store.commit('userSocialProfile', response.data);
       }).catch(function (error) {
         _this.sending = '';
@@ -24725,10 +24725,12 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Pages_Details__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Pages_Details___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Pages_Details__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Store__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Pages_NewWord__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Pages_NewWord___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Pages_NewWord__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Pages_TagsPage__ = __webpack_require__(238);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Pages_TagsPage___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Pages_TagsPage__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__router__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Pages_NewWord__ = __webpack_require__(228);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Pages_NewWord___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Pages_NewWord__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Pages_TagsPage__ = __webpack_require__(238);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Pages_TagsPage___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Pages_TagsPage__);
+
 
 
 
@@ -24745,15 +24747,19 @@ if (false) {
 }, {
   name: 'Create New Word',
   path: '/add-new',
-  component: __WEBPACK_IMPORTED_MODULE_2__Pages_NewWord___default.a,
+  component: __WEBPACK_IMPORTED_MODULE_3__Pages_NewWord___default.a,
   beforeEnter: function beforeEnter(to, from, next) {
-    __WEBPACK_IMPORTED_MODULE_1__Store__["a" /* default */].dispatch('retrieveTags');
-    next();
+    if (!_.isEmpty(__WEBPACK_IMPORTED_MODULE_1__Store__["a" /* default */].state.loggedInUser)) {
+      __WEBPACK_IMPORTED_MODULE_1__Store__["a" /* default */].dispatch('retrieveTags');
+      next();
+    }
+    __WEBPACK_IMPORTED_MODULE_1__Store__["a" /* default */].commit('message', { type: 'error', text: 'Not Authorized to view this page...' });
+    __WEBPACK_IMPORTED_MODULE_2__router__["default"].push('/');
   }
 }, {
   name: 'Tag Words List',
   path: '/tags/:tag',
-  component: __WEBPACK_IMPORTED_MODULE_3__Pages_TagsPage___default.a,
+  component: __WEBPACK_IMPORTED_MODULE_4__Pages_TagsPage___default.a,
   beforeEnter: function beforeEnter(to, from, next) {
     __WEBPACK_IMPORTED_MODULE_1__Store__["a" /* default */].dispatch('getTagWords', to.params.tag);
     next();
@@ -24929,6 +24935,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         'text': "Bookmark this word",
         'color': "has-text-danger"
       };
+    },
+    loggedIn: function loggedIn() {
+      return !_.isEmpty(this.$store.state.loggedInUser);
     }
   }
 });
@@ -25275,7 +25284,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       };
     }
   },
-  computed: {}
+  computed: {
+    loggedIn: function loggedIn() {
+      return !_.isEmpty(this.$store.state.loggedInUser);
+    }
+  }
 });
 
 /***/ }),
@@ -25286,7 +25299,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.isLoggedIn
+  return _vm.loggedIn
     ? _c("div", [
         _c(
           "span",
@@ -26181,7 +26194,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "details__bookmark_with_view" }, [
-                  _vm.isLoggedIn
+                  _vm.loggedIn
                     ? _c(
                         "div",
                         {
@@ -28446,7 +28459,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     __WEBPACK_IMPORTED_MODULE_0__Store__["a" /* default */].commit('loggedInUser', payload);
     state.userDetails.user = payload;
     window.history.pushState('', '', '/#/user/' + payload.username);
-    __WEBPACK_IMPORTED_MODULE_0__Store__["a" /* default */].commit('message', 'Profile Updated!');
+    __WEBPACK_IMPORTED_MODULE_0__Store__["a" /* default */].commit('message', { type: 'success', text: 'Profile Updated' });
   },
   userSocialProfile: function userSocialProfile(state, payload) {
     state.userDetails.social_profiles = payload;
@@ -28459,9 +28472,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-  message: function message(state, payload) {
-    state.announcement.message.type = 'success';
-    state.announcement.message.text = payload, state.announcement.message.duration = 5000;
+  message: function message(state, _message) {
+    state.announcement.message.type = _message.type || 'success';
+    state.announcement.message.text = _message.text;
+    state.announcement.message.duration = 5000;
   },
   initialContent: function initialContent(state, payload) {
     return state.content = payload;

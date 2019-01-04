@@ -1,7 +1,7 @@
 export default {
-  message(state,payload){
-    state.announcement.message.type = 'success'
-    state.announcement.message.text = payload,
+  message(state,message){
+    state.announcement.message.type = message.type || 'success'
+    state.announcement.message.text = message.text
     state.announcement.message.duration = 5000
   },
   initialContent(state, payload){

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isLoggedIn">
+  <div v-if="loggedIn">
     <span @click="clicked" class="tag is-primary description__likes" :title="liked(description).text"><i class="fa fa-heart mr-4" :class="liked(description).color"></i>{{description.like_counts}}</span>
   </div>
 </template>
@@ -27,7 +27,11 @@
         }
       }
     },
-    computed: {}
+    computed: {
+      loggedIn(){
+        return !_.isEmpty(this.$store.state.loggedInUser)
+      }
+    }
   }
 
 </script>
