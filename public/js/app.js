@@ -24933,7 +24933,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this.$store.state.wordDetail;
     },
     loaded: function loaded() {
-      return this.$store.state.loaded;
+      return this.$store.state.loaded && !_.isEmpty(this.details.user);
     },
     bookmark: function bookmark() {
       if (this.$store.state.wordDetail.bookmarked) {

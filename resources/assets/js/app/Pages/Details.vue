@@ -52,7 +52,7 @@
         return this.$store.state.wordDetail
       },
       loaded() {
-        return this.$store.state.loaded;
+        return this.$store.state.loaded && !_.isEmpty(this.details.user);
       },
       bookmark() {
         if (this.$store.state.wordDetail.bookmarked) {
