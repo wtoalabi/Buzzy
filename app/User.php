@@ -45,6 +45,9 @@ class User extends Authenticatable
     }
   public function avatarUrl(){
     $userID = $this->id;
+    if(str_contains($this->avatar, 'https://') || str_contains($this->avatar, 'http://')){
+      return $this->avatar;
+    }
     return "storage/avatar/$userID/$this->avatar";
   }
   public function social_profiles(){
