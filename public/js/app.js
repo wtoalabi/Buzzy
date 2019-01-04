@@ -28872,7 +28872,10 @@ var render = function() {
                       staticClass: "button p-6 is-medium is-warning",
                       attrs: { to: "/tags-list" }
                     },
-                    [_vm._v("Tags Index")]
+                    [
+                      _c("i", { staticClass: "fa fa-list mr-10 mt-6" }),
+                      _vm._v("Tags Index")
+                    ]
                   )
                 ],
                 1
@@ -28953,10 +28956,13 @@ var render = function() {
                           _c(
                             "router-link",
                             {
-                              staticClass: "button p-6 is-medium is-warning",
+                              staticClass: "button p-12 is-medium is-warning",
                               attrs: { to: "/add-new" }
                             },
-                            [_vm._v("Add New Buzz")]
+                            [
+                              _c("i", { staticClass: "fa fa-plus mr-10 mt-6" }),
+                              _vm._v("New Buzz")
+                            ]
                           )
                         ],
                         1
