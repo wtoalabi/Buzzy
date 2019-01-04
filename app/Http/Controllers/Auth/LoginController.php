@@ -74,9 +74,9 @@
       $user->fill([
         $provider . '_id' => $providerUser->id,
         'avatar' => $providerUser->avatar,
-        'username' => $providerUser->nickname,
+        'username' => $providerUser->nickname.'_'.$providerUser->id,
         'email' => $providerUser->email,
-        'full_name' => $providerUser->name
+        'full_name' => $providerUser->name,
       ]);
       $user->save();
       return $user;

@@ -1,6 +1,8 @@
 export default {
   getUser(context) {
+    context.commit('fetching')
     axios.get('api/get-logged-in-user').then(data=>{
+      context.commit('loaded')
       context.commit('loggedInUser', data.data.data)
     }).catch(error=>{
       new Error(`${error.request.statusText}, Code: ${error.request.status}`)

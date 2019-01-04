@@ -21,6 +21,9 @@ class User extends Authenticatable
         'github_id','twitter_id','username','full_name', 'email', 'avatar'
     ];
     protected $withCount = ['descriptions','words'];
+    protected $casts = [
+      'changed_username' => 'bool'
+    ];
 
     /**
      * The attributes that should be hidden for arrays.

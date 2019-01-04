@@ -20,7 +20,8 @@ class UserDetail extends JsonResource
           'full_name' =>$this->full_name,
           'username' => $this->username,
           'words_count' => $this->words_count,
-          'descriptions_count' => $this->descriptions_count
+          'descriptions_count' => $this->descriptions_count,
+          'changed_username' => $this->changed_username
         ];
     }
 }

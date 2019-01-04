@@ -14,6 +14,7 @@
       $this->call(ClearRedis::class);
       //$this->call(UserSeeder::class);
       $this->call(TagSeeder::class);
+      //$this->call(UserSeeder::class);
       //$this->call(WordSeeder::class);
       //$this->call(AudioSeeder::class);
       //$this->call(WordTagsSeeder::class);

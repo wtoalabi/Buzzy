@@ -17,8 +17,9 @@ $factory->define(App\User::class, function (Faker $faker) {
     return [
         'email' => $faker->unique()->safeEmail,
         'github_id' => 'g7B77UdFm', // secret,
-        'username' => $faker->userName,
+        'username' => $faker->userName . '_'. str_random(rand(5,8)),
         'full_name' => $faker->name,
+        'changed_username' => 0,
         'avatar' => null,
         'remember_token' => str_random(10),
     ];

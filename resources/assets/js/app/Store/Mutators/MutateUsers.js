@@ -1,3 +1,4 @@
+import Store from '../../Store'
 export default {
   loggedInUser(state, payload) {
     payload ? state.loggedInUser = payload : null
@@ -19,7 +20,10 @@ export default {
     return state.userDetails.bookmarks = payload.data
   },
   updateUserAccount(state,payload){
+    Store.commit('clearFormError','username')
+    Store.commit('loggedInUser', payload)
     state.userDetails.user = payload
+    window.history.pushState('','',`/#/user/${payload.username}`)
   },
   userSocialProfile(state,payload){
     state.userDetails.social_profiles = payload

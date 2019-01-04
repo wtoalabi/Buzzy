@@ -22855,7 +22855,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this.$store.state.userDetails.user;
     },
     loaded: function loaded() {
-      return !_.isEmpty(this.$store.state.userDetails.user);
+      return this.$store.state.loaded;
     }
   }
 });
@@ -23384,6 +23384,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+
 
 
 
@@ -23398,7 +23401,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       sending: false,
       form: {},
       newForm: {
-        full_name: ''
+        full_name: '',
+        username: ''
       }
     };
   },
@@ -23410,10 +23414,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       e.preventDefault();
       this.sending = true;
       this.newForm.full_name = this.form.full_name;
+      this.newForm.username = this.form.username;
       return axios.post('api/save-user-details', this.newForm).then(function (response) {
         _this.sending = false;
         _this.$store.commit('updateUserAccount', response.data.data);
-      }).catch(function (error) {});
+      }).catch(function (error) {
+        _this.sending = false;
+        _this.$store.commit('formErrors', error.response.data.errors);
+      });
     }
   },
   computed: {
@@ -23677,7 +23685,6 @@ var render = function() {
                 ],
                 staticClass: "input",
                 attrs: {
-                  disabled: "",
                   id: "username",
                   name: "username",
                   type: "text",
@@ -23695,11 +23702,19 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("h1", { staticClass: "has-text-grey-dark" }, [
-                _vm._v(
-                  "This is as given by your social account of choice. You cannot change it\n            here."
-                )
-              ])
+              !_vm.user.changed_username
+                ? _c("h1", { staticClass: "has-text-grey-dark" }, [
+                    _vm._v(
+                      "This looks ugly. Change it to something\n                nice and cute."
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.errors.username
+                ? _c("div", { staticClass: "has-text-danger" }, [
+                    _vm._v(_vm._s(_vm.errors.username[0]))
+                  ])
+                : _vm._e()
             ])
           ])
         ]),
@@ -23720,7 +23735,7 @@ var render = function() {
                           staticClass: "button is-danger is-small mb-10",
                           on: { click: _vm.removeAvatar }
                         },
-                        [_vm._v("Remove Avatar")]
+                        [_vm._v("Remove Avatar\n            ")]
                       )
                     : _vm._e()
                 ]),
@@ -28344,7 +28359,9 @@ if (false) {
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
   getUser: function getUser(context) {
+    context.commit('fetching');
     axios.get('api/get-logged-in-user').then(function (data) {
+      context.commit('loaded');
       context.commit('loggedInUser', data.data.data);
     }).catch(function (error) {
       new Error(error.request.statusText + ', Code: ' + error.request.status);
@@ -28400,7 +28417,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Store__ = __webpack_require__(8);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   loggedInUser: function loggedInUser(state, payload) {
@@ -28423,7 +28442,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     return state.userDetails.bookmarks = payload.data;
   },
   updateUserAccount: function updateUserAccount(state, payload) {
+    __WEBPACK_IMPORTED_MODULE_0__Store__["a" /* default */].commit('clearFormError', 'username');
+    __WEBPACK_IMPORTED_MODULE_0__Store__["a" /* default */].commit('loggedInUser', payload);
     state.userDetails.user = payload;
+    window.history.pushState('', '', '/#/user/' + payload.username);
   },
   userSocialProfile: function userSocialProfile(state, payload) {
     state.userDetails.social_profiles = payload;

@@ -31,7 +31,14 @@
     public function store()
     {
       $user = auth()->user();
+      request()->validate([
+        'username' => 'unique:users'
+      ]);
       $user->full_name = request('full_name');
+      $user->username = request('username');
+      if(request('username')){
+        $user->changed_username = 1;
+      }
       $user->save();
       return new UserDetail(User::find($user->id));
     }
