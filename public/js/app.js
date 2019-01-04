@@ -28446,6 +28446,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     __WEBPACK_IMPORTED_MODULE_0__Store__["a" /* default */].commit('loggedInUser', payload);
     state.userDetails.user = payload;
     window.history.pushState('', '', '/#/user/' + payload.username);
+    __WEBPACK_IMPORTED_MODULE_0__Store__["a" /* default */].commit('message', 'Profile Updated!');
   },
   userSocialProfile: function userSocialProfile(state, payload) {
     state.userDetails.social_profiles = payload;

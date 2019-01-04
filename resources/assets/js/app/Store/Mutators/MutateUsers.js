@@ -24,6 +24,7 @@ export default {
     Store.commit('loggedInUser', payload)
     state.userDetails.user = payload
     window.history.pushState('','',`/#/user/${payload.username}`)
+    Store.commit('message','Profile Updated!')
   },
   userSocialProfile(state,payload){
     state.userDetails.social_profiles = payload

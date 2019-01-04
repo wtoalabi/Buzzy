@@ -12,7 +12,7 @@
   */
 
 //Auth::routes();
-//auth()->loginUsingId(1);
+//auth()->loginUsingId(5);
   Route::group(['prefix' => 'api'],function (){
     Route::get('get-content', 'Words\WordsController@index');
     Route::get('get-logged-in-user','Users\UsersController@loggedInUser');
