@@ -38,18 +38,24 @@
 
 </script>
 
-<style>
+<style lang="scss">
   .results{
   }
   .result{
     padding: 1rem;
     border-bottom: 1px solid #b2beca;
-    font-size: 2rem;
+    font-size: 1rem;
     color: #0c1c2b;
     display: flex;
     justify-content: space-between;
     align-items: center;
     text-transform: uppercase;
+    @media screen and(min-width: 500px){
+      font-size: 1.5rem;
+    }
+    @media screen and(min-width: 750px){
+      font-size: 2rem;
+    }
   }
   .result a{}
   .result:last-of-type{
