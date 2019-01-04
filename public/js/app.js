@@ -26178,7 +26178,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "Added by:\n            " +
+                            "\n            " +
                               _vm._s(_vm.details.user.username) +
                               "\n          "
                           )

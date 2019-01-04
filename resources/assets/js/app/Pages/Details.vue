@@ -6,7 +6,7 @@
           <h1>{{details.word}}</h1>
           <h3>{{details.sub_title}}</h3>
           <div class="details__tags">
-            <router-link :to="`/user/${details.user.username}`" class="mr-2 tag details__user">Added by:
+            <router-link :to="`/user/${details.user.username}`" class="mr-2 tag details__user">
               {{details.user.username}}
             </router-link>
             <span class="tag details__tags--link" v-for="tag in details.tags">
