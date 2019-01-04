@@ -28873,7 +28873,9 @@ var render = function() {
                       attrs: { to: "/tags-list" }
                     },
                     [
-                      _c("i", { staticClass: "fa fa-list mr-10 mt-6" }),
+                      _c("i", {
+                        staticClass: "fa fa-list mr-10 mt-6 has-text-white"
+                      }),
                       _vm._v("Tags Index")
                     ]
                   )
@@ -28960,7 +28962,10 @@ var render = function() {
                               attrs: { to: "/add-new" }
                             },
                             [
-                              _c("i", { staticClass: "fa fa-plus mr-10 mt-6" }),
+                              _c("i", {
+                                staticClass:
+                                  "fa fa-plus mr-10 mt-6 has-text-primary"
+                              }),
                               _vm._v("New Buzz")
                             ]
                           )
@@ -32577,7 +32582,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.menu-item {\n  font-size: 1.7rem;\n  margin-top: 3px;\n}\n.menu-item a.button {\n    background-color: #42a9ebbd;\n    color: #fff;\n}\n.menu-item a.button:hover {\n      background-color: #607D8B;\n      color: white;\n      border: 1px solid white;\n}\n@media screen and (max-width: 950px) {\n.avatar {\n    display: none;\n}\n}\n", ""]);
+exports.push([module.i, "\n.menu-item {\n  font-size: 1.7rem;\n  margin-top: 3px;\n}\n.menu-item a.button {\n    background-color: #42a9ebbd;\n    color: #000;\n}\n@media screen and (min-width: 950px) {\n.menu-item a.button {\n        color: #fff;\n}\n}\n.menu-item a.button:hover {\n      background-color: #607D8B;\n      color: white;\n      border: 1px solid white;\n}\n@media screen and (max-width: 950px) {\n.avatar {\n    display: none;\n}\n}\n", ""]);
 
 // exports
 

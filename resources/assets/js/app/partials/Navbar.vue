@@ -15,7 +15,7 @@
       <div id="navbar" class="navbar-menu" v-if="loaded">
         <div class="navbar-start">
           <div class="navbar-item menu-item">
-            <router-link to="/tags-list" class="button p-6 is-medium is-warning"><i class="fa fa-list mr-10 mt-6"></i>Tags Index</router-link>
+            <router-link to="/tags-list" class="button p-6 is-medium is-warning"><i class="fa fa-list mr-10 mt-6 has-text-white"></i>Tags Index</router-link>
           </div>
         </div>
         <div class="navbar-end">
@@ -33,7 +33,7 @@
             </router-link>
           </div>
           <div class="navbar-item">
-            <router-link to="/add-new" class="button p-12 is-medium is-warning"><i class="fa fa-plus mr-10 mt-6"></i>New Buzz</router-link>
+            <router-link to="/add-new" class="button p-12 is-medium is-warning"><i class="fa fa-plus mr-10 mt-6 has-text-primary"></i>New Buzz</router-link>
           </div>
           <template class="">
             <div class="navbar-item"><router-link class="" :to="`/user/${user.username}`">Profile</router-link></div>
@@ -82,7 +82,10 @@
     a.button{
       //padding: 0 16px;
       background-color: #42a9ebbd;
-      color: #fff;
+      color: #000;
+      @media screen and(min-width: 950px){
+        color: #fff;
+      }
       &:hover{
         background-color: #607D8B;
         color: white;
