@@ -70,6 +70,7 @@
           this.$store.commit('userSocialProfile', response.data)
         }).catch(error => {
           this.sending = ''
+          this.$store.commit('serverError',error)
         })
       },
       inputIs(network) {

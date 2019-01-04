@@ -52,6 +52,7 @@ export default {
       router.push({ path: `/details/${word.data}` })
     }).catch(error=>{
       context.commit('formErrors', error.response.data.errors);
+      context.commit('serverError',error)
     })
   },
   saveDescription(context, payload){
@@ -60,11 +61,14 @@ export default {
     }).catch(error=>{
       context.commit('formErrors', {});
       context.commit('serverError',error)
+      context.commit('loaded')
     })
   },
   updateDescriptionLikes(context,payload){
     return axios.post(`api/likes/${payload}`).then(response=>{
       context.commit('updateDescriptions',response.data.data)
+    }).catch(error=>{
+      context.commit('serverError',error)
     })
   },
   getTagWords(context,tag){
@@ -78,7 +82,7 @@ export default {
     return axios.post(`api/bookmark-word/${payload}`).then(data=>{
       context.commit('storeDetail',data.data)
     }).catch(error=>{
-
+      return context.commit('serverError',error)
     })
   },
 }

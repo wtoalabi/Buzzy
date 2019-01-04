@@ -21,6 +21,9 @@ class BookmarksController extends Controller
     return 'None';
   }
   public function store($word){
+    if(!auth()->check()){
+      return response('You are not allowed to carry this action out!', 403);
+    }
     $word = Word::find($word);
     $user = auth()->user();
     if($word->bookmarked()){

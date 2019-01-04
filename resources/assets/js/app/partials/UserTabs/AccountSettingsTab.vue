@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="tab-title">Your Account</h1>
-    <loading v-if="sending"/>
+    <loading v-if="loading"/>
     <form>
       <div class="columns">
         <div class="field column">
@@ -60,7 +60,6 @@
     },
     data() {
       return {
-        sending: false,
         form: {},
         newForm: {
           full_name: '',
@@ -71,17 +70,18 @@
     methods: {
       submit(e) {
         e.preventDefault()
-        this.sending = true
+        this.$store.commit('fetching')
         this.newForm.full_name = this.form.full_name
         this.newForm.username = this.form.username
         return axios.post('api/save-user-details', this.newForm).then(response => {
-          this.sending = false
+          this.$store.commit('loaded')
           this.$store.commit('updateUserAccount', response.data.data)
         }).catch(error => {
-          this.sending = false
+          this.$store.commit('loaded')
           this.$store.commit('formErrors', error.response.data.errors);
+          this.$store.commit('serverError',error)
         })
-      },
+      }
     },
     computed: {
       user() {
@@ -92,6 +92,9 @@
       },
       hasAvatar() {
         return !this.user.avatar.includes('default.png')
+      },
+      loading(){
+        return this.$store.loaded
       }
     }
   }

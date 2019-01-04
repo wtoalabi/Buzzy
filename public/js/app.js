@@ -18616,6 +18616,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       __WEBPACK_IMPORTED_MODULE_1__router__["default"].push({ path: '/details/' + word.data });
     }).catch(function (error) {
       context.commit('formErrors', error.response.data.errors);
+      context.commit('serverError', error);
     });
   },
   saveDescription: function saveDescription(context, payload) {
@@ -18624,11 +18625,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     }).catch(function (error) {
       context.commit('formErrors', {});
       context.commit('serverError', error);
+      context.commit('loaded');
     });
   },
   updateDescriptionLikes: function updateDescriptionLikes(context, payload) {
     return axios.post('api/likes/' + payload).then(function (response) {
       context.commit('updateDescriptions', response.data.data);
+    }).catch(function (error) {
+      context.commit('serverError', error);
     });
   },
   getTagWords: function getTagWords(context, tag) {
@@ -18639,7 +18643,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   bookmarkThis: function bookmarkThis(context, payload) {
     return axios.post('api/bookmark-word/' + payload).then(function (data) {
       context.commit('storeDetail', data.data);
-    }).catch(function (error) {});
+    }).catch(function (error) {
+      return context.commit('serverError', error);
+    });
   }
 });
 
@@ -23398,7 +23404,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     return {
-      sending: false,
       form: {},
       newForm: {
         full_name: '',
@@ -23412,15 +23417,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       e.preventDefault();
-      this.sending = true;
+      this.$store.commit('fetching');
       this.newForm.full_name = this.form.full_name;
       this.newForm.username = this.form.username;
       return axios.post('api/save-user-details', this.newForm).then(function (response) {
-        _this.sending = false;
+        _this.$store.commit('loaded');
         _this.$store.commit('updateUserAccount', response.data.data);
       }).catch(function (error) {
-        _this.sending = false;
+        _this.$store.commit('loaded');
         _this.$store.commit('formErrors', error.response.data.errors);
+        _this.$store.commit('serverError', error);
       });
     }
   },
@@ -23433,6 +23439,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     hasAvatar: function hasAvatar() {
       return !this.user.avatar.includes('default.png');
+    },
+    loading: function loading() {
+      return this.$store.loaded;
     }
   }
 });
@@ -23566,6 +23575,7 @@ if (false) {
         _this.sending = false;
       }).catch(function (error) {
         _this.$store.commit('formErrors', error.response.data.errors);
+        _this.$store.commit('serverError', error);
       });
     },
     removeAvatar: function removeAvatar(e) {
@@ -23614,7 +23624,7 @@ var render = function() {
     [
       _c("h1", { staticClass: "tab-title" }, [_vm._v("Your Account")]),
       _vm._v(" "),
-      _vm.sending ? _c("loading") : _vm._e(),
+      _vm.loading ? _c("loading") : _vm._e(),
       _vm._v(" "),
       _c("form", [
         _c("div", { staticClass: "columns" }, [
@@ -24043,6 +24053,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.$store.commit('userSocialProfile', response.data);
       }).catch(function (error) {
         _this.sending = '';
+        _this.$store.commit('serverError', error);
       });
     },
     inputIs: function inputIs(network) {
@@ -24751,7 +24762,7 @@ if (false) {
   beforeEnter: function beforeEnter(to, from, next) {
     if (!_.isEmpty(__WEBPACK_IMPORTED_MODULE_1__Store__["a" /* default */].state.loggedInUser)) {
       __WEBPACK_IMPORTED_MODULE_1__Store__["a" /* default */].dispatch('retrieveTags');
-      next();
+      return next();
     }
     __WEBPACK_IMPORTED_MODULE_1__Store__["a" /* default */].commit('message', { type: 'error', text: 'Not Authorized to view this page...' });
     __WEBPACK_IMPORTED_MODULE_2__router__["default"].push('/');
@@ -28601,7 +28612,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       text: statusCodes[status] || "Server Error. Please try again shortly!",
       duration: '5000'
     };
-    if (status == '401' || status == '419') {
+    if (status == '401' || status == '419' || status == '403') {
       setTimeout(function () {
         return __WEBPACK_IMPORTED_MODULE_0__router__["default"].push('/');
       }, state.announcement.message.duration);

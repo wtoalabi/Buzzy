@@ -9,8 +9,10 @@
   
   class DescriptionsController extends Controller
   {
-    public function store()
-    {
+    public function store(){
+      if(!auth()->check()){
+        return response('You are not allowed to carry this action out!', 403);
+      }
       $userDescriptions = auth()->user()->descriptions;
       if (!$userDescriptions->isEmpty()) {
         $lastCreatedTime = $userDescriptions->last()->created_at;

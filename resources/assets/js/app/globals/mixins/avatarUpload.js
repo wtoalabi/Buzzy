@@ -13,6 +13,7 @@ export default {
         this.sending = false
       }).catch(error=>{
         this.$store.commit('formErrors', error.response.data.errors);
+        this.$store.commit('serverError',error)
       })
     },
     removeAvatar(e){

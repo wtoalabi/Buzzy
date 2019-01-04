@@ -18,7 +18,7 @@ export default{
       text: statusCodes[status] || "Server Error. Please try again shortly!",
       duration: '5000',
     }
-    if(status == '401' || status =='419' ){
+    if(status == '401' || status =='419' || status == '403'){
       setTimeout(()=>{
         return Router.push('/')
       },state.announcement.message.duration)

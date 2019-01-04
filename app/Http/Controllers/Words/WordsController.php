@@ -28,6 +28,9 @@
     
     public function store()
     {
+      if(!auth()->check()){
+        return response('You are not allowed to carry this action out!', 403);
+      }
       $userWords = auth()->user()->words;
       if (!$userWords->isEmpty()) {
         $lastCreatedTime = $userWords->last()->created_at;

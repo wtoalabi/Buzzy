@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Storage;
 class AvatarController extends Controller
 {
   public function store(){
+    if(!auth()->check()){
+      return response('You are not allowed to carry this action out!', 403);
+    }
     $user = auth()->user();
     $video = request()->file('avatar');
     request()->validate([

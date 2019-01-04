@@ -21,7 +21,7 @@ export default [
     beforeEnter(to, from, next) {
       if(!_.isEmpty(Store.state.loggedInUser)){
         Store.dispatch('retrieveTags')
-        next()
+        return next()
       }
       Store.commit('message',{type:'error', text:'Not Authorized to view this page...'})
       Router.push('/')

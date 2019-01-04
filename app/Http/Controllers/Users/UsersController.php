@@ -30,6 +30,9 @@
     
     public function store()
     {
+      if(!auth()->check()){
+        return response('You are not allowed to carry this action out!', 403);
+      }
       $user = auth()->user();
       request()->validate([
         'username' => 'unique:users'
