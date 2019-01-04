@@ -11,8 +11,6 @@ if (mix.inProduction()) {
         paths: glob.sync([
           path.join(__dirname, 'resources/views/**/*.blade.php'),
           path.join(__dirname, 'resources/assets/js/**/*.vue'),
-          //path.join(__dirname, 'node_modules/bootstrap-vue/src/**/**/*.js')
-          //path.join(__dirname, 'node_modules/bootstrap-vue/es/**/**/*.js')
         ]),
         extractors: [
           {
