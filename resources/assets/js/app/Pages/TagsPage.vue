@@ -48,7 +48,16 @@
   .tag-title {
     display: flex;
     justify-content: center;
-    font-size: 6rem;
+    font-size: 3rem;
+    @media screen and(min-width: 350px) {
+      font-size: 4rem;
+    }
+    @media screen and(min-width: 450px) {
+      font-size: 5rem;
+    }
+    @media screen and(min-width: 500px) {
+      font-size: 6rem;
+    }
   }
 
   .tags-list {
