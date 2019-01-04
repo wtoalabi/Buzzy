@@ -14,6 +14,9 @@
 
       <div id="navbar" class="navbar-menu" v-if="loaded">
         <div class="navbar-start">
+          <div class="navbar-item menu-item">
+            <router-link to="/tags-list" class="button p-6 is-medium is-warning">Tags Index</router-link>
+          </div>
         </div>
         <div class="navbar-end">
           <div class="navbar-item" v-if="!loggedIn">
@@ -24,13 +27,13 @@
             </div>
           </div>
           <template v-else>
-          <div class="navbar-item">
+          <div class="navbar-item avatar">
             <router-link :to="`/user/${user.username}`" class="pr-0">
               <img :src="user.avatar" alt="" class="mr-10 is-rounded">
             </router-link>
           </div>
           <div class="navbar-item">
-            <router-link to="/add-new" class="button p-6 m-10 is-medium is-warning">Add New Buzz</router-link>
+            <router-link to="/add-new" class="button p-6 is-medium is-warning">Add New Buzz</router-link>
           </div>
           <template class="">
             <div class="navbar-item"><router-link class="" :to="`/user/${user.username}`">Profile</router-link></div>
@@ -70,3 +73,25 @@
   }
 
 </script>
+
+
+<style lang="scss">
+  .menu-item{
+    font-size: 1.7rem;
+    margin-top: 3px;
+    a.button{
+      background-color: #42a9ebbd;
+      color: #fff;
+      &:hover{
+        background-color: #607D8B;
+        color: white;
+        border: 1px solid white;
+      }
+    }
+  }
+  @media screen and (max-width:950px){
+    .avatar{
+      display: none;
+    }
+  }
+</style>
