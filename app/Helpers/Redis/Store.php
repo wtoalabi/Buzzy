@@ -16,7 +16,7 @@
     {
       $now = Carbon::now();
       $today = $now->toDateString();
-      $dateString = sprintf("%s%s%s_", $now->day,$now->month, $now->year);
+      $dateString = sprintf("%s%s%s_", $now->format('d'),$now->format('m'), $now->year);
       
       Redis::ZINCRBY("Views:DailyTrendingList:$today", 1, $dateString."$wordID");
       Redis::ZINCRBY("Views:PopularList:Words", 1, "$wordID");
