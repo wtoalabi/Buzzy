@@ -46,7 +46,7 @@ class User extends Authenticatable
   public function avatarUrl(){
     $userID = $this->id;
     if(str_contains($this->avatar, 'https://') || str_contains($this->avatar, 'http://')){
-      return $this->avatar;
+      return $this->avatar;we
     }
     return "storage/avatar/$userID/$this->avatar";
   }
