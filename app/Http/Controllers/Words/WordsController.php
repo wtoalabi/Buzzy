@@ -28,7 +28,7 @@
     
     public function store()
     {
-      if(!auth()->check()){
+      if (!auth()->check()) {
         return response('You are not allowed to carry this action out!', 403);
       }
       $userWords = auth()->user()->words;
@@ -66,8 +66,8 @@
       $word->tags()->sync(request('tags'));
       $audio = request('audio');
       $symbol = request('symbol');
-        $audio ? $description->audio()->sync(request('audio')) : '';
-        $symbol ?
+      $audio ? $description->audio()->sync(request('audio')) : '';
+      $symbol ?
         Symbol::create([
           'description_id' => $description->id,
           'symbol' => request('symbol')
@@ -87,11 +87,22 @@
     public function show($word)
     {
       $word = Word::where('slug', $word)->first();
-      if($word){
+      if ($word) {
         Store::WordsViewCount($word->id);
         return new SingleWordDetail($word);
       }
       return response('Word not found...', 404);
+    }
+    
+    public function wordIndex()
+    {
+      //return Word::all()->pluck('slug','word');
+      $words = Word::all();
+      return $words->pluck('slug')
+        ->sort()
+        ->groupBy(function ($word, $key) {
+          return str_limit($word, 1, '');
+        });
     }
     
     public function recentWords()

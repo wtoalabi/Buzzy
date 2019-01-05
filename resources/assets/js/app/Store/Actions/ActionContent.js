@@ -85,4 +85,11 @@ export default {
       return context.commit('serverError',error)
     })
   },
+  retrieveWordsIndex(context){
+    return axios.get('api/get-words-index').then(data=>{
+      context.commit('storeWordsIndex',data.data)
+    }).catch(error=>{
+    
+    })
+  },
 }

@@ -13838,6 +13838,7 @@ var app = new Vue({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash_es_truncate__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash_es_chunk__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash_es_groupBy__ = __webpack_require__(328);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash_es_map__ = __webpack_require__(381);
 
 
 
@@ -13845,7 +13846,8 @@ var app = new Vue({
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = ({ has: __WEBPACK_IMPORTED_MODULE_0_lodash_es_has__["a" /* default */], isEmpty: __WEBPACK_IMPORTED_MODULE_2_lodash_es_isEmpty__["a" /* default */], debounce: __WEBPACK_IMPORTED_MODULE_1_lodash_es_debounce__["a" /* default */], truncate: __WEBPACK_IMPORTED_MODULE_3_lodash_es_truncate__["a" /* default */], chunk: __WEBPACK_IMPORTED_MODULE_4_lodash_es_chunk__["a" /* default */], groupBy: __WEBPACK_IMPORTED_MODULE_5_lodash_es_groupBy__["a" /* default */] });
+
+/* harmony default export */ __webpack_exports__["a"] = ({ has: __WEBPACK_IMPORTED_MODULE_0_lodash_es_has__["a" /* default */], isEmpty: __WEBPACK_IMPORTED_MODULE_2_lodash_es_isEmpty__["a" /* default */], debounce: __WEBPACK_IMPORTED_MODULE_1_lodash_es_debounce__["a" /* default */], truncate: __WEBPACK_IMPORTED_MODULE_3_lodash_es_truncate__["a" /* default */], chunk: __WEBPACK_IMPORTED_MODULE_4_lodash_es_chunk__["a" /* default */], groupBy: __WEBPACK_IMPORTED_MODULE_5_lodash_es_groupBy__["a" /* default */], map: __WEBPACK_IMPORTED_MODULE_6_lodash_es_map__["a" /* default */] });
 
 /***/ }),
 /* 55 */
@@ -18652,6 +18654,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     }).catch(function (error) {
       return context.commit('serverError', error);
     });
+  },
+  retrieveWordsIndex: function retrieveWordsIndex(context) {
+    return axios.get('api/get-words-index').then(function (data) {
+      context.commit('storeWordsIndex', data.data);
+    }).catch(function (error) {});
   }
 });
 
@@ -24747,6 +24754,9 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Pages_NewWord___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Pages_NewWord__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Pages_TagsPage__ = __webpack_require__(238);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Pages_TagsPage___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Pages_TagsPage__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Pages_WordsListPage__ = __webpack_require__(383);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Pages_WordsListPage___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__Pages_WordsListPage__);
+
 
 
 
@@ -24779,6 +24789,14 @@ if (false) {
   component: __WEBPACK_IMPORTED_MODULE_4__Pages_TagsPage___default.a,
   beforeEnter: function beforeEnter(to, from, next) {
     __WEBPACK_IMPORTED_MODULE_1__Store__["a" /* default */].dispatch('getTagWords', to.params.tag);
+    next();
+  }
+}, {
+  name: 'Words List',
+  path: '/words-list',
+  component: __WEBPACK_IMPORTED_MODULE_5__Pages_WordsListPage___default.a,
+  beforeEnter: function beforeEnter(to, from, next) {
+    __WEBPACK_IMPORTED_MODULE_1__Store__["a" /* default */].dispatch('retrieveWordsIndex');
     next();
   }
 }]);
@@ -28522,6 +28540,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   clearTagWords: function clearTagWords(state) {
     state.tagWords = [];
+  },
+  storeWordsIndex: function storeWordsIndex(state, payload) {
+    return state.wordsList = payload;
   }
 });
 
@@ -28605,6 +28626,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   searchResults: [],
   visible: 'hide',
   wordDetail: [],
+  wordsList: [],
   announcement: {
     message: {
       type: 'success',
@@ -28870,13 +28892,13 @@ var render = function() {
                     "router-link",
                     {
                       staticClass: "button p-6 is-medium is-warning",
-                      attrs: { to: "/tags-list" }
+                      attrs: { to: "/words-list" }
                     },
                     [
                       _c("i", {
                         staticClass: "fa fa-list mr-10 mt-6 has-text-white"
                       }),
-                      _vm._v("Tags Index")
+                      _vm._v("Main Index")
                     ]
                   )
                 ],
@@ -28958,7 +28980,7 @@ var render = function() {
                           _c(
                             "router-link",
                             {
-                              staticClass: "button p-12 is-medium is-warning",
+                              staticClass: "button p-14 is-medium is-warning",
                               attrs: { to: "/add-new" }
                             },
                             [
@@ -32586,6 +32608,286 @@ exports.push([module.i, "\n.menu-item {\n  font-size: 1.7rem;\n  margin-top: 3px
 
 // exports
 
+
+/***/ }),
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */,
+/* 380 */,
+/* 381 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__arrayMap_js__ = __webpack_require__(88);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__baseIteratee_js__ = __webpack_require__(341);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__baseMap_js__ = __webpack_require__(382);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__isArray_js__ = __webpack_require__(9);
+
+
+
+
+
+/**
+ * Creates an array of values by running each element in `collection` thru
+ * `iteratee`. The iteratee is invoked with three arguments:
+ * (value, index|key, collection).
+ *
+ * Many lodash methods are guarded to work as iteratees for methods like
+ * `_.every`, `_.filter`, `_.map`, `_.mapValues`, `_.reject`, and `_.some`.
+ *
+ * The guarded methods are:
+ * `ary`, `chunk`, `curry`, `curryRight`, `drop`, `dropRight`, `every`,
+ * `fill`, `invert`, `parseInt`, `random`, `range`, `rangeRight`, `repeat`,
+ * `sampleSize`, `slice`, `some`, `sortBy`, `split`, `take`, `takeRight`,
+ * `template`, `trim`, `trimEnd`, `trimStart`, and `words`
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Collection
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+ * @returns {Array} Returns the new mapped array.
+ * @example
+ *
+ * function square(n) {
+ *   return n * n;
+ * }
+ *
+ * _.map([4, 8], square);
+ * // => [16, 64]
+ *
+ * _.map({ 'a': 4, 'b': 8 }, square);
+ * // => [16, 64] (iteration order is not guaranteed)
+ *
+ * var users = [
+ *   { 'user': 'barney' },
+ *   { 'user': 'fred' }
+ * ];
+ *
+ * // The `_.property` iteratee shorthand.
+ * _.map(users, 'user');
+ * // => ['barney', 'fred']
+ */
+function map(collection, iteratee) {
+  var func = Object(__WEBPACK_IMPORTED_MODULE_3__isArray_js__["a" /* default */])(collection) ? __WEBPACK_IMPORTED_MODULE_0__arrayMap_js__["a" /* default */] : __WEBPACK_IMPORTED_MODULE_2__baseMap_js__["a" /* default */];
+  return func(collection, Object(__WEBPACK_IMPORTED_MODULE_1__baseIteratee_js__["a" /* default */])(iteratee, 3));
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (map);
+
+
+/***/ }),
+/* 382 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseEach_js__ = __webpack_require__(334);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__isArrayLike_js__ = __webpack_require__(35);
+
+
+
+/**
+ * The base implementation of `_.map` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the new mapped array.
+ */
+function baseMap(collection, iteratee) {
+  var index = -1,
+      result = Object(__WEBPACK_IMPORTED_MODULE_1__isArrayLike_js__["a" /* default */])(collection) ? Array(collection.length) : [];
+
+  Object(__WEBPACK_IMPORTED_MODULE_0__baseEach_js__["a" /* default */])(collection, function(value, key, collection) {
+    result[++index] = iteratee(value, key, collection);
+  });
+  return result;
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (baseMap);
+
+
+/***/ }),
+/* 383 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(388)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(384)
+/* template */
+var __vue_template__ = __webpack_require__(390)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-7f0e51ca"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/app/Pages/WordsListPage.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7f0e51ca", Component.options)
+  } else {
+    hotAPI.reload("data-v-7f0e51ca", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 384 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {};
+  },
+
+  methods: {},
+  computed: {
+    chunkedList: function chunkedList() {
+      return this.$store.state.wordsList;
+    }
+  }
+});
+
+/***/ }),
+/* 385 */,
+/* 386 */,
+/* 387 */,
+/* 388 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(389);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("4ec45d2e", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7f0e51ca\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./WordsListPage.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7f0e51ca\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./WordsListPage.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 389 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.chunked-words[data-v-7f0e51ca] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  width: 100%;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n  text-transform: capitalize;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  margin: 2rem;\n}\n.chunked-words .grouped-words[data-v-7f0e51ca] {\n    -ms-flex-preferred-size: 100%;\n        flex-basis: 100%;\n    padding: 1.3rem;\n}\n@media screen and (min-width: 600px) {\n.chunked-words .grouped-words[data-v-7f0e51ca] {\n        -ms-flex-preferred-size: 50%;\n            flex-basis: 50%;\n}\n}\n@media screen and (min-width: 980px) {\n.chunked-words .grouped-words[data-v-7f0e51ca] {\n        -ms-flex-preferred-size: 33.3%;\n            flex-basis: 33.3%;\n}\n}\n.chunked-words .grouped-words .group-title[data-v-7f0e51ca] {\n      margin-bottom: .5rem;\n      text-align: center;\n}\n@media screen and (min-width: 400px) {\n.chunked-words .grouped-words .group-title[data-v-7f0e51ca] {\n          text-align: left;\n}\n}\n.chunked-words .grouped-words .words[data-v-7f0e51ca] {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n}\n.chunked-words .grouped-words .words .word[data-v-7f0e51ca] {\n        margin: .5rem;\n}\n.chunked-words .grouped-words .words .word a[data-v-7f0e51ca] {\n          text-decoration: none;\n          text-transform: lowercase;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 390 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "chunked-words" },
+      _vm._l(_vm.chunkedList, function(groupedWords, index) {
+        return _c("div", { staticClass: "grouped-words" }, [
+          _c("h1", { staticClass: "title group-title" }, [
+            _vm._v(_vm._s(index))
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "words" },
+            _vm._l(groupedWords, function(word) {
+              return _c(
+                "div",
+                { staticClass: "word" },
+                [
+                  _c(
+                    "router-link",
+                    { staticClass: "tag", attrs: { to: "details/" + word } },
+                    [_vm._v(_vm._s(word))]
+                  )
+                ],
+                1
+              )
+            })
+          )
+        ])
+      })
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7f0e51ca", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

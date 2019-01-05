@@ -14,7 +14,7 @@
      */
     public function run()
     {
-      $words = collect(['ISP','GIF','PNG','JPEG','Angular','Closure','Callback','Concurrency', 'Latency', 'Serverless','React', 'VUE', 'Library', 'Framework', 'Fullstack', 'Stack Overflow', 'Laravel', 'Django','Backend','Frontend']);
+      $words = collect(['ISP','GIF','PNG','JPEG','Angular','Closure','Callback','Concurrency', 'Latency', 'Serverless','React', 'VUE', 'Library', 'Framework', 'Fullstack', 'Stack Overflow', 'Laravel', 'Django','LAMP','LEMP','Lambda','Lua','Lighthouse','Cache','CRUD','CRM','ORM','Config','Crypt','Console','Cookie']);
       $users =  User::all()->pluck('id')->toArray();
       $words->each(function ($word) use ($users){
         $faker = Faker::create();

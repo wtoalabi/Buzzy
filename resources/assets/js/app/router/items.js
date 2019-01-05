@@ -3,6 +3,7 @@ import Store from "../Store";
 import Router from "../router";
 import NewWord from "../Pages/NewWord";
 import TagsPage from "../Pages/TagsPage";
+import WordsListPage from "../Pages/WordsListPage";
 
 
 export default [
@@ -34,5 +35,13 @@ export default [
       Store.dispatch('getTagWords',to.params.tag)
       next()
     },
-  }
+  },{
+    name: 'Words List',
+    path: '/words-list',
+    component: WordsListPage,
+    beforeEnter(to, from, next){
+      Store.dispatch('retrieveWordsIndex')
+      next()
+    },
+  },
 ]

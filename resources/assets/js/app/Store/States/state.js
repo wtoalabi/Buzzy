@@ -5,6 +5,7 @@ export default {
   searchResults: [],
   visible: 'hide',
   wordDetail:[],
+  wordsList:[],
   announcement:{
     message:{
       type: 'success',

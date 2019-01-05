@@ -71,5 +71,8 @@ export default {
   clearTagWords(state){
     state.tagWords = [];
   },
+  storeWordsIndex(state, payload){
+    return state.wordsList = payload
+  }
 
 }

@@ -11,7 +11,7 @@ class TagSeeder extends Seeder
      * @return void
      */
     public function run(){
-      $tags = ['Laravel', 'PHP', 'Javascript', 'ES6', 'VueJS','ReactJS', 'CSS','HTML'];
+      $tags = ['AI', 'Machine Learning', 'Blockchain', 'Frontend', 'Backend','Programming', 'Web Development','Game Development','Mobile Development'];
       for ($tag = count($tags); $tag>0;){
         $tag--;
         factory(Tag::class)->create([
