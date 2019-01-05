@@ -28397,8 +28397,8 @@ if (false) {
       context.commit('loaded');
       context.commit('userDetails', data.data);
     }).catch(function (error) {
-      context.commit('error', error);
-      return console.dir(new Error(error.response.data));
+      console.dir(error);
+      return context.commit('serverError', error);
     });
   },
   getUserBookmarks: function getUserBookmarks(context) {
@@ -28600,7 +28600,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     __WEBPACK_IMPORTED_MODULE_1__Store__["a" /* default */].commit('loaded');
     var status = payload.response.status;
     var statusCodes = {
-      '404': "This content cant be found. Are you sure it exists?",
+      '404': payload.response.data ? payload.response.data : "This content cant be found. Are you sure it exists?",
       '419': "You will need to relogin again.",
       '401': "Session expired. You will be redirected to login again.",
       '422': "The request cannot be processed. Please check the form and try again.",

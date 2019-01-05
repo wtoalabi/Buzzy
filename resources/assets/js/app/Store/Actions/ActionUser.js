@@ -28,8 +28,8 @@ export default {
       context.commit('loaded')
       context.commit('userDetails',data.data)
     }).catch(error=>{
-      context.commit('error', error)
-      return console.dir(new Error(error.response.data))
+      console.dir(error)
+      return context.commit('serverError',error)
     })
   },
   getUserBookmarks(context){

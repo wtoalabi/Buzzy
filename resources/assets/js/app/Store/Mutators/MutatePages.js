@@ -5,7 +5,7 @@ export default{
     Store.commit('loaded')
     let status = payload.response.status
     let statusCodes = {
-      '404': "This content cant be found. Are you sure it exists?",
+      '404': payload.response.data ? payload.response.data : "This content cant be found. Are you sure it exists?",
       '419': "You will need to relogin again.",
       '401': "Session expired. You will be redirected to login again.",
       '422': "The request cannot be processed. Please check the form and try again.",

@@ -25,7 +25,7 @@
           'social_profiles' => $user->social_profiles->pluck('username','network')
         ];
       }
-      return response('Profiles not found', 404);
+      return response('User Profile not found', 404);
     }
     
     public function store()
