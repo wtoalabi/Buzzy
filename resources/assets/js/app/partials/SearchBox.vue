@@ -2,6 +2,7 @@
   <div class="search-container" :style="search_container">
     <input autofocus type="text" placeholder="Start typing..." class="input search" @input="search"
            :style="search_input">
+    <div class="" v-if="searching"><i class="fa fa-spin fa-spinner"></i>Searching...</div>
     <SearchResults :searchText="searchText"/>
     <span v-if="noResult" :class="visible" class="no-result">Nothing Found...</span>
   </div>
@@ -19,14 +20,17 @@
         search_container: false,
         search_input: {
           borderRadius: '2rem'
-        }
+        },
+        searching: false
       }
     },
     methods: {
       search(e) {
         this.searchText = e.target.value
+        this.searchText.length <= 1 ? this.searching = true : ''
           _.debounce(() => {
             this.$store.dispatch('getResult', this.searchText).then(() => {
+              this.searching = false
               const searchResult = document.querySelector('.search-container ul')
               const resultRect = searchResult.getBoundingClientRect()
               this.search_container = {

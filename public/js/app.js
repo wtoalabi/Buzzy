@@ -27499,6 +27499,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -27511,7 +27512,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       search_container: false,
       search_input: {
         borderRadius: '2rem'
-      }
+      },
+      searching: false
     };
   },
 
@@ -27520,8 +27522,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       this.searchText = e.target.value;
+      this.searchText.length <= 1 ? this.searching = true : '';
       _.debounce(function () {
         _this.$store.dispatch('getResult', _this.searchText).then(function () {
+          _this.searching = false;
           var searchResult = document.querySelector('.search-container ul');
           var resultRect = searchResult.getBoundingClientRect();
           _this.search_container = {
@@ -27758,6 +27762,13 @@ var render = function() {
         attrs: { autofocus: "", type: "text", placeholder: "Start typing..." },
         on: { input: _vm.search }
       }),
+      _vm._v(" "),
+      _vm.searching
+        ? _c("div", {}, [
+            _c("i", { staticClass: "fa fa-spin fa-spinner" }),
+            _vm._v("Searching...")
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c("SearchResults", { attrs: { searchText: _vm.searchText } }),
       _vm._v(" "),
