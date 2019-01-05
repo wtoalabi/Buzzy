@@ -1,7 +1,8 @@
 /node_modules
 /public/hot
-/public/images
 /public/storage
+/public/storage/avatar
+/public/storage/audio
 /public/phonetics
 /storage/*.key
 /vendor
