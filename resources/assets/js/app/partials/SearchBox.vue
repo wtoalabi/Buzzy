@@ -21,13 +21,14 @@
         search_input: {
           borderRadius: '2rem'
         },
-        searching: false
+        searching: false,
+        searchCount: 0
       }
     },
     methods: {
       search(e) {
         this.searchText = e.target.value
-        this.searchText.length <= 1 ? this.searching = true : ''
+        this.setSearchSpinner()
           _.debounce(() => {
             this.$store.dispatch('getResult', this.searchText).then(() => {
               this.searching = false
@@ -58,6 +59,16 @@
           this.search_container = {height: 'inherit'}
           this.visible = 'hide'
         }
+      },
+      setSearchSpinner(){
+        this.searchCount ++
+        this.searchCount === 1 ? this.searching = true : ''
+        let inputBox = document.querySelector('input.input')
+        inputBox.addEventListener('input',(e)=>{
+          if(e.target.value.length === 0){
+            this.searchCount = 0
+          }
+        })
       }
     }
   ,

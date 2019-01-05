@@ -27513,7 +27513,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       search_input: {
         borderRadius: '2rem'
       },
-      searching: false
+      searching: false,
+      searchCount: 0
     };
   },
 
@@ -27522,7 +27523,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       this.searchText = e.target.value;
-      this.searchText.length <= 1 ? this.searching = true : '';
+      this.setSearchSpinner();
       _.debounce(function () {
         _this.$store.dispatch('getResult', _this.searchText).then(function () {
           _this.searching = false;
@@ -27552,6 +27553,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.search_container = { height: 'inherit' };
         this.visible = 'hide';
       }
+    },
+    setSearchSpinner: function setSearchSpinner() {
+      var _this2 = this;
+
+      this.searchCount++;
+      this.searchCount === 1 ? this.searching = true : '';
+      var inputBox = document.querySelector('input.input');
+      inputBox.addEventListener('input', function (e) {
+        if (e.target.value.length === 0) {
+          _this2.searchCount = 0;
+        }
+      });
     }
   },
 
