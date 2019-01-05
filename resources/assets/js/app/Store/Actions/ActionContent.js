@@ -86,7 +86,9 @@ export default {
     })
   },
   retrieveWordsIndex(context){
+    context.commit('fetching')
     return axios.get('api/get-words-index').then(data=>{
+      context.commit('loaded')
       context.commit('storeWordsIndex',data.data)
     }).catch(error=>{
     

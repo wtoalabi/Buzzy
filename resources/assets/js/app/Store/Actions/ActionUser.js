@@ -23,7 +23,9 @@ export default {
       window.location.assign(`auth/${provider}`)
   },
   retrieveUserDetails(context,username){
+    context.commit('fetching')
     return axios.get(`api/get-user-details/${username}`).then(data=>{
+      context.commit('loaded')
       context.commit('userDetails',data.data)
     }).catch(error=>{
       context.commit('error', error)
@@ -33,6 +35,13 @@ export default {
   getUserBookmarks(context){
     return axios.get('api/user-bookmarks').then(data=>{
       return context.commit('userBookmarks',data.data)
+    }).catch(error=>{
+    
+    })
+  },
+  checkIfStillLoggedIn(context){
+    return axios.post('api/check-if-logged-in').then(data=>{
+      data.data === false ? context.commit('clearLoggedInUser') : ''
     }).catch(error=>{
     
     })

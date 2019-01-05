@@ -12346,6 +12346,7 @@ router.beforeEach(function (to, from, next) {
     _this.default.push('/' + urlBeforeLogin.substr(2));
     __WEBPACK_IMPORTED_MODULE_6__Store__["a" /* default */].commit('message', { type: 'success', text: 'Logged in!' });
   }
+  !_.isEmpty(__WEBPACK_IMPORTED_MODULE_6__Store__["a" /* default */].state.loggedInUser) ? __WEBPACK_IMPORTED_MODULE_6__Store__["a" /* default */].dispatch('checkIfStillLoggedIn') : '';
   next();
 });
 
@@ -18656,7 +18657,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     });
   },
   retrieveWordsIndex: function retrieveWordsIndex(context) {
+    context.commit('fetching');
     return axios.get('api/get-words-index').then(function (data) {
+      context.commit('loaded');
       context.commit('storeWordsIndex', data.data);
     }).catch(function (error) {});
   }
@@ -27339,7 +27342,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -27354,7 +27357,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_SearchBox___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__partials_SearchBox__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_HomeList__ = __webpack_require__(257);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_HomeList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__partials_HomeList__);
-//
 //
 //
 //
@@ -28347,7 +28349,7 @@ var render = function() {
     [
       _c("div", { staticClass: "mt-12 home-box" }, [_c("SearchBox")], 1),
       _vm._v(" "),
-      _vm.loaded ? _c("HomeList") : _c("loading")
+      _c("HomeList")
     ],
     1
   )
@@ -28390,7 +28392,9 @@ if (false) {
     window.location.assign('auth/' + provider);
   },
   retrieveUserDetails: function retrieveUserDetails(context, username) {
+    context.commit('fetching');
     return axios.get('api/get-user-details/' + username).then(function (data) {
+      context.commit('loaded');
       context.commit('userDetails', data.data);
     }).catch(function (error) {
       context.commit('error', error);
@@ -28400,6 +28404,11 @@ if (false) {
   getUserBookmarks: function getUserBookmarks(context) {
     return axios.get('api/user-bookmarks').then(function (data) {
       return context.commit('userBookmarks', data.data);
+    }).catch(function (error) {});
+  },
+  checkIfStillLoggedIn: function checkIfStillLoggedIn(context) {
+    return axios.post('api/check-if-logged-in').then(function (data) {
+      data.data === false ? context.commit('clearLoggedInUser') : '';
     }).catch(function (error) {});
   }
 });
@@ -28434,6 +28443,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["a"] = ({
   loggedInUser: function loggedInUser(state, payload) {
     payload ? state.loggedInUser = payload : null;
+  },
+  clearLoggedInUser: function clearLoggedInUser(state) {
+    return state.loggedInUser = {};
   },
   clearUserData: function clearUserData(state) {
     state.user = {};
@@ -28481,7 +28493,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     state.loaded = true;
   },
   fetching: function fetching(state) {
-    state.loaded = false;
+    return state.loaded = false;
   },
   clearHomeList: function clearHomeList(state) {
     return state.content = {};

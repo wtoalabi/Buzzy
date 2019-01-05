@@ -54,4 +54,7 @@
       }
       return null;
     }
+    public function check(){
+      return auth()->check() ? 'true' : 'false';
+    }
   }

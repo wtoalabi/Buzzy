@@ -11,7 +11,7 @@ export default {
     state.loaded = true
   },
   fetching(state){
-    state.loaded = false
+    return state.loaded = false
   },
   clearHomeList(state){
     return state.content = {}

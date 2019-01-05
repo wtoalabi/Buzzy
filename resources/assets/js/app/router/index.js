@@ -30,6 +30,7 @@ router.beforeEach((to, from, next) => {
     this.default.push('/' + urlBeforeLogin.substr(2))
     Store.commit('message',{type:'success', text:'Logged in!'})
   }
+  !_.isEmpty(Store.state.loggedInUser) ? Store.dispatch('checkIfStillLoggedIn'): ''
   next()
 })
 

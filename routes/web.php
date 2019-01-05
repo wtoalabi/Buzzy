@@ -25,6 +25,7 @@
     Route::get('user-bookmarks', 'Words\BookmarksController@index');
     Route::get('get-user-details/{username}', 'Users\UsersController@show');
     Route::post('save-user-details', 'Users\UsersController@store');
+    Route::post('check-if-logged-in', 'Users\UsersController@check');
     Route::post('save-social-profile/{network}', 'Users\SocialProfilesController@store');
     Route::post('search', 'Words\WordsSearchController@index');
     Route::post('save-audio/{name}','Audio\AudioController@store');

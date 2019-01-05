@@ -3,6 +3,9 @@ export default {
   loggedInUser(state, payload) {
     payload ? state.loggedInUser = payload : null
   },
+  clearLoggedInUser(state){
+    return state.loggedInUser = {}
+  },
   clearUserData(state) {
     state.user = {}
     return window.location.assign('/')

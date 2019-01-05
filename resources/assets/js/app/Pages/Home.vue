@@ -3,8 +3,7 @@
   <div class="mt-12 home-box">
     <SearchBox />
   </div>
-  <HomeList  v-if="loaded"/>
-    <loading v-else/>
+  <HomeList/>
   </div>
 </template>
 
