@@ -59,6 +59,8 @@
           a{
             text-decoration: none;
             text-transform: lowercase;
+            color: #091d31;
+            font-weight: bold;
           }
         }
       }
