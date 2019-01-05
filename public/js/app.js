@@ -26253,6 +26253,8 @@ var render = function() {
                       )
                     : _vm._e(),
                   _vm._v(" "),
+                  _c("span", { staticClass: "mr-8" }, [_vm._v("Views")]),
+                  _vm._v(" "),
                   _c("span", { attrs: { title: "Views Count" } }, [
                     _c("i", { staticClass: "fa fa-eye mr-6" }),
                     _vm._v(_vm._s(_vm.details.viewsCount))

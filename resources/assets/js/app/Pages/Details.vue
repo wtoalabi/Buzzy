@@ -19,7 +19,7 @@
             <i class="fa fa-bookmark" :class="bookmark.color"></i>
             <span class="ml-6">{{bookmark.text}}</span>
           </div>
-          <span title="Views Count"><i class="fa fa-eye mr-6"></i>{{details.viewsCount}}</span>
+          <span class="mr-8">Views</span> <span title="Views Count"><i class="fa fa-eye mr-6"></i>{{details.viewsCount}}</span>
         </div>
       </div>
       <template>
