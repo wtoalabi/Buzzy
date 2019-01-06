@@ -39,6 +39,8 @@
         'username' => Rule::unique('users')->ignore(auth()->id())
         //'username' => 'unique:users,email',
         //'email' => 'required','email'|'unique:users,email',
+      ],[
+        'username.unique' => 'Unfortunately, someone beat you to using :input as :attribute. You can try other simple permutations. '
       ]);
       $user->full_name = request('full_name');
       $user->username = request('username');

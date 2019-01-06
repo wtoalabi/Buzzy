@@ -63,8 +63,8 @@
         form: {},
         newForm: {
           full_name: '',
-          username: ''
-        }
+          username: '',
+        },
       }
     },
     methods: {
