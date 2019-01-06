@@ -28,7 +28,6 @@ export default {
       context.commit('loaded')
       context.commit('userDetails',data.data)
     }).catch(error=>{
-      console.dir(error)
       return context.commit('serverError',error)
     })
   },

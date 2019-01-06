@@ -1,4 +1,4 @@
-import Store from '../Store'
+import Store from '../Store';
 import Settings from "../Pages/Settings";
 import User from "../Pages/UserPage";
 export default [

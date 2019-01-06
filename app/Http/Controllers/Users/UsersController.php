@@ -12,7 +12,8 @@
   use Illuminate\Http\Request;
   use App\Http\Controllers\Controller;
   use Illuminate\Support\Facades\Redis;
-  
+  use Illuminate\Validation\Rule;
+
   class UsersController extends Controller
   {
     public function show($user)
@@ -35,7 +36,9 @@
       }
       $user = auth()->user();
       request()->validate([
-        'username' => 'unique:users'
+        'username' => Rule::unique('users')->ignore(auth()->id())
+        //'username' => 'unique:users,email',
+        //'email' => 'required','email'|'unique:users,email',
       ]);
       $user->full_name = request('full_name');
       $user->username = request('username');

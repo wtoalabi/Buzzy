@@ -1,4 +1,5 @@
 import Store from '../../Store'
+import Router from '../../router'
 export default {
   loggedInUser(state, payload) {
     payload ? state.loggedInUser = payload : null
@@ -11,10 +12,12 @@ export default {
     return window.location.assign('/')
   },
   userDetails(state, payload) {
-    state.userDetails = {...payload,bookmarks:[]}
+    let hash = Router.history.current.hash.substr(1)
+    let activeTab = hash || 'words';
+    state.userDetails = {...payload,bookmarks:[],activeTab}
   },
   clearUserDetails(state) {
-    state.userDetails = {words:[],bookmarks:[],user:{},social_profiles:{}}
+    state.userDetails = {words:[],bookmarks:[],user:{},social_profiles:{},activeTab:'words'}
   },
   userBookmarks(state, payload){
     if(payload === 'None'){
@@ -31,5 +34,8 @@ export default {
   },
   userSocialProfile(state,payload){
     state.userDetails.social_profiles = payload
+  },
+  setTab(state, tabID){
+    state.userDetails.activeTab = tabID
   }
 }

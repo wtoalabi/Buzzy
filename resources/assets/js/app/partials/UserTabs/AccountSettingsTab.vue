@@ -56,7 +56,6 @@
     mixins: [avatarUpload],
     components: {FileUploads},
     mounted() {
-      this.form = Object.assign({}, this.user)
     },
     data() {
       return {
@@ -73,6 +72,7 @@
         this.$store.commit('fetching')
         this.newForm.full_name = this.form.full_name
         this.newForm.username = this.form.username
+        this.$emit('setActiveTab','account-settings')
         return axios.post('api/save-user-details', this.newForm).then(response => {
           this.$store.commit('loaded')
           this.$store.commit('updateUserAccount', response.data.data)
