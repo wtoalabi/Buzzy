@@ -56,6 +56,7 @@
     mixins: [avatarUpload],
     components: {FileUploads},
     mounted() {
+      this.form = Object.assign({}, this.user)
     },
     data() {
       return {

@@ -25505,7 +25505,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [__WEBPACK_IMPORTED_MODULE_1__globals_mixins_avatarUpload__["a" /* default */]],
   components: { FileUploads: __WEBPACK_IMPORTED_MODULE_0__Uploads_FileUploads___default.a },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this.form = Object.assign({}, this.user);
+  },
   data: function data() {
     return {
       form: {},
