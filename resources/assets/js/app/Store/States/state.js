@@ -17,6 +17,6 @@ export default {
   tagWords:[],
   formData:{symbols:'',tags:[],suggestedTags:[]},
   formErrors: {},
-  userDetails:{bookmarks:[],user:[],words:[],social_profiles:{}},
+  userDetails:{bookmarks:[],user:[],words:[],social_profiles:{}, descriptions:[]},
   uploads:{tempFile:'',formData:'',audioID:'',avatarID:''}
 }

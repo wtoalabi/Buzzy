@@ -2,15 +2,16 @@
   <div class="details-container">
     <div class="tab-links">
       <div id="words" class="tab-link" :class="setActiveTab('words')" @click="isActive">Words</div>
+      <div id="descriptions" class="tab-link" @click="isActive" :class="setActiveTab('descriptions')">Descriptions</div>
       <template v-if="sameUser">
         <div id="account-settings" class="tab-link" @click="isActive" :class="setActiveTab('account-settings')">Account Settings</div>
         <div id="bookmarks" class="tab-link" @click="isActive" :class="setActiveTab('bookmarks')">Bookmarks</div>
-        <div id="descriptions" class="tab-link" @click="isActive" :class="setActiveTab('descriptions')">Descriptions</div>
       </template>
       <div id="social-profiles" class="tab-link" @click="isActive" :class="setActiveTab('social-profiles')">Social Profiles</div>
     </div>
     <div class="canvas">
       <WordsTab v-if="activeTab === 'words'"/>
+      <DescriptionsTab v-if="activeTab === 'descriptions'"/>
       <AccountSettingsTab v-if="activeTab === 'account-settings'" @setActiveTab="setActiveTab"/>
       <BookmarksTab v-if="activeTab === 'bookmarks'"/>
       <!--<HistoryTab v-if="activeTab === 'history'"/>-->
@@ -25,13 +26,13 @@
   import HistoryTab from "./HistoryTab";
   import SocialProfilesTab from "./SocialProfilesTab";
   import BookmarksTab from "./BookmarksTab";
-
+  import DescriptionsTab from "./DescriptionsTab";
   export default {
     mounted(){
       this.form = Object.assign({}, this.user)
     },
     components: {
-      WordsTab, AccountSettingsTab, BookmarksTab, HistoryTab, SocialProfilesTab,
+      WordsTab, AccountSettingsTab, BookmarksTab, HistoryTab, SocialProfilesTab, DescriptionsTab
     },
     data() {
       return {}

@@ -1,6 +1,6 @@
 <template>
   <div class="details__descriptions">
-    <div v-for="description in descriptions" class="details__description">
+    <div v-for="description in descriptions" class="details__description" :id="description.id">
       <div class="description__owner">
         <router-link to="#">
           <img :src="description.user.avatar" alt="">
@@ -13,7 +13,7 @@
           </span>
           <span class="tag description__owner-info--count is-link" title="Total number of descriptions added">
             <span class=""><i class="fa fa-comments-o mr-4"></i></span>
-            <span>{{description.user.descriptions_count}}</span>
+            <router-link :to="`/user/${description.user.username}#descriptions`" class="has-text-primary">{{description.user.descriptions_count}}</router-link>
           </span>
         </div>
       </div>
@@ -28,6 +28,7 @@
           </a>
         </div>
         <div class="description__texts" >
+          <span class="title">{{description.id}}</span>
           <h3>{{description.body}}</h3>
         </div>
         <div class="description__footer">
@@ -49,6 +50,12 @@
       DescriptionLikes
     },
     mounted(){
+      if(this.$route.hash){
+        window.history.pushState('','',`/#/details/${this.word.slug}`)
+        let id = this.$route.hash.substr(1)
+        let descriptionEl = document.getElementById(id)
+        descriptionEl.scrollIntoView({inline: "nearest"})
+      }
       this.setupDescriptionTexts()
       this.setupAudio()
     },
@@ -105,6 +112,9 @@
       }
     },
     computed: {
+      word(){
+        return this.$store.state.wordDetail
+      },
       descriptions() {
         return this.$store.state.wordDetail.descriptions
       },

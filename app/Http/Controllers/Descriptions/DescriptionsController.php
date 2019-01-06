@@ -1,14 +1,20 @@
 <?php
   
   namespace App\Http\Controllers\Descriptions;
-  
-  use App\Models\Description;
+
+  use App\User;
   use App\Models\Symbol;
+  use App\Models\Description;
   use Illuminate\Http\Request;
   use App\Http\Controllers\Controller;
-  
+  use App\Http\Resources\Descriptions\UserDescriptionsCollection;
+
   class DescriptionsController extends Controller
   {
+    public function index($user){
+      $user = User::where('username', $user)->first();
+      return new UserDescriptionsCollection($user->descriptions);
+    }
     public function store(){
       if(!auth()->check()){
         return response('You are not allowed to carry this action out!', 403);

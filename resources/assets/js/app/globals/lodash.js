@@ -3,7 +3,6 @@ import debounce from 'lodash-es/debounce'
 import isEmpty from 'lodash-es/isEmpty'
 import truncate from 'lodash-es/truncate'
 import chunk from 'lodash-es/chunk'
-import groupBy from 'lodash-es/groupBy'
 import map from 'lodash-es/map'
 
-export default {has,isEmpty, debounce, truncate, chunk, groupBy,map}
+export default {has,isEmpty, debounce, truncate, chunk, map}

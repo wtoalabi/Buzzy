@@ -14,10 +14,13 @@ export default {
   userDetails(state, payload) {
     let hash = Router.history.current.hash.substr(1)
     let activeTab = hash || 'words';
-    state.userDetails = {...payload,bookmarks:[],activeTab}
+    state.userDetails = {...payload,bookmarks:[],activeTab, descriptions:[]}
+  },
+  userDescriptions(state, payload) {
+    return state.userDetails.descriptions = payload
   },
   clearUserDetails(state) {
-    state.userDetails = {words:[],bookmarks:[],user:{},social_profiles:{},activeTab:'words'}
+    state.userDetails = {words:[],bookmarks:[],user:{},social_profiles:{},activeTab:'words',descriptions:[]}
   },
   userBookmarks(state, payload){
     if(payload === 'None'){
@@ -37,5 +40,5 @@ export default {
   },
   setTab(state, tabID){
     state.userDetails.activeTab = tabID
-  }
+  },
 }

@@ -35,6 +35,7 @@ auth()->loginUsingId(1);
     Route::delete('delete-avatar','Users\AvatarController@destroy');
     Route::post('save-new-word','Words\WordsController@store');
     Route::post('save-new-description','Descriptions\DescriptionsController@store');
+    Route::get('get-descriptions/{user}','Descriptions\DescriptionsController@index');
     Route::post('logout', 'Auth\LoginController@logout');
     Route::post('likes/{descriptionID}', 'Likes\LikesController@toggleLikes');
     

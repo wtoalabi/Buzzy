@@ -38,11 +38,18 @@ export default {
     
     })
   },
+  getUserDescriptions(context,user){
+    return axios.get(`api/get-descriptions/${user}`).then(response=>{
+      return context.commit('userDescriptions', response.data.data)
+    }).catch(error=>{
+      return context.commit('serverError',error)
+    })
+  },
   checkIfStillLoggedIn(context){
     return axios.post('api/check-if-logged-in').then(data=>{
       data.data === false ? context.commit('clearLoggedInUser') : ''
     }).catch(error=>{
     
     })
-  }
+  },
 }

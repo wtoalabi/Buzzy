@@ -14688,8 +14688,7 @@ var app = new Vue({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash_es_isEmpty__ = __webpack_require__(107);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash_es_truncate__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash_es_chunk__ = __webpack_require__(127);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash_es_groupBy__ = __webpack_require__(129);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash_es_map__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash_es_map__ = __webpack_require__(173);
 
 
 
@@ -14697,8 +14696,7 @@ var app = new Vue({
 
 
 
-
-/* harmony default export */ __webpack_exports__["a"] = ({ has: __WEBPACK_IMPORTED_MODULE_0_lodash_es_has__["a" /* default */], isEmpty: __WEBPACK_IMPORTED_MODULE_2_lodash_es_isEmpty__["a" /* default */], debounce: __WEBPACK_IMPORTED_MODULE_1_lodash_es_debounce__["a" /* default */], truncate: __WEBPACK_IMPORTED_MODULE_3_lodash_es_truncate__["a" /* default */], chunk: __WEBPACK_IMPORTED_MODULE_4_lodash_es_chunk__["a" /* default */], groupBy: __WEBPACK_IMPORTED_MODULE_5_lodash_es_groupBy__["a" /* default */], map: __WEBPACK_IMPORTED_MODULE_6_lodash_es_map__["a" /* default */] });
+/* harmony default export */ __webpack_exports__["a"] = ({ has: __WEBPACK_IMPORTED_MODULE_0_lodash_es_has__["a" /* default */], isEmpty: __WEBPACK_IMPORTED_MODULE_2_lodash_es_isEmpty__["a" /* default */], debounce: __WEBPACK_IMPORTED_MODULE_1_lodash_es_debounce__["a" /* default */], truncate: __WEBPACK_IMPORTED_MODULE_3_lodash_es_truncate__["a" /* default */], chunk: __WEBPACK_IMPORTED_MODULE_4_lodash_es_chunk__["a" /* default */], map: __WEBPACK_IMPORTED_MODULE_5_lodash_es_map__["a" /* default */] });
 
 /***/ }),
 /* 76 */
@@ -16726,200 +16724,12 @@ function isIterateeCall(value, index, object) {
 
 
 /***/ }),
-/* 129 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseAssignValue_js__ = __webpack_require__(130);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__createAggregator_js__ = __webpack_require__(132);
-
-
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * Creates an object composed of keys generated from the results of running
- * each element of `collection` thru `iteratee`. The order of grouped values
- * is determined by the order they occur in `collection`. The corresponding
- * value of each key is an array of elements responsible for generating the
- * key. The iteratee is invoked with one argument: (value).
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Collection
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} [iteratee=_.identity] The iteratee to transform keys.
- * @returns {Object} Returns the composed aggregate object.
- * @example
- *
- * _.groupBy([6.1, 4.2, 6.3], Math.floor);
- * // => { '4': [4.2], '6': [6.1, 6.3] }
- *
- * // The `_.property` iteratee shorthand.
- * _.groupBy(['one', 'two', 'three'], 'length');
- * // => { '3': ['one', 'two'], '5': ['three'] }
- */
-var groupBy = Object(__WEBPACK_IMPORTED_MODULE_1__createAggregator_js__["a" /* default */])(function(result, value, key) {
-  if (hasOwnProperty.call(result, key)) {
-    result[key].push(value);
-  } else {
-    Object(__WEBPACK_IMPORTED_MODULE_0__baseAssignValue_js__["a" /* default */])(result, key, [value]);
-  }
-});
-
-/* harmony default export */ __webpack_exports__["a"] = (groupBy);
-
-
-/***/ }),
-/* 130 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__defineProperty_js__ = __webpack_require__(131);
-
-
-/**
- * The base implementation of `assignValue` and `assignMergeValue` without
- * value checks.
- *
- * @private
- * @param {Object} object The object to modify.
- * @param {string} key The key of the property to assign.
- * @param {*} value The value to assign.
- */
-function baseAssignValue(object, key, value) {
-  if (key == '__proto__' && __WEBPACK_IMPORTED_MODULE_0__defineProperty_js__["a" /* default */]) {
-    Object(__WEBPACK_IMPORTED_MODULE_0__defineProperty_js__["a" /* default */])(object, key, {
-      'configurable': true,
-      'enumerable': true,
-      'value': value,
-      'writable': true
-    });
-  } else {
-    object[key] = value;
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (baseAssignValue);
-
-
-/***/ }),
-/* 131 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__getNative_js__ = __webpack_require__(6);
-
-
-var defineProperty = (function() {
-  try {
-    var func = Object(__WEBPACK_IMPORTED_MODULE_0__getNative_js__["a" /* default */])(Object, 'defineProperty');
-    func({}, '', {});
-    return func;
-  } catch (e) {}
-}());
-
-/* harmony default export */ __webpack_exports__["a"] = (defineProperty);
-
-
-/***/ }),
-/* 132 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__arrayAggregator_js__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__baseAggregator_js__ = __webpack_require__(134);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__baseIteratee_js__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__isArray_js__ = __webpack_require__(4);
-
-
-
-
-
-/**
- * Creates a function like `_.groupBy`.
- *
- * @private
- * @param {Function} setter The function to set accumulator values.
- * @param {Function} [initializer] The accumulator object initializer.
- * @returns {Function} Returns the new aggregator function.
- */
-function createAggregator(setter, initializer) {
-  return function(collection, iteratee) {
-    var func = Object(__WEBPACK_IMPORTED_MODULE_3__isArray_js__["a" /* default */])(collection) ? __WEBPACK_IMPORTED_MODULE_0__arrayAggregator_js__["a" /* default */] : __WEBPACK_IMPORTED_MODULE_1__baseAggregator_js__["a" /* default */],
-        accumulator = initializer ? initializer() : {};
-
-    return func(collection, setter, Object(__WEBPACK_IMPORTED_MODULE_2__baseIteratee_js__["a" /* default */])(iteratee, 2), accumulator);
-  };
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (createAggregator);
-
-
-/***/ }),
-/* 133 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/**
- * A specialized version of `baseAggregator` for arrays.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} setter The function to set `accumulator` values.
- * @param {Function} iteratee The iteratee to transform keys.
- * @param {Object} accumulator The initial aggregated object.
- * @returns {Function} Returns `accumulator`.
- */
-function arrayAggregator(array, setter, iteratee, accumulator) {
-  var index = -1,
-      length = array == null ? 0 : array.length;
-
-  while (++index < length) {
-    var value = array[index];
-    setter(accumulator, value, iteratee(value), array);
-  }
-  return accumulator;
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (arrayAggregator);
-
-
-/***/ }),
-/* 134 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseEach_js__ = __webpack_require__(54);
-
-
-/**
- * Aggregates elements of `collection` on `accumulator` with keys transformed
- * by `iteratee` and values set by `setter`.
- *
- * @private
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} setter The function to set `accumulator` values.
- * @param {Function} iteratee The iteratee to transform keys.
- * @param {Object} accumulator The initial aggregated object.
- * @returns {Function} Returns `accumulator`.
- */
-function baseAggregator(collection, setter, iteratee, accumulator) {
-  Object(__WEBPACK_IMPORTED_MODULE_0__baseEach_js__["a" /* default */])(collection, function(value, key, collection) {
-    setter(accumulator, value, iteratee(value), collection);
-  });
-  return accumulator;
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (baseAggregator);
-
-
-/***/ }),
+/* 129 */,
+/* 130 */,
+/* 131 */,
+/* 132 */,
+/* 133 */,
+/* 134 */,
 /* 135 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -24926,7 +24736,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -25071,6 +24880,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__SocialProfilesTab___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__SocialProfilesTab__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__BookmarksTab__ = __webpack_require__(247);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__BookmarksTab___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__BookmarksTab__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__DescriptionsTab__ = __webpack_require__(381);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__DescriptionsTab___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__DescriptionsTab__);
+//
 //
 //
 //
@@ -25105,7 +24917,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   components: {
-    WordsTab: __WEBPACK_IMPORTED_MODULE_0__WordsTab___default.a, AccountSettingsTab: __WEBPACK_IMPORTED_MODULE_1__AccountSettingsTab___default.a, BookmarksTab: __WEBPACK_IMPORTED_MODULE_4__BookmarksTab___default.a, HistoryTab: __WEBPACK_IMPORTED_MODULE_2__HistoryTab___default.a, SocialProfilesTab: __WEBPACK_IMPORTED_MODULE_3__SocialProfilesTab___default.a
+    WordsTab: __WEBPACK_IMPORTED_MODULE_0__WordsTab___default.a, AccountSettingsTab: __WEBPACK_IMPORTED_MODULE_1__AccountSettingsTab___default.a, BookmarksTab: __WEBPACK_IMPORTED_MODULE_4__BookmarksTab___default.a, HistoryTab: __WEBPACK_IMPORTED_MODULE_2__HistoryTab___default.a, SocialProfilesTab: __WEBPACK_IMPORTED_MODULE_3__SocialProfilesTab___default.a, DescriptionsTab: __WEBPACK_IMPORTED_MODULE_5__DescriptionsTab___default.a
   },
   data: function data() {
     return {};
@@ -26732,6 +26544,17 @@ var render = function() {
           [_vm._v("Words")]
         ),
         _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "tab-link",
+            class: _vm.setActiveTab("descriptions"),
+            attrs: { id: "descriptions" },
+            on: { click: _vm.isActive }
+          },
+          [_vm._v("Descriptions")]
+        ),
+        _vm._v(" "),
         _vm.sameUser
           ? [
               _c(
@@ -26754,17 +26577,6 @@ var render = function() {
                   on: { click: _vm.isActive }
                 },
                 [_vm._v("Bookmarks")]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "tab-link",
-                  class: _vm.setActiveTab("descriptions"),
-                  attrs: { id: "descriptions" },
-                  on: { click: _vm.isActive }
-                },
-                [_vm._v("Descriptions")]
               )
             ]
           : _vm._e(),
@@ -26788,6 +26600,8 @@ var render = function() {
       { staticClass: "canvas" },
       [
         _vm.activeTab === "words" ? _c("WordsTab") : _vm._e(),
+        _vm._v(" "),
+        _vm.activeTab === "descriptions" ? _c("DescriptionsTab") : _vm._e(),
         _vm._v(" "),
         _vm.activeTab === "account-settings"
           ? _c("AccountSettingsTab", { on: { setActiveTab: _vm.setActiveTab } })
@@ -26819,25 +26633,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.loaded
-    ? _c("div", { staticClass: "ml-32" }, [
-        _c("div", { staticClass: "user-info" }, [
-          _c("img", { attrs: { src: _vm.user.avatar, alt: "" } }),
-          _vm._v(" "),
-          _c("div", { staticClass: "user-info__detail" }, [
-            _vm.user.full_name
-              ? _c("h1", { staticClass: "title" }, [
-                  _vm._v(_vm._s(_vm.user.full_name))
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _c("h3", [_vm._v(_vm._s(_vm.user.username))])
-          ])
-        ]),
+  return _c("div", { staticClass: "ml-32" }, [
+    _c("div", { staticClass: "user-info" }, [
+      _c("img", { attrs: { src: _vm.user.avatar, alt: "" } }),
+      _vm._v(" "),
+      _c("div", { staticClass: "user-info__detail" }, [
+        _vm.user.full_name
+          ? _c("h1", { staticClass: "title" }, [
+              _vm._v(_vm._s(_vm.user.full_name))
+            ])
+          : _vm._e(),
         _vm._v(" "),
-        _c("div", {}, [_c("Container")], 1)
+        _c("h3", [_vm._v(_vm._s(_vm.user.username))])
       ])
-    : _c("loading")
+    ]),
+    _vm._v(" "),
+    _c("div", {}, [_c("Container")], 1)
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -27171,7 +26983,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -27227,6 +27039,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -27235,6 +27048,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     DescriptionLikes: __WEBPACK_IMPORTED_MODULE_0__DescriptionLikes___default.a
   },
   mounted: function mounted() {
+    if (this.$route.hash) {
+      window.history.pushState('', '', '/#/details/' + this.word.slug);
+      var id = this.$route.hash.substr(1);
+      var descriptionEl = document.getElementById(id);
+      descriptionEl.scrollIntoView({ inline: "nearest" });
+    }
     this.setupDescriptionTexts();
     this.setupAudio();
   },
@@ -27294,6 +27113,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   computed: {
+    word: function word() {
+      return this.$store.state.wordDetail;
+    },
     descriptions: function descriptions() {
       return this.$store.state.wordDetail.descriptions;
     }
@@ -27484,106 +27306,131 @@ var render = function() {
     "div",
     { staticClass: "details__descriptions" },
     _vm._l(_vm.descriptions, function(description) {
-      return _c("div", { staticClass: "details__description" }, [
-        _c(
-          "div",
-          { staticClass: "description__owner" },
-          [
-            _c("router-link", { attrs: { to: "#" } }, [
-              _c("img", { attrs: { src: description.user.avatar, alt: "" } })
-            ]),
-            _vm._v(" "),
-            _c(
-              "router-link",
-              {
-                staticClass: "description__owner--username",
-                attrs: { to: "/user/" + description.user.username }
-              },
-              [_vm._v(_vm._s(description.user.username))]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "description__owner-info" }, [
-              _c(
-                "span",
-                {
-                  staticClass: "description__owner-info--count tag is-white",
-                  attrs: { title: "Total number of words authored" }
-                },
-                [
-                  _vm._m(0, true),
-                  _vm._v(" "),
-                  _c("span", { key: _vm.likesKey }, [
-                    _vm._v(_vm._s(description.user.words_count))
-                  ])
-                ]
-              ),
+      return _c(
+        "div",
+        { staticClass: "details__description", attrs: { id: description.id } },
+        [
+          _c(
+            "div",
+            { staticClass: "description__owner" },
+            [
+              _c("router-link", { attrs: { to: "#" } }, [
+                _c("img", { attrs: { src: description.user.avatar, alt: "" } })
+              ]),
               _vm._v(" "),
               _c(
-                "span",
+                "router-link",
                 {
-                  staticClass: "tag description__owner-info--count is-link",
-                  attrs: { title: "Total number of descriptions added" }
+                  staticClass: "description__owner--username",
+                  attrs: { to: "/user/" + description.user.username }
                 },
-                [
-                  _vm._m(1, true),
-                  _vm._v(" "),
-                  _c("span", [
-                    _vm._v(_vm._s(description.user.descriptions_count))
-                  ])
-                ]
-              )
-            ])
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "description__details" }, [
-          _c("div", { staticClass: "description__icons" }, [
-            _c(
-              "div",
-              [
-                description.symbol
-                  ? _c("span", [_vm._v(_vm._s(description.symbol.body))])
-                  : void 0
-              ],
-              2
-            ),
-            _vm._v(" "),
-            description.audio_file
-              ? _c(
-                  "a",
+                [_vm._v(_vm._s(description.user.username))]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "description__owner-info" }, [
+                _c(
+                  "span",
                   {
-                    attrs: {
-                      id: "audio-click-link",
-                      title: "Listen to Pronounciation"
-                    }
+                    staticClass: "description__owner-info--count tag is-white",
+                    attrs: { title: "Total number of words authored" }
                   },
                   [
-                    _c("i", {
-                      staticClass: "fa fa-volume-up mr-4 has-text-info"
-                    }),
-                    _vm._v("Listen to pronounciation\n          "),
-                    _c("audio", { attrs: { src: description.audio_file.url } })
+                    _vm._m(0, true),
+                    _vm._v(" "),
+                    _c("span", { key: _vm.likesKey }, [
+                      _vm._v(_vm._s(description.user.words_count))
+                    ])
                   ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "tag description__owner-info--count is-link",
+                    attrs: { title: "Total number of descriptions added" }
+                  },
+                  [
+                    _vm._m(1, true),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "has-text-primary",
+                        attrs: {
+                          to:
+                            "/user/" +
+                            description.user.username +
+                            "#descriptions"
+                        }
+                      },
+                      [_vm._v(_vm._s(description.user.descriptions_count))]
+                    )
+                  ],
+                  1
                 )
-              : _vm._e()
-          ]),
+              ])
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "description__texts" }, [
-            _c("h3", [_vm._v(_vm._s(description.body))])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "description__footer" }, [
-            _c("span", [_vm._v("Added " + _vm._s(description.date_created))]),
+          _c("div", { staticClass: "description__details" }, [
+            _c("div", { staticClass: "description__icons" }, [
+              _c(
+                "div",
+                [
+                  description.symbol
+                    ? _c("span", [_vm._v(_vm._s(description.symbol.body))])
+                    : void 0
+                ],
+                2
+              ),
+              _vm._v(" "),
+              description.audio_file
+                ? _c(
+                    "a",
+                    {
+                      attrs: {
+                        id: "audio-click-link",
+                        title: "Listen to Pronounciation"
+                      }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fa fa-volume-up mr-4 has-text-info"
+                      }),
+                      _vm._v("Listen to pronounciation\n          "),
+                      _c("audio", {
+                        attrs: { src: description.audio_file.url }
+                      })
+                    ]
+                  )
+                : _vm._e()
+            ]),
             _vm._v(" "),
-            _c(
-              "div",
-              [_c("DescriptionLikes", { attrs: { description: description } })],
-              1
-            )
+            _c("div", { staticClass: "description__texts" }, [
+              _c("span", { staticClass: "title" }, [
+                _vm._v(_vm._s(description.id))
+              ]),
+              _vm._v(" "),
+              _c("h3", [_vm._v(_vm._s(description.body))])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "description__footer" }, [
+              _c("span", [_vm._v("Added " + _vm._s(description.date_created))]),
+              _vm._v(" "),
+              _c(
+                "div",
+                [
+                  _c("DescriptionLikes", {
+                    attrs: { description: description }
+                  })
+                ],
+                1
+              )
+            ])
           ])
-        ])
-      ])
+        ]
+      )
     })
   )
 }
@@ -30751,6 +30598,13 @@ if (false) {
       return context.commit('userBookmarks', data.data);
     }).catch(function (error) {});
   },
+  getUserDescriptions: function getUserDescriptions(context, user) {
+    return axios.get('api/get-descriptions/' + user).then(function (response) {
+      return context.commit('userDescriptions', response.data.data);
+    }).catch(function (error) {
+      return context.commit('serverError', error);
+    });
+  },
   checkIfStillLoggedIn: function checkIfStillLoggedIn(context) {
     return axios.post('api/check-if-logged-in').then(function (data) {
       data.data === false ? context.commit('clearLoggedInUser') : '';
@@ -30801,10 +30655,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   userDetails: function userDetails(state, payload) {
     var hash = __WEBPACK_IMPORTED_MODULE_1__router__["default"].history.current.hash.substr(1);
     var activeTab = hash || 'words';
-    state.userDetails = _extends({}, payload, { bookmarks: [], activeTab: activeTab });
+    state.userDetails = _extends({}, payload, { bookmarks: [], activeTab: activeTab, descriptions: [] });
+  },
+  userDescriptions: function userDescriptions(state, payload) {
+    return state.userDetails.descriptions = payload;
   },
   clearUserDetails: function clearUserDetails(state) {
-    state.userDetails = { words: [], bookmarks: [], user: {}, social_profiles: {}, activeTab: 'words' };
+    state.userDetails = { words: [], bookmarks: [], user: {}, social_profiles: {}, activeTab: 'words', descriptions: [] };
   },
   userBookmarks: function userBookmarks(state, payload) {
     if (payload === 'None') {
@@ -31002,7 +30859,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   tagWords: [],
   formData: { symbols: '', tags: [], suggestedTags: [] },
   formErrors: {},
-  userDetails: { bookmarks: [], user: [], words: [], social_profiles: {} },
+  userDetails: { bookmarks: [], user: [], words: [], social_profiles: {}, descriptions: [] },
   uploads: { tempFile: '', formData: '', audioID: '', avatarID: '' }
 });
 
@@ -32936,6 +32793,158 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 372 */,
+/* 373 */,
+/* 374 */,
+/* 375 */,
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */,
+/* 380 */,
+/* 381 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(382)
+/* template */
+var __vue_template__ = __webpack_require__(383)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/app/partials/UserTabs/DescriptionsTab.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1341b1a5", Component.options)
+  } else {
+    hotAPI.reload("data-v-1341b1a5", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 382 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    return this.$store.dispatch('getUserDescriptions', this.user);
+  },
+  data: function data() {
+    return {};
+  },
+
+  methods: {},
+  computed: {
+    descriptions: function descriptions() {
+      return this.$store.state.userDetails.descriptions;
+    },
+    user: function user() {
+      return this.$store.state.userDetails.user.username;
+    },
+    gettingDescriptions: function gettingDescriptions() {
+      return _.isEmpty(this.descriptions);
+    }
+  }
+});
+
+/***/ }),
+/* 383 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _vm.gettingDescriptions
+        ? _c("loading")
+        : _c(
+            "div",
+            {},
+            _vm._l(_vm.descriptions, function(description) {
+              return _c(
+                "div",
+                {},
+                [
+                  _c("span", [_vm._v(_vm._s(description.date_created))]),
+                  _vm._v(" "),
+                  _c("span", [_vm._v(_vm._s(description.word))]),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      attrs: {
+                        to:
+                          "/details/" + description.word + "#" + description.id
+                      }
+                    },
+                    [_vm._v(_vm._s(description.body))]
+                  )
+                ],
+                1
+              )
+            })
+          )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1341b1a5", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

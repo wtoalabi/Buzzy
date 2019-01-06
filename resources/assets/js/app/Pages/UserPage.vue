@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loaded" class="ml-32">
+  <div class="ml-32">
     <div class="user-info">
       <img :src="user.avatar" alt="">
       <div class="user-info__detail">
@@ -11,7 +11,6 @@
       <Container />
     </div>
   </div>
-    <loading v-else />
 </template>
 
 <script>
