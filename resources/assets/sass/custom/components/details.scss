@@ -110,7 +110,6 @@ a.details__user:hover{
   --direction: right;
 }
 .description__owner{
-  margin-right: 2rem;
   flex-basis: 15%;
   display: flex;
   flex-direction: column;
@@ -204,6 +203,9 @@ span.description__owner-info--count{
 }
 
 @media screen and(min-width: 500px){
+  .description__owner{
+    margin-right: 2rem;
+  }
   .details__title h1{
     font-size: 6rem;
   }
@@ -221,6 +223,7 @@ span.description__owner-info--count{
     display: flex;
   }
   .description__owner{
+    margin-right: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
