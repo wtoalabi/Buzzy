@@ -28,7 +28,6 @@
           </a>
         </div>
         <div class="description__texts" >
-          <span class="title">{{description.id}}</span>
           <h3>{{description.body}}</h3>
         </div>
         <div class="description__footer">

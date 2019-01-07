@@ -26983,7 +26983,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -26996,7 +26996,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DescriptionLikes__ = __webpack_require__(263);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DescriptionLikes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DescriptionLikes__);
-//
 //
 //
 //
@@ -27408,10 +27407,6 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "description__texts" }, [
-              _c("span", { staticClass: "title" }, [
-                _vm._v(_vm._s(description.id))
-              ]),
-              _vm._v(" "),
               _c("h3", [_vm._v(_vm._s(description.body))])
             ]),
             _vm._v(" "),
@@ -32808,17 +32803,21 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(384)
+}
 var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = __webpack_require__(382)
 /* template */
-var __vue_template__ = __webpack_require__(383)
+var __vue_template__ = __webpack_require__(386)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-1341b1a5"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -32869,6 +32868,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -32893,7 +32895,48 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 383 */
+/* 383 */,
+/* 384 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(385);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("2b9812d5", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1341b1a5\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DescriptionsTab.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1341b1a5\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DescriptionsTab.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 385 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.descriptions-list .descriptions[data-v-1341b1a5] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  background: #00bcd41c;\n  padding: .5rem;\n  margin: .4rem 0;\n  border-radius: .5rem;\n}\n.descriptions-list .descriptions .descriptions__footer[data-v-1341b1a5] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n}\n@media screen and (min-width: 600px) {\n.descriptions-list .descriptions .descriptions__footer[data-v-1341b1a5] {\n        -webkit-box-orient: horizontal;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: row;\n                flex-direction: row;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n}\n}\n.descriptions-list .descriptions .descriptions__footer .descriptions__word[data-v-1341b1a5] {\n      font-size: 1.2rem;\n      font-weight: bold;\n}\n.descriptions-list .descriptions .descriptions__footer .descriptions__time[data-v-1341b1a5] {\n      font-size: .8rem;\n}\n\n/*.descriptions{\n  margin: .5rem;\n  font-size: 1.2rem;\n}*/\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 386 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -32907,26 +32950,35 @@ var render = function() {
         ? _c("loading")
         : _c(
             "div",
-            {},
+            { staticClass: "descriptions-list" },
             _vm._l(_vm.descriptions, function(description) {
               return _c(
                 "div",
-                {},
+                { staticClass: "descriptions" },
                 [
-                  _c("span", [_vm._v(_vm._s(description.date_created))]),
-                  _vm._v(" "),
-                  _c("span", [_vm._v(_vm._s(description.word))]),
-                  _vm._v(" "),
                   _c(
                     "router-link",
                     {
+                      staticClass: "description__link ",
                       attrs: {
                         to:
                           "/details/" + description.word + "#" + description.id
                       }
                     },
                     [_vm._v(_vm._s(description.body))]
-                  )
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "descriptions__footer" }, [
+                    _c(
+                      "span",
+                      { staticClass: "descriptions__word mr-6 is-warning" },
+                      [_vm._v("on " + _vm._s(description.word))]
+                    ),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "descriptions__time" }, [
+                      _vm._v(_vm._s(description.date_created))
+                    ])
+                  ])
                 ],
                 1
               )

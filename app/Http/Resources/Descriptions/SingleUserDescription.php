@@ -16,7 +16,7 @@ class SingleUserDescription extends JsonResource
     {
         return [
           'id' => $this->id,
-          'body' => str_limit($this->body, 50),
+          'body' => str_limit($this->body, 40),
           'date_created' => $this->created_at->diffForHumans(),
           'like_counts' => $this->likesCount(),
           'word' => $this->word->slug
