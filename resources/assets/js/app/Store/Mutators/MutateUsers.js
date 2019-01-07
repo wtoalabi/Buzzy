@@ -17,7 +17,7 @@ export default {
     state.userDetails = {...payload,bookmarks:[],activeTab, descriptions:[]}
   },
   userDescriptions(state, payload) {
-    return state.userDetails.descriptions = payload
+    return state.userDetails.descriptions = payload.data || payload
   },
   clearUserDetails(state) {
     state.userDetails = {words:[],bookmarks:[],user:{},social_profiles:{},activeTab:'words',descriptions:[]}

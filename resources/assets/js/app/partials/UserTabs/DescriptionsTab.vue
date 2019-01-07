@@ -2,21 +2,26 @@
   <div>
     <loading v-if="gettingDescriptions"/>
     <div class="descriptions-list" v-else>
-      <div class="descriptions" v-for="description in descriptions">
-        <router-link :to="`/details/${description.word}#${description.id}`" class="description__link ">
-          {{description.body}}
-        </router-link>
-        <!--<span class="tag mr-6 ml-6">on</span>-->
-        <div class="descriptions__footer">
-          <div class="descriptions__footer-left">
-            <span class="descriptions__time">{{description.date_created}}</span>
-            <span class="descriptions__word mr-6 is-warning">on {{description.word}}</span>
-          </div>
-          <div class="descriptions__footer-right tags has-addons">
-            <span class="tag"><i class="fa fa-heart" :class="countColor(description)"></i></span>
-            <span class="tag is-link">{{description.like_counts}}</span>
+      <template v-if="hasDescriptions">
+        <div class="descriptions" v-for="description in descriptions">
+          <router-link :to="`/details/${description.word}#${description.id}`" class="description__link ">
+            {{description.body}}
+          </router-link>
+          <!--<span class="tag mr-6 ml-6">on</span>-->
+          <div class="descriptions__footer">
+            <div class="descriptions__footer-left">
+              <span class="descriptions__time">{{description.date_created}}</span>
+              <span class="descriptions__word mr-6 is-warning">on {{description.word}}</span>
+            </div>
+            <div class="descriptions__footer-right tags has-addons">
+              <span class="tag"><i class="fa fa-heart" :class="countColor(description)"></i></span>
+              <span class="tag is-link">{{description.like_counts}}</span>
+            </div>
           </div>
         </div>
+      </template>
+      <div class="no-description" v-else>
+        User has not contributed any description yet...
       </div>
     </div>
   </div>
@@ -31,7 +36,7 @@
       return {}
     },
     methods: {
-      countColor(description){
+      countColor(description) {
         return description.like_counts > 0 ? 'has-text-danger' : 'has-text-grey'
       }
     },
@@ -45,6 +50,9 @@
       gettingDescriptions() {
         return _.isEmpty(this.descriptions)
       },
+      hasDescriptions() {
+        return this.descriptions !== 'None'
+      }
     }
   }
 
@@ -82,6 +90,15 @@
       }
 
     }
+  }
+  .no-description{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    color: #FFC107;
+    font-size: 1.1rem;
+    text-align: center;
   }
 
   /*.descriptions{

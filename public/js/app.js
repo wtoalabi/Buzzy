@@ -30595,7 +30595,7 @@ if (false) {
   },
   getUserDescriptions: function getUserDescriptions(context, user) {
     return axios.get('api/get-descriptions/' + user).then(function (response) {
-      return context.commit('userDescriptions', response.data.data);
+      return context.commit('userDescriptions', response.data);
     }).catch(function (error) {
       return context.commit('serverError', error);
     });
@@ -30653,7 +30653,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     state.userDetails = _extends({}, payload, { bookmarks: [], activeTab: activeTab, descriptions: [] });
   },
   userDescriptions: function userDescriptions(state, payload) {
-    return state.userDetails.descriptions = payload;
+    return state.userDetails.descriptions = payload.data || payload;
   },
   clearUserDetails: function clearUserDetails(state) {
     state.userDetails = { words: [], bookmarks: [], user: {}, social_profiles: {}, activeTab: 'words', descriptions: [] };
@@ -32879,6 +32879,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -32902,6 +32907,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     gettingDescriptions: function gettingDescriptions() {
       return _.isEmpty(this.descriptions);
+    },
+    hasDescriptions: function hasDescriptions() {
+      return this.descriptions !== 'None';
     }
   }
 });
@@ -32942,7 +32950,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.descriptions-list .descriptions[data-v-1341b1a5] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  background: #00bcd41c;\n  padding: .5rem;\n  margin: .4rem 0;\n  border-radius: .5rem;\n}\n.descriptions-list .descriptions .descriptions__footer[data-v-1341b1a5] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n}\n@media screen and (min-width: 600px) {\n.descriptions-list .descriptions .descriptions__footer[data-v-1341b1a5] {\n        -webkit-box-orient: horizontal;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: row;\n                flex-direction: row;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n}\n}\n.descriptions-list .descriptions .descriptions__footer .descriptions__time[data-v-1341b1a5] {\n      font-size: .8rem;\n}\n\n/*.descriptions{\n  margin: .5rem;\n  font-size: 1.2rem;\n}*/\n", ""]);
+exports.push([module.i, "\n.descriptions-list .descriptions[data-v-1341b1a5] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  background: #00bcd41c;\n  padding: .5rem;\n  margin: .4rem 0;\n  border-radius: .5rem;\n}\n.descriptions-list .descriptions .descriptions__footer[data-v-1341b1a5] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n}\n@media screen and (min-width: 600px) {\n.descriptions-list .descriptions .descriptions__footer[data-v-1341b1a5] {\n        -webkit-box-orient: horizontal;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: row;\n                flex-direction: row;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n}\n}\n.descriptions-list .descriptions .descriptions__footer .descriptions__time[data-v-1341b1a5] {\n      font-size: .8rem;\n}\n.no-description[data-v-1341b1a5] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  height: 50%;\n  color: #FFC107;\n  font-size: 1.1rem;\n  text-align: center;\n}\n\n/*.descriptions{\n  margin: .5rem;\n  font-size: 1.2rem;\n}*/\n", ""]);
 
 // exports
 
@@ -32963,64 +32971,87 @@ var render = function() {
         : _c(
             "div",
             { staticClass: "descriptions-list" },
-            _vm._l(_vm.descriptions, function(description) {
-              return _c(
-                "div",
-                { staticClass: "descriptions" },
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "description__link ",
-                      attrs: {
-                        to:
-                          "/details/" + description.word + "#" + description.id
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n        " + _vm._s(description.body) + "\n      "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "descriptions__footer" }, [
-                    _c("div", { staticClass: "descriptions__footer-left" }, [
-                      _c("span", { staticClass: "descriptions__time" }, [
-                        _vm._v(_vm._s(description.date_created))
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        { staticClass: "descriptions__word mr-6 is-warning" },
-                        [_vm._v("on " + _vm._s(description.word))]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c(
+            [
+              _vm.hasDescriptions
+                ? _vm._l(_vm.descriptions, function(description) {
+                    return _c(
                       "div",
-                      {
-                        staticClass:
-                          "descriptions__footer-right tags has-addons"
-                      },
+                      { staticClass: "descriptions" },
                       [
-                        _c("span", { staticClass: "tag" }, [
-                          _c("i", {
-                            staticClass: "fa fa-heart",
-                            class: _vm.countColor(description)
-                          })
-                        ]),
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "description__link ",
+                            attrs: {
+                              to:
+                                "/details/" +
+                                description.word +
+                                "#" +
+                                description.id
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n          " +
+                                _vm._s(description.body) +
+                                "\n        "
+                            )
+                          ]
+                        ),
                         _vm._v(" "),
-                        _c("span", { staticClass: "tag is-link" }, [
-                          _vm._v(_vm._s(description.like_counts))
+                        _c("div", { staticClass: "descriptions__footer" }, [
+                          _c(
+                            "div",
+                            { staticClass: "descriptions__footer-left" },
+                            [
+                              _c(
+                                "span",
+                                { staticClass: "descriptions__time" },
+                                [_vm._v(_vm._s(description.date_created))]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "descriptions__word mr-6 is-warning"
+                                },
+                                [_vm._v("on " + _vm._s(description.word))]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "descriptions__footer-right tags has-addons"
+                            },
+                            [
+                              _c("span", { staticClass: "tag" }, [
+                                _c("i", {
+                                  staticClass: "fa fa-heart",
+                                  class: _vm.countColor(description)
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "tag is-link" }, [
+                                _vm._v(_vm._s(description.like_counts))
+                              ])
+                            ]
+                          )
                         ])
-                      ]
+                      ],
+                      1
+                    )
+                  })
+                : _c("div", { staticClass: "no-description" }, [
+                    _vm._v(
+                      "\n      User has not contributed any description yet...\n    "
                     )
                   ])
-                ],
-                1
-              )
-            })
+            ],
+            2
           )
     ],
     1
