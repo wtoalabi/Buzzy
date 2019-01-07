@@ -109,7 +109,6 @@
     align-items: center;
     justify-content: center;
     .new_description__buttons{
-      width: 100%;
       display: flex;
       justify-content: center;
     }
