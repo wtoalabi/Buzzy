@@ -32871,6 +32871,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -32880,7 +32888,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     return {};
   },
 
-  methods: {},
+  methods: {
+    countColor: function countColor(description) {
+      return description.like_counts > 0 ? 'has-text-danger' : 'has-text-grey';
+    }
+  },
   computed: {
     descriptions: function descriptions() {
       return this.$store.state.userDetails.descriptions;
@@ -32930,7 +32942,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.descriptions-list .descriptions[data-v-1341b1a5] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  background: #00bcd41c;\n  padding: .5rem;\n  margin: .4rem 0;\n  border-radius: .5rem;\n}\n.descriptions-list .descriptions .descriptions__footer[data-v-1341b1a5] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n}\n@media screen and (min-width: 600px) {\n.descriptions-list .descriptions .descriptions__footer[data-v-1341b1a5] {\n        -webkit-box-orient: horizontal;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: row;\n                flex-direction: row;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n}\n}\n.descriptions-list .descriptions .descriptions__footer .descriptions__word[data-v-1341b1a5] {\n      font-size: 1.2rem;\n      font-weight: bold;\n}\n.descriptions-list .descriptions .descriptions__footer .descriptions__time[data-v-1341b1a5] {\n      font-size: .8rem;\n}\n\n/*.descriptions{\n  margin: .5rem;\n  font-size: 1.2rem;\n}*/\n", ""]);
+exports.push([module.i, "\n.descriptions-list .descriptions[data-v-1341b1a5] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  background: #00bcd41c;\n  padding: .5rem;\n  margin: .4rem 0;\n  border-radius: .5rem;\n}\n.descriptions-list .descriptions .descriptions__footer[data-v-1341b1a5] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n}\n@media screen and (min-width: 600px) {\n.descriptions-list .descriptions .descriptions__footer[data-v-1341b1a5] {\n        -webkit-box-orient: horizontal;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: row;\n                flex-direction: row;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n}\n}\n.descriptions-list .descriptions .descriptions__footer .descriptions__time[data-v-1341b1a5] {\n      font-size: .8rem;\n}\n\n/*.descriptions{\n  margin: .5rem;\n  font-size: 1.2rem;\n}*/\n", ""]);
 
 // exports
 
@@ -32965,19 +32977,45 @@ var render = function() {
                           "/details/" + description.word + "#" + description.id
                       }
                     },
-                    [_vm._v(_vm._s(description.body))]
+                    [
+                      _vm._v(
+                        "\n        " + _vm._s(description.body) + "\n      "
+                      )
+                    ]
                   ),
                   _vm._v(" "),
                   _c("div", { staticClass: "descriptions__footer" }, [
-                    _c(
-                      "span",
-                      { staticClass: "descriptions__word mr-6 is-warning" },
-                      [_vm._v("on " + _vm._s(description.word))]
-                    ),
+                    _c("div", { staticClass: "descriptions__footer-left" }, [
+                      _c("span", { staticClass: "descriptions__time" }, [
+                        _vm._v(_vm._s(description.date_created))
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        { staticClass: "descriptions__word mr-6 is-warning" },
+                        [_vm._v("on " + _vm._s(description.word))]
+                      )
+                    ]),
                     _vm._v(" "),
-                    _c("span", { staticClass: "descriptions__time" }, [
-                      _vm._v(_vm._s(description.date_created))
-                    ])
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "descriptions__footer-right tags has-addons"
+                      },
+                      [
+                        _c("span", { staticClass: "tag" }, [
+                          _c("i", {
+                            staticClass: "fa fa-heart",
+                            class: _vm.countColor(description)
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "tag is-link" }, [
+                          _vm._v(_vm._s(description.like_counts))
+                        ])
+                      ]
+                    )
                   ])
                 ],
                 1
