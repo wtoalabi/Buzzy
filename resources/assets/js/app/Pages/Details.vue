@@ -19,7 +19,7 @@
             <i class="fa fa-bookmark" :class="bookmark.color"></i>
             <span class="ml-6">{{bookmark.text}}</span>
           </div>
-          <span class="mr-8">Views</span> <span title="Views Count"><i class="fa fa-eye mr-6"></i>{{details.viewsCount}}</span>
+          <span class="mr-8">Views</span> <span title="Views Count" class="views-count"><i class="fa fa-eye mr-6"></i>{{details.viewsCount}}</span>
         </div>
       </div>
       <template>
@@ -72,7 +72,7 @@
     }
   }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
   .details__bookmark {
     cursor: pointer;
     margin-right: 10px;
@@ -81,6 +81,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    .views-count{
+      i{
+        display: none;
+        @media screen and (min-width:350px) {
+          display: inline-block;
+        }
+      }
+    }
   }
 
 </style>

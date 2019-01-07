@@ -26728,19 +26728,19 @@ if (false) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(256)
+  __webpack_require__(387)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = __webpack_require__(258)
 /* template */
-var __vue_template__ = __webpack_require__(282)
+var __vue_template__ = __webpack_require__(389)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-b96a49f2"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -26773,46 +26773,8 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 256 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(257);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(2)("0b2e0ad0", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b96a49f2\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Details.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b96a49f2\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Details.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 257 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(1)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.details__bookmark {\n  cursor: pointer;\n  margin-right: 10px;\n}\n.details__bookmark_with_view {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
+/* 256 */,
+/* 257 */,
 /* 258 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -28117,124 +28079,7 @@ if (false) {
 }
 
 /***/ }),
-/* 282 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _vm.loaded
-        ? _c(
-            "div",
-            { staticClass: "details" },
-            [
-              _c("div", { staticClass: "details__header" }, [
-                _c("div", { staticClass: "details__title" }, [
-                  _c("h1", [_vm._v(_vm._s(_vm.details.word))]),
-                  _vm._v(" "),
-                  _c("h3", [_vm._v(_vm._s(_vm.details.sub_title))]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "details__tags" },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "mr-2 tag details__user",
-                          attrs: { to: "/user/" + _vm.details.user.username }
-                        },
-                        [
-                          _vm._v(
-                            "\n            " +
-                              _vm._s(_vm.details.user.username) +
-                              "\n          "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _vm._l(_vm.details.tags, function(tag) {
-                        return _c(
-                          "span",
-                          { staticClass: "tag details__tags--link" },
-                          [
-                            _c(
-                              "router-link",
-                              { attrs: { to: "/tags/" + tag.slug } },
-                              [_vm._v(_vm._s(tag.tag))]
-                            )
-                          ],
-                          1
-                        )
-                      })
-                    ],
-                    2
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "details__bookmark_with_view" }, [
-                  _vm.loggedIn
-                    ? _c(
-                        "div",
-                        {
-                          staticClass: "has-text-link details__bookmark",
-                          attrs: { title: _vm.bookmark.text },
-                          on: { click: _vm.bookmarkThis }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "fa fa-bookmark",
-                            class: _vm.bookmark.color
-                          }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "ml-6" }, [
-                            _vm._v(_vm._s(_vm.bookmark.text))
-                          ])
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "mr-8" }, [_vm._v("Views")]),
-                  _vm._v(" "),
-                  _c("span", { attrs: { title: "Views Count" } }, [
-                    _c("i", { staticClass: "fa fa-eye mr-6" }),
-                    _vm._v(_vm._s(_vm.details.viewsCount))
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              [
-                _c("div", { staticClass: "description-divider" }, [
-                  _vm._v("Descriptions")
-                ]),
-                _vm._v(" "),
-                _c("NewDescription"),
-                _vm._v(" "),
-                _c("DescriptionsList")
-              ]
-            ],
-            2
-          )
-        : _c("loading")
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-b96a49f2", module.exports)
-  }
-}
-
-/***/ }),
+/* 282 */,
 /* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33062,6 +32907,171 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-1341b1a5", module.exports)
+  }
+}
+
+/***/ }),
+/* 387 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(388);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("6763bc5e", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b96a49f2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Details.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b96a49f2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Details.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 388 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.details__bookmark[data-v-b96a49f2] {\n  cursor: pointer;\n  margin-right: 10px;\n}\n.details__bookmark_with_view[data-v-b96a49f2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.details__bookmark_with_view .views-count i[data-v-b96a49f2] {\n    display: none;\n}\n@media screen and (min-width: 350px) {\n.details__bookmark_with_view .views-count i[data-v-b96a49f2] {\n        display: inline-block;\n}\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 389 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _vm.loaded
+        ? _c(
+            "div",
+            { staticClass: "details" },
+            [
+              _c("div", { staticClass: "details__header" }, [
+                _c("div", { staticClass: "details__title" }, [
+                  _c("h1", [_vm._v(_vm._s(_vm.details.word))]),
+                  _vm._v(" "),
+                  _c("h3", [_vm._v(_vm._s(_vm.details.sub_title))]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "details__tags" },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "mr-2 tag details__user",
+                          attrs: { to: "/user/" + _vm.details.user.username }
+                        },
+                        [
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(_vm.details.user.username) +
+                              "\n          "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm._l(_vm.details.tags, function(tag) {
+                        return _c(
+                          "span",
+                          { staticClass: "tag details__tags--link" },
+                          [
+                            _c(
+                              "router-link",
+                              { attrs: { to: "/tags/" + tag.slug } },
+                              [_vm._v(_vm._s(tag.tag))]
+                            )
+                          ],
+                          1
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "details__bookmark_with_view" }, [
+                  _vm.loggedIn
+                    ? _c(
+                        "div",
+                        {
+                          staticClass: "has-text-link details__bookmark",
+                          attrs: { title: _vm.bookmark.text },
+                          on: { click: _vm.bookmarkThis }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fa fa-bookmark",
+                            class: _vm.bookmark.color
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "ml-6" }, [
+                            _vm._v(_vm._s(_vm.bookmark.text))
+                          ])
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "mr-8" }, [_vm._v("Views")]),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      staticClass: "views-count",
+                      attrs: { title: "Views Count" }
+                    },
+                    [
+                      _c("i", { staticClass: "fa fa-eye mr-6" }),
+                      _vm._v(_vm._s(_vm.details.viewsCount))
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              [
+                _c("div", { staticClass: "description-divider" }, [
+                  _vm._v("Descriptions")
+                ]),
+                _vm._v(" "),
+                _c("NewDescription"),
+                _vm._v(" "),
+                _c("DescriptionsList")
+              ]
+            ],
+            2
+          )
+        : _c("loading")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-b96a49f2", module.exports)
   }
 }
 
