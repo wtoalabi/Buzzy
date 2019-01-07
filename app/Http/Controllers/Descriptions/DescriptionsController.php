@@ -13,7 +13,7 @@
   {
     public function index($user){
       $user = User::where('username', $user)->first();
-      return $user->descriptions->isEmpty() ? 'None' : new UserDescriptionsCollection($user->descriptions);
+      return $user->descriptions->isEmpty() ? 'None' : new UserDescriptionsCollection($user->descriptions->sortByDesc('created_at'));
     }
     public function store(){
       if(!auth()->check()){
