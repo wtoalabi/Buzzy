@@ -56,6 +56,7 @@ export default {
     })
   },
   saveDescription(context, payload){
+    context.commit('fetching')
     axios.post('api/save-new-description', payload.form).then(()=>{
       context.dispatch('retrieveDetail',payload.slug)
     }).catch(error=>{
