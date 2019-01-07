@@ -26867,19 +26867,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(260)
+  __webpack_require__(390)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = __webpack_require__(262)
 /* template */
-var __vue_template__ = __webpack_require__(268)
+var __vue_template__ = __webpack_require__(392)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-62892182"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -26912,46 +26912,8 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 260 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(261);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(2)("7af2f483", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-62892182\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DescriptionsList.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-62892182\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DescriptionsList.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 261 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(1)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-// exports
-
-
-/***/ }),
+/* 260 */,
+/* 261 */,
 /* 262 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -26959,6 +26921,9 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DescriptionLikes__ = __webpack_require__(263);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DescriptionLikes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DescriptionLikes__);
+//
+//
+//
 //
 //
 //
@@ -27063,6 +27028,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       audioClickLinks.forEach(function (link) {
         link.addEventListener('click', playSound);
       });
+
       function playSound(e) {
         var audio = this.querySelector('audio');
         audio.play();
@@ -27257,165 +27223,7 @@ if (false) {
 }
 
 /***/ }),
-/* 268 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "details__descriptions" },
-    _vm._l(_vm.descriptions, function(description) {
-      return _c(
-        "div",
-        { staticClass: "details__description", attrs: { id: description.id } },
-        [
-          _c(
-            "div",
-            { staticClass: "description__owner" },
-            [
-              _c("router-link", { attrs: { to: "#" } }, [
-                _c("img", { attrs: { src: description.user.avatar, alt: "" } })
-              ]),
-              _vm._v(" "),
-              _c(
-                "router-link",
-                {
-                  staticClass: "description__owner--username",
-                  attrs: { to: "/user/" + description.user.username }
-                },
-                [_vm._v(_vm._s(description.user.username))]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "description__owner-info" }, [
-                _c(
-                  "span",
-                  {
-                    staticClass: "description__owner-info--count tag is-white",
-                    attrs: { title: "Total number of words authored" }
-                  },
-                  [
-                    _vm._m(0, true),
-                    _vm._v(" "),
-                    _c("span", { key: _vm.likesKey }, [
-                      _vm._v(_vm._s(description.user.words_count))
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    staticClass: "tag description__owner-info--count is-link",
-                    attrs: { title: "Total number of descriptions added" }
-                  },
-                  [
-                    _vm._m(1, true),
-                    _vm._v(" "),
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: "has-text-primary",
-                        attrs: {
-                          to:
-                            "/user/" +
-                            description.user.username +
-                            "#descriptions"
-                        }
-                      },
-                      [_vm._v(_vm._s(description.user.descriptions_count))]
-                    )
-                  ],
-                  1
-                )
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "description__details" }, [
-            _c("div", { staticClass: "description__icons" }, [
-              _c(
-                "div",
-                [
-                  description.symbol
-                    ? _c("span", [_vm._v(_vm._s(description.symbol.body))])
-                    : void 0
-                ],
-                2
-              ),
-              _vm._v(" "),
-              description.audio_file
-                ? _c(
-                    "a",
-                    {
-                      attrs: {
-                        id: "audio-click-link",
-                        title: "Listen to Pronounciation"
-                      }
-                    },
-                    [
-                      _c("i", {
-                        staticClass: "fa fa-volume-up mr-4 has-text-info"
-                      }),
-                      _vm._v("Listen to pronounciation\n          "),
-                      _c("audio", {
-                        attrs: { src: description.audio_file.url }
-                      })
-                    ]
-                  )
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "description__texts" }, [
-              _c("h3", [_vm._v(_vm._s(description.body))])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "description__footer" }, [
-              _c("span", [_vm._v("Added " + _vm._s(description.date_created))]),
-              _vm._v(" "),
-              _c(
-                "div",
-                [
-                  _c("DescriptionLikes", {
-                    attrs: { description: description }
-                  })
-                ],
-                1
-              )
-            ])
-          ])
-        ]
-      )
-    })
-  )
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", {}, [_c("i", { staticClass: "fa fa-file-word-o mr-4" })])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", {}, [_c("i", { staticClass: "fa fa-comments-o mr-4" })])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-62892182", module.exports)
-  }
-}
-
-/***/ }),
+/* 268 */,
 /* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33073,6 +32881,209 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-b96a49f2", module.exports)
+  }
+}
+
+/***/ }),
+/* 390 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(391);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("36102a76", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-62892182\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DescriptionsList.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-62892182\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DescriptionsList.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 391 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/***/ }),
+/* 392 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "details__descriptions" },
+    _vm._l(_vm.descriptions, function(description) {
+      return _c(
+        "div",
+        { staticClass: "details__description", attrs: { id: description.id } },
+        [
+          _c(
+            "div",
+            { staticClass: "description__owner" },
+            [
+              _c("router-link", { attrs: { to: "#" } }, [
+                _c("img", { attrs: { src: description.user.avatar, alt: "" } })
+              ]),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass: "description__owner--username",
+                  attrs: { to: "/user/" + description.user.username }
+                },
+                [
+                  _vm._v(
+                    "\n        " +
+                      _vm._s(description.user.username) +
+                      "\n      "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "description__owner-info" }, [
+                _c(
+                  "span",
+                  {
+                    staticClass: "description__owner-info--count tag is-white",
+                    attrs: { title: "Total number of words authored" }
+                  },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        key: _vm.likesKey,
+                        staticClass: "has-text-primary",
+                        attrs: {
+                          to: "/user/" + description.user.username + "#words"
+                        }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-file-word-o mr-4" }),
+                        _vm._v(_vm._s(description.user.words_count))
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "tag description__owner-info--count is-link",
+                    attrs: { title: "Total number of descriptions added" }
+                  },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "has-text-primary",
+                        attrs: {
+                          to:
+                            "/user/" +
+                            description.user.username +
+                            "#descriptions"
+                        }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-comments-o mr-4" }),
+                        _vm._v(_vm._s(description.user.descriptions_count))
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "description__details" }, [
+            _c("div", { staticClass: "description__icons" }, [
+              _c(
+                "div",
+                [
+                  description.symbol
+                    ? _c("span", [_vm._v(_vm._s(description.symbol.body))])
+                    : void 0
+                ],
+                2
+              ),
+              _vm._v(" "),
+              description.audio_file
+                ? _c(
+                    "a",
+                    {
+                      attrs: {
+                        id: "audio-click-link",
+                        title: "Listen to Pronounciation"
+                      }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fa fa-volume-up mr-4 has-text-info"
+                      }),
+                      _vm._v("Listen to pronounciation\n          "),
+                      _c("audio", {
+                        attrs: { src: description.audio_file.url }
+                      })
+                    ]
+                  )
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "description__texts" }, [
+              _c("h3", [_vm._v(_vm._s(description.body))])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "description__footer" }, [
+              _c("span", [_vm._v("Added " + _vm._s(description.date_created))]),
+              _vm._v(" "),
+              _c(
+                "div",
+                [
+                  _c("DescriptionLikes", {
+                    attrs: { description: description }
+                  })
+                ],
+                1
+              )
+            ])
+          ])
+        ]
+      )
+    })
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-62892182", module.exports)
   }
 }
 
