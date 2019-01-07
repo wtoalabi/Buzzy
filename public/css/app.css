@@ -16951,7 +16951,7 @@ a.details__user:hover {
 
 .details__descriptions {
   padding: 1rem;
-  margin: 0 0 1rem 0;
+  margin: 0 0 1rem .5rem;
 }
 
 .details__description {
