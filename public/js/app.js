@@ -25888,7 +25888,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.input-section[data-v-70df3365] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.input-section i[data-v-70df3365] {\n    margin-left: .3rem;\n    color: #87da87;\n    font-size: 1.5rem;\n    cursor: pointer;\n}\n.input-section ~ i > a[data-v-70df3365] {\n  word-break: break-all;\n}\n.profiles .profiles__title[data-v-70df3365] {\n  font-size: 1rem;\n}\n@media screen and (min-width: 400px) {\n.profiles .profiles__title[data-v-70df3365] {\n      font-size: 1.3rem;\n}\n}\n@media screen and (min-width: 750px) {\n.profiles .profiles__title[data-v-70df3365] {\n      font-size: 2rem;\n}\n}\n.profiles .profiles__networks[data-v-70df3365] {\n  font-size: 1.5rem;\n}\n.profiles .twitter[data-v-70df3365] {\n  color: #1b95e0;\n}\n.profiles .facebook[data-v-70df3365] {\n  color: #4267b2;\n}\n.profiles .github[data-v-70df3365] {\n  color: #ce9178;\n}\n", ""]);
+exports.push([module.i, "\n.input-section[data-v-70df3365] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.input-section i[data-v-70df3365] {\n    margin-left: .3rem;\n    color: #87da87;\n    font-size: 1.5rem;\n    cursor: pointer;\n}\n.input-section ~ i > a[data-v-70df3365] {\n  word-break: break-all;\n}\n.profiles .profiles__title[data-v-70df3365] {\n  font-size: 1rem;\n  font-weight: bold;\n}\n@media screen and (min-width: 400px) {\n.profiles .profiles__title[data-v-70df3365] {\n      font-size: 1.2rem;\n}\n}\n@media screen and (min-width: 500px) {\n.profiles .profiles__title[data-v-70df3365] {\n      font-size: 2rem;\n}\n}\n@media screen and (min-width: 750px) {\n.profiles .profiles__title[data-v-70df3365] {\n      font-size: 4rem;\n}\n}\n.profiles .profiles__networks[data-v-70df3365] {\n  font-size: 1rem;\n}\n@media screen and (min-width: 400px) {\n.profiles .profiles__networks[data-v-70df3365] {\n      font-size: 1.3rem;\n}\n}\n@media screen and (min-width: 750px) {\n.profiles .profiles__networks[data-v-70df3365] {\n      font-size: 2rem;\n}\n}\n.profiles .twitter[data-v-70df3365] {\n  color: #1b95e0;\n}\n.profiles .facebook[data-v-70df3365] {\n  color: #4267b2;\n}\n.profiles .github[data-v-70df3365] {\n  color: #ce9178;\n}\n", ""]);
 
 // exports
 
@@ -25899,6 +25899,12 @@ exports.push([module.i, "\n.input-section[data-v-70df3365] {\n  display: -webkit
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -25991,6 +25997,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (this.$store.state.loggedInUser) {
         return this.$store.state.loggedInUser.id === this.$store.state.userDetails.user.id;
       }
+    },
+    hasAProfile: function hasAProfile() {
+      return !_.isEmpty(this.profiles);
     }
   }
 });
@@ -26242,60 +26251,88 @@ var render = function() {
               : _vm._e()
           ])
         ])
-      : _c("div", { staticClass: "profiles" }, [
-          _c("h1", { staticClass: "profiles__title" }, [
-            _vm._v("User Social Profiles")
-          ]),
-          _vm._v(" "),
-          _vm.profiles.facebook
-            ? _c("div", { staticClass: "profiles__networks" }, [
-                _c("span", [_vm._v("Facebook: ")]),
-                _c(
-                  "a",
-                  {
-                    attrs: {
-                      href: "http://www.facebook.com/" + _vm.profiles.facebook,
-                      target: "_blank"
-                    }
-                  },
-                  [_c("i", { staticClass: "fa fa-facebook-official facebook" })]
-                )
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.profiles.twitter
-            ? _c("div", { staticClass: "profiles__networks" }, [
-                _c("span", [_vm._v("Twitter: ")]),
-                _c(
-                  "a",
-                  {
-                    attrs: {
-                      href: "http://www.twiiter.com/" + _vm.profiles.twitter,
-                      target: "_blank"
-                    }
-                  },
-                  [_c("i", { staticClass: "fa  fa-twitter twitter" })]
-                )
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.profiles.github
-            ? _c("div", { staticClass: "profiles__networks" }, [
-                _c("span", [_vm._v("Github: ")]),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    attrs: {
-                      href: "http://www.github.com/" + _vm.profiles.github,
-                      target: "_blank"
-                    }
-                  },
-                  [_c("i", { staticClass: "fa fa-github-square github" })]
-                )
-              ])
-            : _vm._e()
-        ])
+      : _c(
+          "div",
+          { staticClass: "profiles" },
+          [
+            _vm.hasAProfile
+              ? [
+                  _c("h1", { staticClass: "profiles__title" }, [
+                    _vm._v("User Social Profiles")
+                  ]),
+                  _vm._v(" "),
+                  _vm.profiles.facebook
+                    ? _c("div", { staticClass: "profiles__networks" }, [
+                        _c("span", [_vm._v("Facebook: ")]),
+                        _c(
+                          "a",
+                          {
+                            attrs: {
+                              href:
+                                "http://www.facebook.com/" +
+                                _vm.profiles.facebook,
+                              target: "_blank"
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "fa fa-facebook-official facebook"
+                            })
+                          ]
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.profiles.twitter
+                    ? _c("div", { staticClass: "profiles__networks" }, [
+                        _c("span", [_vm._v("Twitter: ")]),
+                        _c(
+                          "a",
+                          {
+                            attrs: {
+                              href:
+                                "http://www.twiiter.com/" +
+                                _vm.profiles.twitter,
+                              target: "_blank"
+                            }
+                          },
+                          [_c("i", { staticClass: "fa  fa-twitter twitter" })]
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.profiles.github
+                    ? _c("div", { staticClass: "profiles__networks" }, [
+                        _c("span", [_vm._v("Github: ")]),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            attrs: {
+                              href:
+                                "http://www.github.com/" + _vm.profiles.github,
+                              target: "_blank"
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "fa fa-github-square github"
+                            })
+                          ]
+                        )
+                      ])
+                    : _vm._e()
+                ]
+              : _c("div", {}, [
+                  _c("h1", { staticClass: "has-text-warning" }, [
+                    _vm._v(
+                      "User is yet to publicly register a social media account..."
+                    )
+                  ])
+                ])
+          ],
+          2
+        )
   ])
 }
 var staticRenderFns = []

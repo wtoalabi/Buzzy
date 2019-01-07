@@ -33,20 +33,26 @@
       </div>
     </form>
     <div v-else class="profiles">
-      <h1 class="profiles__title">User Social Profiles</h1>
-      <div v-if="profiles.facebook" class="profiles__networks">
-        <span>Facebook: </span><a :href="`http://www.facebook.com/${profiles.facebook}`" target="_blank"><i
-          class="fa fa-facebook-official facebook"></i></a>
-      </div>
-      <div v-if="profiles.twitter" class="profiles__networks">
-        <span>Twitter: </span><a :href="`http://www.twiiter.com/${profiles.twitter}`" target="_blank"><i
-          class="fa  fa-twitter twitter"></i></a>
-      </div>
-      <div v-if="profiles.github" class="profiles__networks">
-        <span>Github: </span> <a :href="`http://www.github.com/${profiles.github}`" target="_blank"><i class="fa fa-github-square github"></i></a>
+      <template v-if="hasAProfile">
+        <h1 class="profiles__title">User Social Profiles</h1>
+        <div v-if="profiles.facebook" class="profiles__networks">
+          <span>Facebook: </span><a :href="`http://www.facebook.com/${profiles.facebook}`" target="_blank"><i
+            class="fa fa-facebook-official facebook"></i></a>
+        </div>
+        <div v-if="profiles.twitter" class="profiles__networks">
+          <span>Twitter: </span><a :href="`http://www.twiiter.com/${profiles.twitter}`" target="_blank"><i
+            class="fa  fa-twitter twitter"></i></a>
+        </div>
+        <div v-if="profiles.github" class="profiles__networks">
+          <span>Github: </span> <a :href="`http://www.github.com/${profiles.github}`" target="_blank"><i
+            class="fa fa-github-square github"></i></a>
+        </div>
+      </template>
+      <div class="" v-else>
+        <h1 class="has-text-warning">User is yet to publicly register a social media account...</h1>
       </div>
     </div>
-  </div>
+</div>
 </template>
 
 <script>
@@ -66,11 +72,11 @@
         this.input = ''
         axios.post(`api/save-social-profile/${network}`, {username: this.networks[network]}).then(response => {
           this.sending = ''
-          this.$store.commit('message',{type:'success', text:'Successfully Saved!'})
+          this.$store.commit('message', {type: 'success', text: 'Successfully Saved!'})
           this.$store.commit('userSocialProfile', response.data)
         }).catch(error => {
           this.sending = ''
-          this.$store.commit('serverError',error)
+          this.$store.commit('serverError', error)
         })
       },
       inputIs(network) {
@@ -88,6 +94,9 @@
         if (this.$store.state.loggedInUser) {
           return this.$store.state.loggedInUser.id === this.$store.state.userDetails.user.id
         }
+      },
+      hasAProfile(){
+        return !_.isEmpty(this.profiles)
       }
     }
   }
@@ -110,23 +119,34 @@
       cursor: pointer;
     }
   }
-  .input-section ~ i > a{
-      word-break: break-all;
+
+  .input-section ~ i > a {
+    word-break: break-all;
   }
 
   .profiles {
     .profiles__title {
       font-size: 1rem;
-      @media screen and (min-width:400px){
-        font-size: 1.3rem;
+      font-weight: bold;
+      @media screen and (min-width: 400px) {
+        font-size: 1.2rem;
       }
-      @media screen and (min-width:750px){
+      @media screen and (min-width: 500px) {
         font-size: 2rem;
+      }
+      @media screen and (min-width: 750px) {
+        font-size: 4rem;
       }
     }
 
     .profiles__networks {
-      font-size: 1.5rem;
+      font-size: 1rem;
+      @media screen and (min-width: 400px) {
+        font-size: 1.3rem;
+      }
+      @media screen and (min-width: 750px) {
+        font-size: 2rem;
+      }
     }
 
     .twitter {
