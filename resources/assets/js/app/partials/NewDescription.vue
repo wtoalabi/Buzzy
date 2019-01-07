@@ -100,7 +100,7 @@
   /*TODO Remove the tabs line*/
   @import "../../../sass/custom/components/tabs";
   ::placeholder {
-    color: black;
+    color: #091d31 !important;
     width: 100%;
   }
   .new_description {
