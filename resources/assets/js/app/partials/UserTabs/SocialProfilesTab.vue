@@ -116,7 +116,13 @@
 
   .profiles {
     .profiles__title {
-      font-size: 2rem;
+      font-size: 1rem;
+      @media screen and (min-width:400px){
+        font-size: 1.3rem;
+      }
+      @media screen and (min-width:750px){
+        font-size: 2rem;
+      }
     }
 
     .profiles__networks {
