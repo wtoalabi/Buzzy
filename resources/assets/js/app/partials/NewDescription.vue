@@ -13,8 +13,7 @@
           <div class="field">
             <label for="description" class="label">Description</label>
             <div class="control">
-              <textarea id="description" class="textarea" name="description" placeholder="How would you explain
-                this word?" v-model="form.description"/>
+              <textarea id="description" class="textarea" name="description" placeholder="How would you explain this word?" v-model="form.description"/>
             </div>
           </div>
           <div v-if="errors.description" class="has-text-danger">{{errors.description[0]}}</div>
@@ -102,6 +101,7 @@
   @import "../../../sass/custom/components/tabs";
   ::placeholder {
     color: black;
+    width: 100%;
   }
   .new_description {
     display: flex;
