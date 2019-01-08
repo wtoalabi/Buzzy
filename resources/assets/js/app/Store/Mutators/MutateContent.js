@@ -73,6 +73,11 @@ export default {
   },
   storeWordsIndex(state, payload){
     return state.wordsList = payload
+  },
+  setTitle(state, payload){
+    let firstLetter = payload.substr(0,1).toUpperCase();
+    let restOfTheLetters = payload.substr(1);
+    let title = firstLetter + restOfTheLetters;
+    document.title = `${title} | ${state.title}`
   }
-
 }

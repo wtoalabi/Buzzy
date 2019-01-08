@@ -1082,6 +1082,7 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
   routes: [{
     path: '/',
     component: __WEBPACK_IMPORTED_MODULE_4__Pages_Home___default.a,
+    name: 'Home Page',
     beforeEnter: function beforeEnter(to, from, next) {
       __WEBPACK_IMPORTED_MODULE_6__Store__["a" /* default */].dispatch('getContent');
       next();
@@ -1089,6 +1090,7 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
   }].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_2__profile__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_3__items__["a" /* default */]))
 });
 router.beforeEach(function (to, from, next) {
+  __WEBPACK_IMPORTED_MODULE_6__Store__["a" /* default */].commit('setTitle', to.name);
   var urlBeforeLogin = window.localStorage.getItem('urlBeforeLogin');
   if (urlBeforeLogin) {
     window.localStorage.clear();
@@ -23977,13 +23979,14 @@ if (inBrowser && window.Vue) {
 
 
 /* harmony default export */ __webpack_exports__["a"] = ([{
+  name: 'Account Settings',
   path: '/account-settings',
   component: __WEBPACK_IMPORTED_MODULE_1__Pages_Settings___default.a,
   beforeEnter: function beforeEnter(to, from, next) {
     checkLoggedIn(next);
   }
 }, {
-  name: 'UserPage',
+  name: 'User Account Page',
   path: '/user/:username',
   component: __WEBPACK_IMPORTED_MODULE_2__Pages_UserPage___default.a,
   beforeEnter: function beforeEnter(to, from, next) {
@@ -26988,6 +26991,7 @@ if (false) {
   path: '/details/:word',
   component: __WEBPACK_IMPORTED_MODULE_0__Pages_Details___default.a,
   beforeEnter: function beforeEnter(to, from, next) {
+    __WEBPACK_IMPORTED_MODULE_1__Store__["a" /* default */].commit('setTitle', to.params.word);
     __WEBPACK_IMPORTED_MODULE_1__Store__["a" /* default */].dispatch('retrieveDetail', to.params.word);
     next();
   }
@@ -31073,6 +31077,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   storeWordsIndex: function storeWordsIndex(state, payload) {
     return state.wordsList = payload;
+  },
+  setTitle: function setTitle(state, payload) {
+    var firstLetter = payload.substr(0, 1).toUpperCase();
+    var restOfTheLetters = payload.substr(1);
+    var title = firstLetter + restOfTheLetters;
+    document.title = title + ' | ' + state.title;
   }
 });
 
@@ -31169,7 +31179,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   formData: { symbols: '', tags: [], suggestedTags: [] },
   formErrors: {},
   userDetails: { bookmarks: [], user: [], words: [], social_profiles: {}, descriptions: [] },
-  uploads: { tempFile: '', formData: '', audioID: '', avatarID: '' }
+  uploads: { tempFile: '', formData: '', audioID: '', avatarID: '' },
+  title: "Buzzwords"
 });
 
 /***/ }),

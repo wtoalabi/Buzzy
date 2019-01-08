@@ -12,6 +12,7 @@ export default [
     path: '/details/:word',
     component: Details,
     beforeEnter(to, from, next){
+      Store.commit('setTitle', to.params.word)
       Store.dispatch('retrieveDetail',to.params.word)
       next()
     }

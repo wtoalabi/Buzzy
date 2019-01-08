@@ -18,5 +18,6 @@ export default {
   formData:{symbols:'',tags:[],suggestedTags:[]},
   formErrors: {},
   userDetails:{bookmarks:[],user:[],words:[],social_profiles:{}, descriptions:[]},
-  uploads:{tempFile:'',formData:'',audioID:'',avatarID:''}
+  uploads:{tempFile:'',formData:'',audioID:'',avatarID:''},
+  title: "Buzzwords"
 }

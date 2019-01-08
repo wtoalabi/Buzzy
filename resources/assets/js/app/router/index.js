@@ -14,6 +14,7 @@ const router = new VueRouter({
     {
       path: '/',
       component: Home,
+      name: 'Home Page',
       beforeEnter(to, from, next) {
         Store.dispatch('getContent')
         next()
@@ -24,6 +25,7 @@ const router = new VueRouter({
   ]
 });
 router.beforeEach((to, from, next) => {
+  Store.commit('setTitle', to.name)
   let urlBeforeLogin = window.localStorage.getItem('urlBeforeLogin');
   if (urlBeforeLogin) {
     window.localStorage.clear()

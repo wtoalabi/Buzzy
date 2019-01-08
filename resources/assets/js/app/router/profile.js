@@ -3,6 +3,7 @@ import Settings from "../Pages/Settings";
 import User from "../Pages/UserPage";
 export default [
   {
+    name: 'Account Settings',
     path: '/account-settings',
     component: Settings,
     beforeEnter(to, from, next){
@@ -10,7 +11,7 @@ export default [
     }
   },
   {
-    name: 'UserPage',
+    name: 'User Account Page',
     path: '/user/:username',
     component: User,
     beforeEnter(to, from, next) {
