@@ -28,7 +28,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
       //$schedule->job(new HourlyTasks)->hourly();
+<<<<<<< HEAD
       $schedule->job(new DailyTasks)->everyMinute();
+=======
+      $schedule->job(new DailyTasks)->daily();
+>>>>>>> b4975598d30adeba16c33ae002dd1fc78e3af878
       //$schedule->job(new WeeklyTasks)->weekly();
     }
 
