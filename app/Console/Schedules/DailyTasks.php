@@ -12,7 +12,8 @@
   class DailyTasks
   {
     public function __invoke(){
-      $this->TrimRedisList();
+      //$this->TrimRedisList();
+      var_dump('invoking...');
     }
     public function TrimRedisList(){
       $allDays = Redis::scan(0, 'match', 'Views:Daily*', 'Count', 10000);
