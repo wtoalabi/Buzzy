@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
@@ -37,6 +38,8 @@ class BackupDatabase extends Command
         'mysqldump %s > %s',
         config('database.connections.mysql.database'), "$path.sql"
       ));
+      $s3 = Storage::disk('s3');
+      $s3->put($path, "$path.sql");
     }
 
     /**
