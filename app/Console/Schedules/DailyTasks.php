@@ -14,7 +14,7 @@
     public function __invoke(){
     }
     public static function handle(){
-      static::TrimRedisList();
+      (new self)->TrimRedisList();
     }
     public function TrimRedisList(){
       var_dump('in here...');
