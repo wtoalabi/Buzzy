@@ -13,7 +13,9 @@
   {
     public function __invoke(){
       //$this->TrimRedisList();
-      var_dump('invoking...');
+    }
+    public static function handle(){
+      var_dump('handling...');
     }
     public function TrimRedisList(){
       $allDays = Redis::scan(0, 'match', 'Views:Daily*', 'Count', 10000);
