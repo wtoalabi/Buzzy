@@ -2,6 +2,9 @@
 
 namespace App\Console;
 
+use App\Console\Schedules\DailyTasks;
+use App\Console\Schedules\WeeklyTasks;
+use App\Console\Schedules\HourlyTasks;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,8 +27,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('inspire')
-                  ->hourly();
+      $schedule->call(new HourlyTasks)->hourly();
+      $schedule->call(new DailyTasks)->daily();
+      $schedule->call(new WeeklyTasks)->weekly();
     }
 
     /**
