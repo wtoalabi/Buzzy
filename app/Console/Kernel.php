@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\BackupDatabase;
 use App\Console\Schedules\DailyTasks;
 use App\Console\Schedules\WeeklyTasks;
 use App\Console\Schedules\HourlyTasks;
@@ -27,8 +28,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-      //$schedule->job(new HourlyTasks)->hourly();
+      $schedule->command('db:backup')->twiceDaily(1,13);
       $schedule->job(new DailyTasks)->daily();
+      //$schedule->job(new HourlyTasks)->hourly();
       //$schedule->job(new WeeklyTasks)->weekly();
     }
 

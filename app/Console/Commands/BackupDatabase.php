@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
@@ -30,10 +32,10 @@ class BackupDatabase extends Command
     public function __construct()
     {
         parent::__construct();
+      $path = $this->dbPath();
       $this->process = new Process(sprintf(
         'mysqldump %s > %s',
-        config('database.connections.mysql.database'),
-        storage_path('backups/backup.sql')
+        config('database.connections.mysql.database'), "$path.sql"
       ));
     }
 
@@ -50,5 +52,15 @@ class BackupDatabase extends Command
       } catch (ProcessFailedException $exception) {
         $this->error('The backup process failed...');
       }
+    }
+    public function dbPath(){
+      $date = sprintf("%s-%s-%s",now()->format('y'),now()->format('m'),now()->format('d'));
+      $time = now()->format('h:iA');
+      $backupsFolder = storage_path('backups');
+      $folderPath = $backupsFolder .'/'.$date;
+      if(!File::exists($folderPath)){
+        File::makeDirectory($folderPath, $mode = 0777, true, true);
+      }
+      return "$folderPath/$time";
     }
 }
