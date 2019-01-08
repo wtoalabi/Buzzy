@@ -12,16 +12,16 @@
   class DailyTasks
   {
     public function __invoke(){
-      //$this->TrimRedisList();
     }
     public static function handle(){
-      var_dump('handling...');
+      static::TrimRedisList();
     }
     public function TrimRedisList(){
-      $allDays = Redis::scan(0, 'match', 'Views:Daily*', 'Count', 10000);
+      var_dump('in here...');
+      /*$allDays = Redis::scan(0, 'match', 'Views:Daily*', 'Count', 10000);
       $sortedDays = collect(array_reverse(array_sort($allDays[1])))->slice(7);
       $sortedDays->each(function($day){
         Redis::Del($day);
-      });
+      });*/
     }
   }
