@@ -2,6 +2,7 @@
   <div>
     <div class="new_description">
       <div class="has-text-warning no-description" v-if="noDescription">This word has no description yet...be the first!</div>
+      <div v-else></div>
       <span class="new_description__buttons">
         <button v-if="loggedIn" class="button is-link button" @click="clickedButton">{{toggleButtonText}}</button>
         <span v-else><LoginButton/></span>
