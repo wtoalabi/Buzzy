@@ -55,7 +55,7 @@ class BackupDatabase extends Command
       try {
         $this->process->mustRun();
         $this->pushToS3();
-        $this->info('The backup has been proceed successfully.');
+        $this->info('The backup has been processed successfully.');
       } catch (ProcessFailedException $exception) {
         $this->error('The backup process failed...');
       }

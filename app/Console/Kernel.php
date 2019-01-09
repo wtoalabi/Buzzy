@@ -29,6 +29,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
       $schedule->command('db:backup')->twiceDaily(1,13);
+      $schedule->command('db:remove-old-backup')->daily();
       $schedule->job(new DailyTasks)->daily();
       //$schedule->job(new HourlyTasks)->hourly();
       //$schedule->job(new WeeklyTasks)->weekly();
