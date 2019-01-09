@@ -24,7 +24,7 @@ class BackupDatabase extends Command
      * @var string
      */
     protected $description = 'Backup the database';
-
+    protected $date;
     /**
      * Create a new command instance.
      *
@@ -32,14 +32,17 @@ class BackupDatabase extends Command
      */
     public function __construct()
     {
-        parent::__construct();
+      parent::__construct();
       $path = $this->dbPath();
+      $time = now()->format('h:iA');
+      $this->date = sprintf("%s-%s-%s",now()->format('y'),now()->format('m'),now()->format('d'));
       $this->process = new Process(sprintf(
         'mysqldump %s > %s',
-        config('database.connections.mysql.database'), "$path.sql"
+        config('database.connections.mysql.database'), "$path/$time.sql"
       ));
       $s3 = Storage::disk('s3');
-      $s3->put($path, "$path.sql");
+      $contents = "$path/$time.sql";
+      $s3->put($this->date, file_get_contents($contents), 'storage');
     }
 
     /**
@@ -57,13 +60,11 @@ class BackupDatabase extends Command
       }
     }
     public function dbPath(){
-      $date = sprintf("%s-%s-%s",now()->format('y'),now()->format('m'),now()->format('d'));
-      $time = now()->format('h:iA');
       $backupsFolder = storage_path('backups');
-      $folderPath = $backupsFolder .'/'.$date;
+      $folderPath = $backupsFolder .'/'.$this->date;
       if(!File::exists($folderPath)){
         File::makeDirectory($folderPath, $mode = 0777, true, true);
       }
-      return "$folderPath/$time";
+      return $folderPath;
     }
 }

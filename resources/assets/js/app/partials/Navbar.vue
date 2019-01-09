@@ -3,7 +3,7 @@
     <nav class="navbar is-transparent is-dark is-fixed-top">
       <div class="navbar-brand pl-12">
         <a class="navbar-item has-text-white logo" href="/#/">
-          Buzzwords
+          Tech Buzzwords
         </a>
         <div class="navbar-burger" data-target="navbar">
           <span></span>

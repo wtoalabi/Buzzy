@@ -31626,7 +31626,7 @@ var staticRenderFns = [
           staticClass: "navbar-item has-text-white logo",
           attrs: { href: "/#/" }
         },
-        [_vm._v("\n        Buzzwords\n      ")]
+        [_vm._v("\n        Tech Buzzwords\n      ")]
       ),
       _vm._v(" "),
       _c(
