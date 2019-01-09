@@ -25,6 +25,8 @@ class BackupDatabase extends Command
      */
     protected $description = 'Backup the database';
     protected $date;
+    protected $name;
+    protected $filePath;
     /**
      * Create a new command instance.
      *
@@ -33,16 +35,14 @@ class BackupDatabase extends Command
     public function __construct()
     {
       parent::__construct();
-      $path = $this->dbPath();
-      $time = now()->format('h:iA');
-      $this->date = sprintf("%s-%s-%s",now()->format('y'),now()->format('m'),now()->format('d'));
+      $this->name = now()->format('h:iA');
+      $this->date = sprintf("%s-%s-%s",now()->format('Y'),now()->format('m'),now()->format('d'));
+      $dirPath = $this->dbPath();
+      $this->filePath = "$dirPath/$this->name.sql";
       $this->process = new Process(sprintf(
         'mysqldump %s > %s',
-        config('database.connections.mysql.database'), "$path/$time.sql"
+        config('database.connections.mysql.database'), "$this->filePath"
       ));
-      $s3 = Storage::disk('s3');
-      $contents = "$path/$time.sql";
-      $s3->put($this->date, file_get_contents($contents), 'storage');
     }
 
     /**
@@ -54,6 +54,7 @@ class BackupDatabase extends Command
     {
       try {
         $this->process->mustRun();
+        $this->pushToS3();
         $this->info('The backup has been proceed successfully.');
       } catch (ProcessFailedException $exception) {
         $this->error('The backup process failed...');
@@ -67,4 +68,10 @@ class BackupDatabase extends Command
       }
       return $folderPath;
     }
+  
+  private function pushToS3(){
+    $s3 = Storage::disk('s3');
+    $file = "$this->date/$this->name.sql";
+    $s3->put("$file", file_get_contents($this->filePath));
+  }
 }
